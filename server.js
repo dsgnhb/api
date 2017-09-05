@@ -27,9 +27,7 @@ app.use(function (req, res, next) {
   next();
 });
 */
-app.configure(function() {
-  app.use(cors({ origin: 'null', credentials: true }));
-});
+app.use(cors({ origin: 'null', credentials: true }));
 app.get('/', function (req, res) {
   res.send('Meddl!');
 })
