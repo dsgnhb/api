@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const bodyParser = require('body-parser');
 const config = require("./config.json");
+const design = require("./functions/topdesign.js")
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -13,6 +14,7 @@ const router = require('./routes.js');
 app.get('/', function (req, res) {
   res.send('Meddl!');
 })
+app.get('/posts/month',design.findAllMonth); // Get all Posts sorted by Month
 
 // Getting API Tokens
 const tokens = config.apiKeys
