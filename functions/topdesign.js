@@ -50,7 +50,7 @@ exports.findAllCurrentMonth = function(req, res) {
 }
 exports.findAllMonth = function(req, res) {
     // Return all Posts grouped by month
-    con.query('SELECT designs.id, designs.timeshort, designs.username, designs.avatar, designs.userid, designs.image, COUNT(likes.postid) AS likes FROM discord_topdesign AS designs LEFT JOIN discord_topdesign_likes AS likes ON designs.id = likes.postid WHERE designs.active = 1 GROUP BY designs.id ORDER BY likes DESC', function (error, results, fields) {
+    con.query('SELECT designs.id, designs.timeshort, designs.username, designs.avatar, designs.userid, designs.image, COUNT(likes.postid) AS likes FROM discord_topdesign AS designs LEFT JOIN discord_topdesign_likes AS likes ON designs.id = likes.postid WHERE designs.active = 1 GROUP BY designs.id ORDER BY likes, designs.timeshort DESC', function (error, results, fields) {
         if (error) throw error;
         let grouped = f.groupBy(results, 'timeshort');
         for (var key in grouped) {
@@ -60,7 +60,8 @@ exports.findAllMonth = function(req, res) {
                 }
                 grouped[key][0].winner = true;
             }
-          }
+        }
+        
         res.json(grouped)
     });
 }
