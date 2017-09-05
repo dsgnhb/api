@@ -5,7 +5,7 @@ exports.timeshort = function(date) {
     monthInt = date.getMonth();
     monthName = monthNames[date.getMonth()].toUpperCase().substring(0,3);
     year = date.getFullYear();
-    return year + monthInt
+    return ""+ year + monthInt
 }
 exports.groupBy = function(xs, key) {
     return xs.reduce(function(rv, x) {
