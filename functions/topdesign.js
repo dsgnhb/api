@@ -78,7 +78,7 @@ exports.findById = function(req, res) {
         }
     });
 }
-exports.add = async function(req, res) {
+exports.add = async (req, res) => {
     const body = req.body
     if (!req.body) return res.sendStatus(400)
 
