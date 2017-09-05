@@ -1,11 +1,13 @@
 const express = require('express')
-const app = express()
+const cors = require("cors");
 const bodyParser = require('body-parser');
 const config = require("./config.json");
 const design = require("./functions/topdesign.js")
+const app = express()
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cors({ origin: 'http://api.dsgnhb.com' }));
 const port = process.env.PORT || 8080;
 
 const router = require('./routes.js');
