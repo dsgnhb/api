@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 const port = process.env.PORT || 8080;
 
 const router = require('./routes.js');
-
+/*
 // Add headers
 app.use(function (req, res, next) {
   // Website you wish to allow to connect
@@ -26,7 +26,10 @@ app.use(function (req, res, next) {
   // Pass to next layer of middleware
   next();
 });
-
+*/
+app.configure(function() {
+  app.use(cors({ origin: 'null', credentials: true }));
+});
 app.get('/', function (req, res) {
   res.send('Meddl!');
 })
