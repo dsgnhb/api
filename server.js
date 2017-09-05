@@ -7,7 +7,7 @@ const app = express()
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(cors({ origin: 'http://api.dsgnhb.de' }));
+app.use(cors({ origin: 'https://dsgnhb.de' }));
 const port = process.env.PORT || 8080;
 
 const router = require('./routes.js');
