@@ -1,8 +1,6 @@
 const mysql = require('mysql');
-const imgur = require('imgur');
 const config = require("../config.json")
 const f = require("./functions.js")
-imgur.setClientId(config.imgur.clientID);
 
 const db_config = {
     host : config.mysql.host,
@@ -78,7 +76,7 @@ exports.findById = function(req, res) {
         }
     });
 }
-exports.add = async (req, res) => {
+exports.add = (req, res) => {
     const body = req.body
     if (!req.body) return res.sendStatus(400)
 
@@ -91,11 +89,11 @@ exports.add = async (req, res) => {
         }
     }
     let data = body;
-    let avatar = await imgur.uploadUrl(body.avatar)
-    let image = await imgur.uploadUrl(body.image)
+    let avatar = f.imgur(body.avatar);
+    let image = f.imgur(body.image);
     let timeshort = f.timeshort(new Date())
-    data.avatar = avatar.data.link
-    data.image = image.data.link
+    data.avatar = avatar
+    data.image = image
     data.timeshort = timeshort
     con.query('INSERT INTO discord_topdesign SET ?', [data], function (error, results, fields) {
         if (error) throw error;

@@ -12,13 +12,13 @@ exports.groupBy = function(xs, key) {
       return rv;
     }, {});
 };
-exports.imgur = function(url) {
+exports.imgur = async (url) => {
     imgur.setClientId(config.imgur.clientID);
-    imgur.uploadUrl(url)
-    .then(function (json) {
-        console.log(json.data.link)
-    })
-    .catch(function (err) {
-        console.error(err.message);
-    });
+    try {
+        let json = await imgur.uploadUrl(url);
+        return json.data.link;
+    } catch(ex) {
+        console.error(ex.message);
+    }
+    return undefined;
 }
