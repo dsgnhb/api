@@ -76,7 +76,7 @@ exports.findById = function(req, res) {
         }
     });
 }
-exports.add = (req, res) => {
+exports.add = async (req, res) => {
     const body = req.body
     if (!req.body) return res.sendStatus(400)
 
@@ -89,8 +89,8 @@ exports.add = (req, res) => {
         }
     }
     let data = body;
-    let avatar = f.imgur(body.avatar);
-    let image = f.imgur(body.image);
+    let avatar = await f.imgur(body.avatar);
+    let image = await f.imgur(body.image);
     let timeshort = f.timeshort(new Date())
     data.avatar = avatar
     data.image = image
