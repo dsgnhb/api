@@ -30,6 +30,10 @@ handleDisconnect();
 exports.findAll = async function(req, res) {
     con.query('SELECT userid, username, avatar, xp, chests FROM discord_levels ORDER BY xp DESC', function (error, results, fields) {
         if (error) throw error;
+        for (var i = 0; i < results.length; i++) {
+            var element = results[i];
+            element.rank = i+1;
+        }
         res.json(results);
     });
 }
