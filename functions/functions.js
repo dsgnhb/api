@@ -1,9 +1,7 @@
 const imgur = require('imgur');
 const config = require("../config.json")
 exports.timeshort = function(date) {
-    var monthNames = ["januar", "februar", "march", "april", "may", "june", "juli", "august", "september", "october", "november", "december"];
-    monthInt = date.getMonth();
-    monthName = monthNames[date.getMonth()].toUpperCase().substring(0,3);
+    monthInt = date.getMonth()+1;
     year = date.getFullYear();
     return ""+ year + monthInt
 }

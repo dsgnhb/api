@@ -102,18 +102,18 @@ exports.add = async (req, res) => {
 }
 exports.changeStatus = async function(req, res) {
     const postid = req.params.id
-    con.query('SELECT designs.active, COUNT(likes.postid) AS likes FROM discord_topdesign AS designs LEFT JOIN discord_topdesign_likes AS likes ON designs.id = likes.postid WHERE designs.id = ? GROUP BY designs.id ORDER BY likes DESC', [postid], function (error, results, fields) {
+    con.query('SELECT designs.active, designs.username,  COUNT(likes.postid) AS likes FROM discord_topdesign AS designs LEFT JOIN discord_topdesign_likes AS likes ON designs.id = likes.postid WHERE designs.id = ? GROUP BY designs.id ORDER BY likes DESC', [postid], function (error, results, fields) {
         if (error) throw error;
         let post = results[0]
-        if (!post) return res.sendStatus(404);
+        if (!post) return res.status(404).send('Not found');
         switch (post.active) {
             case 1:
                 con.query('UPDATE discord_topdesign SET active = 0 WHERE id = ?', [postid], function (error, results, fields) {
                     if (error) throw error;
                     res.json({
-                        action : "deactivated",
+                        action : "deactivate",
                         likes: post.likes,
-                        posted_by: postid
+                        posted_by: post.username
                     })
                 });
                 break;
@@ -121,9 +121,9 @@ exports.changeStatus = async function(req, res) {
                 con.query('UPDATE discord_topdesign SET active = 1 WHERE id = ?', [postid], function (error, results, fields) {
                     if (error) throw error;
                     res.json({
-                        action : "activated",
+                        action : "activate",
                         likes: post.likes,
-                        posted_by: postid
+                        posted_by: post.username
                     })
                 });
                 break;
@@ -132,19 +132,20 @@ exports.changeStatus = async function(req, res) {
 }
 exports.delete = function(req, res) {
     const postid = req.params.id
+
     con.query('DELETE FROM discord_topdesign WHERE id=?', [postid], function (error, results, fields) {
-        if(results.affectedRows == 0) return res.sendStatus(404);
+        if(results.affectedRows == 0) return res.status(404).send('Not found');
         res.json({
-            action : "delete",
-            posted_by: postid
+            action : "delete"
         })
     });
 }
 exports.vote = function(req, res) {
+    
     const postid = req.params.postid
     const body = req.body
-    if (!req.body) return res.sendStatus(400)
-
+    if (!body) return res.sendStatus(400)
+     
     const needed = ["userid"]
     for (var i = 0; i < needed.length; i++) {
         if(!body.hasOwnProperty(needed[i])) {
@@ -154,10 +155,10 @@ exports.vote = function(req, res) {
         }
     }
     const timeshort = f.timeshort(new Date);
-    con.query('SELECT designs.id, designs.username, designs.avatar, designs.userid, designs.image, COUNT(likes.postid) AS likes FROM discord_topdesign AS designs LEFT JOIN discord_topdesign_likes AS likes ON designs.id = likes.postid WHERE designs.active = 1 AND timeshort = ? AND designs.id = ? GROUP BY designs.id ORDER BY likes DESC', [timeshort, postid], function (error, results, fields) {
+    con.query('SELECT designs.id, designs.username, COUNT(likes.postid) AS likes FROM discord_topdesign AS designs LEFT JOIN discord_topdesign_likes AS likes ON designs.id = likes.postid WHERE designs.active = 1 AND timeshort = ? AND designs.id = ? GROUP BY designs.id ORDER BY likes DESC', [timeshort, postid], function (error, results, fields) {
         if (error) throw error;
         let post = results[0]
-        if (!post) return res.sendStatus(404);
+        if (!post) return res.status(404).send('Not found');
         con.query('DELETE FROM discord_topdesign_likes WHERE postid = ? AND userid = ?', [postid, body.userid], function (error, results, fields) {
             if (error) throw error;
             if(results.affectedRows == 0) {
@@ -170,14 +171,14 @@ exports.vote = function(req, res) {
                     res.json({
                         action : "add",
                         likes: post.likes+1,
-                        posted_by: postid
+                        posted_by : post.username
                     })
                 })
             } else {
                 res.json({
                     action : "remove",
                     likes: post.likes-1,
-                    posted_by: postid
+                    posted_by : post.username
                 })
             }
         });
