@@ -52,7 +52,7 @@ exports.addXP = async function(req, res) {
     const body = req.body
     if (!body) return res.status(400).json({error : "body required"});
 
-    const needed = ["username", "avatar", "xp"];
+    const needed = ["username", "avatar", "xp", "discriminator"];
     for (var i = 0; i < needed.length; i++) {
         if(!body.hasOwnProperty(needed[i])) {
             res.status(400)
@@ -66,6 +66,7 @@ exports.addXP = async function(req, res) {
             let data = {
                 userid : userid,
                 username : body.username,
+                discriminator : body.discriminator,
                 avatar : body.avatar,
                 xp : body.xp,
                 chests : 0
@@ -90,7 +91,7 @@ exports.deleteXP = async function(req, res) {
     const body = req.body
     if (!body) return res.status(400).json({error : "body required"});
 
-    const needed = ["username", "avatar", "xp"];
+    const needed = ["username", "avatar", "xp", "discriminator"];
     for (var i = 0; i < needed.length; i++) {
         if(!body.hasOwnProperty(needed[i])) {
             res.status(400)
@@ -105,6 +106,7 @@ exports.deleteXP = async function(req, res) {
             let data = {
                 userid : userid,
                 username : body.username,
+                discriminator : body.discriminator,
                 avatar : body.avatar,
                 xp : 0,
                 chests : 0
@@ -134,7 +136,7 @@ exports.addChests = async function(req, res) {
     const body = req.body
     if (!body) return res.status(400).json({error : "body required"});
 
-    const needed = ["username", "avatar", "chests"];
+    const needed = ["username", "avatar", "chests", "discriminator"];
     for (var i = 0; i < needed.length; i++) {
         if(!body.hasOwnProperty(needed[i])) {
             res.status(400)
@@ -148,6 +150,7 @@ exports.addChests = async function(req, res) {
             let data = {
                 userid : userid,
                 username : body.username,
+                discriminator : body.discriminator,
                 avatar : body.avatar,
                 xp : 0,
                 chests : body.chests
@@ -173,7 +176,7 @@ exports.deleteChests = async function(req, res) {
     const body = req.body
     if (!body) return res.status(400).json({error : "body required"});
 
-    const needed = ["username", "avatar", "chests"];
+    const needed = ["username", "avatar", "chests", "discriminator"];
     for (var i = 0; i < needed.length; i++) {
         if(!body.hasOwnProperty(needed[i])) return res.status(400).json({error : "Proberty "+needed[i]+" required"});
     }
@@ -185,6 +188,7 @@ exports.deleteChests = async function(req, res) {
             let data = {
                 userid : userid,
                 username : body.username,
+                discriminator : body.discriminator,
                 avatar : body.avatar,
                 xp : 0,
                 chests : 0
