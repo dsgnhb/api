@@ -28,7 +28,7 @@ function handleDisconnect() {
 handleDisconnect();
 
 exports.findAll = async function(req, res) {
-    con.query('SELECT userid, username, avatar, xp, chests FROM discord_levels ORDER BY xp DESC', function (error, results, fields) {
+    con.query('SELECT userid, username, discriminator, avatar, xp, chests FROM discord_levels ORDER BY xp DESC', function (error, results, fields) {
         if (error) throw error;
         for (var i = 0; i < results.length; i++) {
             var element = results[i];
@@ -39,7 +39,7 @@ exports.findAll = async function(req, res) {
 }
 exports.findById = async function(req, res) {
     const userid = req.params.userid
-    con.query('SELECT username, avatar, xp, chests FROM discord_levels WHERE userid = ?', [userid], function (error, results, fields) {
+    con.query('SELECT username, discriminator, avatar, xp, chests FROM discord_levels WHERE userid = ?', [userid], function (error, results, fields) {
         if (error) throw error;
         results = results[0]
         if(!results) return res.status(404).send('Not found');
