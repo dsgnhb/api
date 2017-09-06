@@ -70,9 +70,14 @@ exports.addXP = async function(req, res) {
                 if (error) throw error;
             });
         }
-        res.json({
-            action : "add"
-        })
+        con.query('SELECT xp FROM discord_levels WHERE userid = ?', [userid], function (error, results, fields) {
+            const newXP = results[0].xp
+            res.json({
+                action : "add",
+                oldXP : newXP-body.xp,
+                newXP : newXP
+            })
+        });
     });
 }
 exports.deleteXP = async function(req, res) {
@@ -147,9 +152,14 @@ exports.addChests = async function(req, res) {
                 if (error) throw error;
             });
         }
-        res.json({
-            action : "add"
-        })
+        con.query('SELECT chests FROM discord_levels WHERE userid = ?', [userid], function (error, results, fields) {
+            const newChests = results[0].chests
+            res.json({
+                action : "add",
+                oldChests : newChests-body.chests,
+                newChests : newChests
+            })
+        });
     });
 }
 exports.deleteChests = async function(req, res) {
