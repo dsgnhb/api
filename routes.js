@@ -1,11 +1,12 @@
 const express = require('express');
 const main = express.Router();
 const topdesign = express.Router();
+const levels = express.Router();
 main.use('/topdesign', topdesign)
+main.use('/levels', levels)
 
 const design = require('./functions/topdesign.js');
-const xp = require('./functions/xp.js');
-const chests = require('./functions/chests.js');
+const level = require('./functions/levels.js');
 
 topdesign.get('/posts/',design.findAll); // Get all Posts
 topdesign.get('/posts/currentmonth',design.findAllCurrentMonth); // Get all Posts for current Month
@@ -20,16 +21,11 @@ topdesign.post('/vote/:postid', design.vote); // Vote for Post
 topdesign.get('/voted/:userid', design.voted); // Get Posts User voted for
 topdesign.get('/submissions/:userid', design.submissions); // Get Submissions from User
 
-/*main.get('/xp/', xp.findAll());
-main.get('/xp/:userid', xp.findById());
-main.post('/xp', xp.add());
-main.put('/xp/:id', xp.update());
-main.delete('/xp/:id', xp.delete());
-
-main.get('/chests/', chests.findAll());
-main.get('/chests/:userid', chests.findById());
-main.post('/chests', chests.add());
-main.put('/chests/:id', chests.update());
-main.delete('/chests/:id', chests.delete());*/
+levels.get('/', level.findAll); // Get all Level System data
+levels.get('/:userid', level.findById); // Get Level System data by userid
+levels.post('/xp/:userid', level.addXP); // Add XP
+levels.delete('/xp/:userid', level.deleteXP); // Delete XP
+levels.post('/chests/:userid', level.addChests); // Add Chests
+levels.delete('/chests/:userid', level.deleteChests); // Delete Chests
   
 module.exports = main;
