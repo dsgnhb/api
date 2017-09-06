@@ -102,7 +102,7 @@ exports.deleteXP = async function(req, res) {
             };
             con.query('INSERT INTO discord_levels SET ?', [data], function (error, results, fields) {
                 if (error) throw error;
-                return res.json({ action : "user has not enough xp" });
+                return res.json({ error : "user has not enough xp" });
             });
         } else if(xp.cp >= body.xp) {
             con.query('UPDATE discord_levels SET xp = xp - ? WHERE userid = ?', [body.xp, userid], function (error, results, fields) {
@@ -114,7 +114,7 @@ exports.deleteXP = async function(req, res) {
         } else {
             // USER has not enough XP
             res.json({
-                action : "user has not enough xp"
+                error : "user has not enough xp"
             })
         }
     });
@@ -177,7 +177,7 @@ exports.deleteChests = async function(req, res) {
             };
             con.query('INSERT INTO discord_levels SET ?', [data], function (error, results, fields) {
                 if (error) throw error;
-                return res.json({ action : "user has not enough chests" });
+                return res.json({ error : "user has not enough chests" });
             });
         } else if(chests.chests >= body.chests) {
             con.query('UPDATE discord_levels SET chests = chests - ? WHERE userid = ?', [body.chests, userid], function (error, results, fields) {
@@ -189,7 +189,7 @@ exports.deleteChests = async function(req, res) {
         } else {
             // USER has not enough CHESTS
             res.json({
-                action : "user has not enough chests"
+                error : "user has not enough chests"
             })
         }
     });
