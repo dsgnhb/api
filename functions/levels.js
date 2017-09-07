@@ -39,7 +39,7 @@ exports.findAll = async function(req, res) {
 }
 exports.findById = async function(req, res) {
     const userid = req.params.userid
-    con.query('SELECT username, discriminator, avatar, xp, chests (SELECT COUNT(*) FROM discord_levels as dc_levels WHERE dc_levels.xp >= levels.xp) AS rank FROM discord_levels as levels WHERE userid = ?', [userid], function (error, results, fields) {
+    con.query('SELECT username, discriminator, avatar, xp, chests, (SELECT COUNT(id) FROM discord_levels as dc_levels WHERE dc_levels.xp >= levels.xp) AS rank FROM discord_levels as levels WHERE userid = ?', [userid], function (error, results, fields) {
         if (error) throw error;
         results = results[0]
         if(!results) return res.status(404).send('Not found');
