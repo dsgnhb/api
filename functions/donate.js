@@ -1,3 +1,32 @@
+const mysql = require('mysql');
+const config = require("../config.json")
+const f = require("./functions.js")
+
+const db_config = {
+    host : config.mysql.host,
+    user : config.mysql.user,
+    password : config.mysql.password,
+    database : config.mysql.database,
+};
+var con;
+function handleDisconnect() {
+    con = mysql.createConnection(db_config);
+    con.connect(function(err) {
+        if(err) {
+            console.log('error when connecting to db:', err);
+            setTimeout(handleDisconnect, 2000);
+        }
+    });
+    con.on('error', function(err) {
+        if(err.code === 'PROTOCOL_CONNECTION_LOST') {
+            handleDisconnect();
+        } else {
+            throw err;
+        }
+    });
+}
+handleDisconnect();
+
 exports.add = async (req, res) => {
     const body = req.body
     if (!req.body) return res.sendStatus(400)
