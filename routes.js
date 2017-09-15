@@ -2,14 +2,16 @@ const express = require('express');
 const main = express.Router();
 const topdesign = express.Router();
 const levels = express.Router();
+const donate = express.Router();
 main.use('/topdesign', topdesign)
 main.use('/levels', levels)
+main.use('/donate', donate)
 
 const design = require('./functions/topdesign.js');
 const level = require('./functions/levels.js');
-const donate = require('./functions/donate.js');
+const donation = require('./functions/donate.js');
 
-main.post('/donate/', donate.add); // Add Donation
+donate.post('/', donation.add); // Add Donation
 
 topdesign.get('/posts/',design.findAll); // Get all Posts
 topdesign.get('/posts/currentmonth',design.findAllCurrentMonth); // Get all Posts for current Month

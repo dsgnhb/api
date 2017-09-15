@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const config = require("./config.json");
 const design = require("./functions/topdesign.js")
 const level = require("./functions/levels.js")
-const donate = require('./functions/donate.js');
+const donation = require('./functions/donate.js');
 const app = express()
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -21,7 +21,7 @@ app.get('/', function (req, res) {
 })
 app.get('/posts/month',design.findAllMonth); // Get all Posts sorted by Month
 app.get('/levels',level.findAll);
-main.post('/donate/', donate.add); // Add Donation
+app.post('/donate/', donation.add); // Add Donation
 
 // Getting API Tokens
 const tokens = config.apiKeys
