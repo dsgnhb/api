@@ -7,6 +7,9 @@ main.use('/levels', levels)
 
 const design = require('./functions/topdesign.js');
 const level = require('./functions/levels.js');
+const donate = require('./functions/donate.js');
+
+main.post('/donate/', donate.add); // Add Donation
 
 topdesign.get('/posts/',design.findAll); // Get all Posts
 topdesign.get('/posts/currentmonth',design.findAllCurrentMonth); // Get all Posts for current Month
