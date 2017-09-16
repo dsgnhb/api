@@ -31,7 +31,7 @@ exports.add = async (req, res) => {
     const body = req.body
     if (!req.body) return res.sendStatus(400)
 
-    const needed = ["ip", "code"]
+    const needed = ["ip", "code", "name"]
     for (var i = 0; i < needed.length; i++) {
         if(!body.hasOwnProperty(needed[i])) {
             res.status(400)
