@@ -25,7 +25,7 @@ app.post('/donate/', donation.add); // Add Donation
 
 // Getting API Tokens
 const tokens = config.apiKeys
-for (var i = 0; i < tokens.length; i++) {
+for (let i = 0; i < tokens.length; i++) {
     app.use('/'+tokens[i], router);
 }
 
