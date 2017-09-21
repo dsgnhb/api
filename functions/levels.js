@@ -1,7 +1,7 @@
 const con = require('./Connection').getConnection()
 
 exports.findAll = async function (req, res) {
-  con.query('SELECT userid, username, discriminator, avatar, xp, chests FROM discord_levels ORDER BY xp DESC', function (error, results, fields) {
+  con.query('SELECT userid, username, discriminator, avatar, xp, chests FROM discord_levels ORDER BY xp DESC', function (error, results) {
     if (error) throw error
     for (let i = 0; i < results.length; i++) {
       const element = results[i]
@@ -12,7 +12,7 @@ exports.findAll = async function (req, res) {
 }
 exports.findById = async function (req, res) {
   const userid = req.params.userid
-  con.query('SELECT username, discriminator, avatar, xp, chests, (SELECT COUNT(id) FROM discord_levels as dc_levels WHERE dc_levels.xp >= levels.xp) AS rank FROM discord_levels as levels WHERE userid = ?', [userid], function (error, results, fields) {
+  con.query('SELECT username, discriminator, avatar, xp, chests, (SELECT COUNT(id) FROM discord_levels as dc_levels WHERE dc_levels.xp >= levels.xp) AS rank FROM discord_levels as levels WHERE userid = ?', [userid], function (error, results) {
     if (error) throw error
     results = results[0]
     if (!results) return res.status(404).send('Not found')
@@ -33,7 +33,7 @@ exports.addXP = async function (req, res) {
       return
     }
   }
-  con.query('UPDATE discord_levels SET xp = xp + ? WHERE userid = ?', [body.xp, userid], function (error, results, fields) {
+  con.query('UPDATE discord_levels SET xp = xp + ? WHERE userid = ?', [body.xp, userid], function (error, results) {
     if (error) throw error
     if (!results.affectedRows === 1) {
       let data = {
@@ -44,11 +44,11 @@ exports.addXP = async function (req, res) {
         xp: body.xp,
         chests: 0
       }
-      con.query('INSERT INTO discord_levels SET ?', [data], function (error, results, fields) {
+      con.query('INSERT INTO discord_levels SET ?', [data], function (error) {
         if (error) throw error
       })
     }
-    con.query('SELECT xp FROM discord_levels WHERE userid = ?', [userid], function (error, results, fields) {
+    con.query('SELECT xp FROM discord_levels WHERE userid = ?', [userid], function (error, results) {
       const newXP = results[0].xp
       res.json({
         action: 'add',
@@ -72,7 +72,7 @@ exports.deleteXP = async function (req, res) {
       return
     }
   }
-  con.query('SELECT xp FROM discord_levels WHERE userid = ?', [userid], function (error, results, fields) {
+  con.query('SELECT xp FROM discord_levels WHERE userid = ?', [userid], function (error, results) {
     const xp = results[0]
     if (!xp) {
       // USER isn't in DB yet
@@ -84,12 +84,12 @@ exports.deleteXP = async function (req, res) {
         xp: 0,
         chests: 0
       }
-      con.query('INSERT INTO discord_levels SET ?', [data], function (error, results, fields) {
+      con.query('INSERT INTO discord_levels SET ?', [data], function (error) {
         if (error) throw error
         return res.json({error: 'user has not enough xp'})
       })
     } else if (xp.cp >= body.xp) {
-      con.query('UPDATE discord_levels SET xp = xp - ? WHERE userid = ?', [body.xp, userid], function (error, results, fields) {
+      con.query('UPDATE discord_levels SET xp = xp - ? WHERE userid = ?', [body.xp, userid], function (error) {
         if (error) throw error
         res.json({
           action: 'delete'
@@ -117,7 +117,7 @@ exports.addChests = async function (req, res) {
       return
     }
   }
-  con.query('UPDATE discord_levels SET chests = chests + ? WHERE userid = ?', [body.chests, userid], function (error, results, fields) {
+  con.query('UPDATE discord_levels SET chests = chests + ? WHERE userid = ?', [body.chests, userid], function (error, results) {
     if (error) throw error
     if (!results.affectedRows === 1) {
       let data = {
@@ -128,11 +128,11 @@ exports.addChests = async function (req, res) {
         xp: 0,
         chests: body.chests
       }
-      con.query('INSERT INTO discord_levels SET ?', [data], function (error, results, fields) {
+      con.query('INSERT INTO discord_levels SET ?', [data], function (error) {
         if (error) throw error
       })
     }
-    con.query('SELECT chests FROM discord_levels WHERE userid = ?', [userid], function (error, results, fields) {
+    con.query('SELECT chests FROM discord_levels WHERE userid = ?', [userid], function (error, results) {
       const newChests = results[0].chests
       res.json({
         action: 'add',
@@ -154,7 +154,7 @@ exports.deleteChests = async function (req, res) {
     if (!body.hasOwnProperty(needed[i])) return res.status(400).json({error: 'Proberty ' + needed[i] + ' required'})
   }
 
-  con.query('SELECT chests FROM discord_levels WHERE userid = ?', [userid], function (error, results, fields) {
+  con.query('SELECT chests FROM discord_levels WHERE userid = ?', [userid], function (error, results) {
     const chests = results[0]
     if (!chests) {
       // USER isn't in DB yet
@@ -166,12 +166,12 @@ exports.deleteChests = async function (req, res) {
         xp: 0,
         chests: 0
       }
-      con.query('INSERT INTO discord_levels SET ?', [data], function (error, results, fields) {
+      con.query('INSERT INTO discord_levels SET ?', [data], function (error) {
         if (error) throw error
         return res.json({error: 'user has not enough chests'})
       })
     } else if (chests.chests >= body.chests) {
-      con.query('UPDATE discord_levels SET chests = chests - ? WHERE userid = ?', [body.chests, userid], function (error, results, fields) {
+      con.query('UPDATE discord_levels SET chests = chests - ? WHERE userid = ?', [body.chests, userid], function (error) {
         if (error) throw error
         res.json({
           action: 'delete'
