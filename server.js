@@ -12,7 +12,7 @@ app.use(cors({
 }))
 
 app.use((req, res, next) => {
-  if (!config.apiKeys.includes(req.header('token')) && (req.path !== '/')) {
+  if (!config.apiKeys.includes(req.header('token')) && !(req.path === '/' || req.path === '/posts/month' || req.path === '/levels' || req.path === '/donate')) {
     res.status(403).json({error: 'Missing correct access Token'})
     return
   }
