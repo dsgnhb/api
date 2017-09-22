@@ -12,7 +12,7 @@ app.use(cors({
 }))
 
 app.use((req, res, next) => {
-  const publicEndpoints = ['/', '/posts/month', '/levels', '/donate'];
+  const publicEndpoints = ['/', '/topdesign/posts/month', '/levels', '/donate'];
   if (!config.apiKeys.includes(req.header('token')) && publicEndpoints.indexOf(req.path) === -1) {
     res.status(403).json({error: 'Missing correct access Token'})
     return
