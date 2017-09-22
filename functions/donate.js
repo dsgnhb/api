@@ -12,7 +12,7 @@ exports.add = async (req, res) => {
       return
     }
   }
-  con.query('INSERT INTO discord_donations SET ?', [body], function (error, results, fields) {
+  con.query('INSERT INTO discord_donations SET ?', [body], function (error) {
     if (error) throw error
     res.json({action: 'add'})
   })
