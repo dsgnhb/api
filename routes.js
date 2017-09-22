@@ -6,6 +6,10 @@ const design = require('./functions/topdesign.js')
 const level = require('./functions/levels.js')
 const donation = require('./functions/donate.js')
 
+main.get('/', function (req, res) {
+  res.json({version: 1})
+})
+
 main.post(R.donate('/'), donation.add) // Add Donation
 
 main.get(R.posts('/'), design.findAll) // Get all Posts
@@ -33,6 +37,6 @@ main.stack.forEach(function(r){
     console.log(r.route.path + '  ' + r.route.stack[0].method);
 
   }
-})*/
+}) */
 
 module.exports = main

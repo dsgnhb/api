@@ -4,7 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npm run autoformat",
+    "autoformat": "standard --fix"
   },
   "author": "flo",
   "license": "ISC",
@@ -14,5 +15,8 @@
     "express": "^4.15.4",
     "imgur": "^0.2.1",
     "mysql": "^2.14.1"
+  },
+  "devDependencies": {
+    "standard": "^10.0.3"
   }
 }
