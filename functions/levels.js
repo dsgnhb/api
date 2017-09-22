@@ -49,6 +49,7 @@ exports.addXP = async function (req, res) {
       })
     }
     con.query('SELECT xp FROM discord_levels WHERE userid = ?', [userid], function (error, results) {
+      if (error) throw error
       const newXP = results[0].xp
       res.json({
         action: 'add',
@@ -73,6 +74,7 @@ exports.deleteXP = async function (req, res) {
     }
   }
   con.query('SELECT xp FROM discord_levels WHERE userid = ?', [userid], function (error, results) {
+    if (error) throw error
     const xp = results[0]
     if (!xp) {
       // USER isn't in DB yet
@@ -133,6 +135,7 @@ exports.addChests = async function (req, res) {
       })
     }
     con.query('SELECT chests FROM discord_levels WHERE userid = ?', [userid], function (error, results) {
+      if (error) throw error
       const newChests = results[0].chests
       res.json({
         action: 'add',
@@ -155,6 +158,7 @@ exports.deleteChests = async function (req, res) {
   }
 
   con.query('SELECT chests FROM discord_levels WHERE userid = ?', [userid], function (error, results) {
+    if (error) throw error
     const chests = results[0]
     if (!chests) {
       // USER isn't in DB yet

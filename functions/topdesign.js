@@ -10,7 +10,7 @@ exports.findAll = function (req, res) {
 }
 exports.findAllCurrentMonth = function (req, res) {
   // Return all Posts from current month
-  const timeshort = f.timeshort(new Date)
+  const timeshort = f.timeshort(new Date())
   con.query('SELECT designs.id, designs.username, designs.avatar, designs.userid, designs.image, COUNT(likes.postid) AS likes FROM discord_topdesign AS designs LEFT JOIN discord_topdesign_likes AS likes ON designs.id = likes.postid WHERE designs.active = 1 AND timeshort = ? GROUP BY designs.id ORDER BY likes DESC', [timeshort], function (error, results) {
     if (error) throw error
     res.json(results)
@@ -106,6 +106,7 @@ exports.delete = function (req, res) {
   const postid = req.params.id
 
   con.query('DELETE FROM discord_topdesign WHERE id=?', [postid], function (error, results) {
+    if (error) throw error
     if (results.affectedRows === 0) return res.status(404).send('Not found')
     res.json({
       action: 'delete'
@@ -113,7 +114,6 @@ exports.delete = function (req, res) {
   })
 }
 exports.vote = function (req, res) {
-
   const postid = req.params.postid
   const body = req.body
   if (!body) return res.sendStatus(400)
@@ -126,7 +126,7 @@ exports.vote = function (req, res) {
       return
     }
   }
-  const timeshort = f.timeshort(new Date)
+  const timeshort = f.timeshort(new Date())
   con.query('SELECT designs.id, designs.username, COUNT(likes.postid) AS likes FROM discord_topdesign AS designs LEFT JOIN discord_topdesign_likes AS likes ON designs.id = likes.postid WHERE designs.active = 1 AND timeshort = ? AND designs.id = ? GROUP BY designs.id ORDER BY likes DESC', [timeshort, postid], function (error, results) {
     if (error) throw error
     let post = results[0]

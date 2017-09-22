@@ -37,6 +37,6 @@ main.stack.forEach(function(r){
     console.log(r.route.path + '  ' + r.route.stack[0].method);
 
   }
-})*/
+}) */
 
 module.exports = main
