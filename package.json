@@ -1,14 +1,32 @@
 {
   "name": "designhub-api",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.1.0",
+  "description": "REST API written in node.js using express, mysql and standardjs",
   "main": "server.js",
   "scripts": {
     "test": "npm run autoformat",
-    "autoformat": "standard --fix"
+    "autoformat": "standard --fix",
+    "standard": "standard",
+    "build": "apidoc -i controllers/ -o apidoc/ && npm run autoformat"
   },
   "author": "flo",
+  "contributors": [
+    {
+      "name": "Luk vonStrom",
+      "email": "lukvonstrom@web.de",
+      "url": "https://lukvonstrom.de"
+    },
+    {
+      "name": "Fin Reinhhard",
+      "email": "fin.reinhard@icloud.com",
+      "url": "http://Angu.li"
+    }
+  ],
   "license": "MIT",
+  "apidoc": {
+    "title": "Designhub API",
+    "url": "https://github.com/dsgnhb/api"
+  },
   "dependencies": {
     "body-parser": "^1.17.2",
     "cors": "^2.8.4",
