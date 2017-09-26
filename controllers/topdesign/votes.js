@@ -47,7 +47,7 @@ exports.voted = function (req, res) {
   con.query('SELECT discord_topdesign.id AS id, discord_topdesign.timeshort AS timeshort FROM discord_topdesign, discord_topdesign_likes WHERE discord_topdesign_likes.postid = discord_topdesign.id AND discord_topdesign_likes.userid = ?', [userid], function (error, results) {
     if (error) throw error
     let grouped = f.groupBy(results, 'timeshort')
-    if (!grouped) return Response.not_found(res)
+    if (!grouped || results.length < 1) return Response.not_found(res)
     Response.success(res, grouped)
   })
 }
@@ -56,7 +56,7 @@ exports.submissions = function (req, res) {
   con.query('SELECT designs.id, designs.timeshort, designs.username, designs.avatar, designs.userid, designs.image, COUNT(likes.postid) AS likes FROM discord_topdesign AS designs LEFT JOIN discord_topdesign_likes AS likes ON designs.id = likes.postid WHERE designs.userid = ?', [userid], function (error, results) {
     if (error) throw error
     let grouped = f.groupBy(results, 'timeshort')
-    if (!grouped) return Response.not_found(res)
+    if (grouped.null) return Response.not_found(res)
     Response.success(res, grouped)
   })
 }
