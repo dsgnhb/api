@@ -1,7 +1,7 @@
 const f = require('../../helpers/functions.js')
 const con = require('../../helpers/Connection').getConnection()
 const Response = require('../../helpers/response-helper')
-const votes = require('votes')
+const votes = require('./votes')
 
 exports.findAll = function (req, res) {
   // Return all Posts
