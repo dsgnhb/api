@@ -9,5 +9,6 @@
     "imgur" : {
         "clientID" : "IMGUR CLIENT ID",
         "clientSecret" : "IMGUR CLIENT SECRET"
-    }
+    },
+  "env": "development"
 }

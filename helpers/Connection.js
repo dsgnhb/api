@@ -5,6 +5,7 @@ let con
 module.exports = {
   // This is a singleton: Only one instance will be created and returned.
   getConnection: function () {
+    let self = this
     if (con) return con
     con = mysql.createConnection({
       host: config.mysql.host,
@@ -16,7 +17,7 @@ module.exports = {
     con.connect()
     con.on('error', function (err) {
       if (err.code === 'PROTOCOL_CONNECTION_LOST') {
-        this.getConnection()
+        self.getConnection()
       } else {
         throw err
       }
