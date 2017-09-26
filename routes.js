@@ -1,10 +1,10 @@
 const express = require('express')
 const main = express.Router()
-const R = require('./functions/route-helper')
+const R = require('./helpers/route-helper')
 
-const design = require('./functions/topdesign.js')
-const level = require('./functions/levels.js')
-const donation = require('./functions/donate.js')
+const design = require('./controllers/topdesign/topdesign.js')
+const level = require('./controllers/levels/levels.js')
+const donation = require('./controllers/donate/donate.js')
 
 main.get('/', function (req, res) {
   res.json({version: 1})

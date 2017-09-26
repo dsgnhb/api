@@ -26,3 +26,16 @@ app.use(router)
 
 app.listen(port)
 console.log('Magic happens on port ' + port)
+
+// development error handler
+// will print stacktrace
+if (config.env === 'development') {
+  app.use((err, req, res, next) => {
+    res.status(err.status || 500)
+    return res.json({
+      error: {
+        'message': err.message
+      }
+    })
+  })
+}
