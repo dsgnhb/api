@@ -14,7 +14,7 @@ exports.addXP = async function (req, res) {
   }
   con.query('UPDATE discord_levels SET xp = xp + ? WHERE userid = ?', [body.xp, userid], function (error, results) {
     if (error) throw error
-    if (!results.affectedRows === 1) {
+    if (results.changedRows === 0) {
       let data = {
         userid: userid,
         username: body.username,
