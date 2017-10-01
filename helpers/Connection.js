@@ -7,15 +7,15 @@ module.exports = {
   getConnection: function () {
     let self = this
     if (con) return con
-    con = mysql.createConnection({
+    con = mysql.createPool({
+      connectionLimit: 10,
       host: config.mysql.host,
       user: config.mysql.user,
       password: config.mysql.password,
-      database: config.mysql.database
+      database: config.mysql.database,
+      debug: false
     })
-    // According to the Docs, the connection can be implicitly invoked by quering the database an catching the errors, which happens anyways. No need for the Error Callback here :)
-    con.connect()
-// - Error listener
+    // - Error listener
     con.on('error', function (err) {
       // - The server close the connection.
       if (err.code === 'PROTOCOL_CONNECTION_LOST') {
