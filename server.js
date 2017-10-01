@@ -1,5 +1,6 @@
 const express = require('express')
 const cors = require('cors')
+const morgan = require('morgan')
 const bodyParser = require('body-parser')
 const config = require('./config.json')
 const app = express()
@@ -10,6 +11,7 @@ app.use(cors({
   credentials: true,
   origin: true
 }))
+app.use(morgan('short'))
 
 app.use((req, res, next) => {
   const publicEndpoints = ['/', '/topdesign/posts/month', '/levels', '/donate', '/topdesign/posts/currentmonth']
