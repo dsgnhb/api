@@ -15,20 +15,34 @@ module.exports = {
     })
     // According to the Docs, the connection can be implicitly invoked by quering the database an catching the errors, which happens anyways. No need for the Error Callback here :)
     con.connect()
+// - Error listener
     con.on('error', function (err) {
+      // - The server close the connection.
       if (err.code === 'PROTOCOL_CONNECTION_LOST') {
+        console.log('/!\\ Cannot establish a connection with the database. /!\\ (' + err.code + ')')
+        console.log(err)
         self.getConnection()
+      } else if (err.code === 'PROTOCOL_ENQUEUE_AFTER_QUIT') {
+        // - Connection in closing
+        console.log('/!\\ Cannot establish a connection with the database. /!\\ (' + err.code + ')')
+        console.log(err)
+        self.getConnection()
+      } else if (err.code === 'PROTOCOL_ENQUEUE_AFTER_FATAL_ERROR') {
+        // - Fatal error : connection variable must be recreated
+        console.log('/!\\ Cannot establish a connection with the database. /!\\ (' + err.code + ')')
+        console.log(err)
+        self.getConnection()
+      } else if (err.code === 'PROTOCOL_ENQUEUE_HANDSHAKE_TWICE') {
+        // - Error because a connection is already being established
+        console.log('/!\\ Cannot establish a connection with the database. /!\\ (' + err.code + ')')
+        console.log(err)
       } else {
-        throw err
+         // - Anything else
+        console.log('/!\\ Cannot establish a connection with the database. /!\\ (' + err.code + ')')
+        console.log(err)
+        self.getConnection()
       }
     })
-    var del = con._protocol._delegateError;
-    con._protocol._delegateError = function(err, sequence){
-      if (err.fatal) {
-        console.trace('fatal error: ' + err.message);
-      }
-      return del.call(this, err, sequence);
-    };
     return con
   }
 }
