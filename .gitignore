@@ -4,6 +4,7 @@ TODO
 config.json
 
 # User-specific stuff:
+.vscode/**
 .idea/**/workspace.xml
 .idea/**/tasks.xml
 .idea/dictionaries

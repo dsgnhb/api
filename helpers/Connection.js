@@ -22,6 +22,13 @@ module.exports = {
         throw err
       }
     })
+    var del = con._protocol._delegateError;
+    con._protocol._delegateError = function(err, sequence){
+      if (err.fatal) {
+        console.trace('fatal error: ' + err.message);
+      }
+      return del.call(this, err, sequence);
+    };
     return con
   }
 }
