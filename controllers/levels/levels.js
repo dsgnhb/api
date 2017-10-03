@@ -3,7 +3,6 @@ const xp = require('./xp')
 const chests = require('./chests')
 const Response = require('../../helpers/response-helper')
 
-
   /**
    * @api {get} /levels Get all Level System data
    * @apiVersion 1.2.0
