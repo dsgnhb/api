@@ -1,5 +1,37 @@
 const con = require('../../helpers/Connection').getConnection()
 const Response = require('../../helpers/response-helper')
+
+  /**
+   * @api {post} /levels/chests/:userid Add Chests
+   * @apiVersion 1.2.0
+   * @apiName AddChests
+   * @apiDescription Add Chests
+   * @apiGroup Levels
+   *
+   * @apiParam {String} username
+   * @apiParam {Object} avatar
+   * @apiParam {Number} chests
+   * @apiParam {Object} discriminator
+   *
+   * @apiSuccess (200) {Object} result
+   * @apiSuccess (200) {String} result.action
+   * @apiSuccess (200) {Number} result.oldChests
+   * @apiSuccess (200) {Number} result.newChests
+   *
+   * @apiSuccessExample {json} Success-Example:
+   *     HTTP/1.1 200
+   *     {
+   *        "action": "add",
+   *        "oldChests": 3
+   *        "newChests": 5
+   *     }
+   *
+   * @apiError userid_too_long Userid can only be 18 characters long (500 code for some reason)
+   * @apiError body_missing Request Body is missing (500 code for some reason)
+   * @apiError property_required Property name required (400 for some reason)
+   *
+   */
+
 exports.addChests = async function (req, res) {
   const userid = req.params.userid
   if (userid.length > 18) return Response.userid_too_long(res)
@@ -38,6 +70,34 @@ exports.addChests = async function (req, res) {
     })
   })
 }
+
+  /**
+   * @api {delete} /levels/chests/:userid Delete Chests
+   * @apiVersion 1.2.0
+   * @apiName DeleteChests
+   * @apiDescription Delete Chests
+   * @apiGroup Levels
+   *
+   * @apiParam {String} username
+   * @apiParam {Object} avatar
+   * @apiParam {Number} chests
+   * @apiParam {Object} discriminator
+   *
+   * @apiSuccess (200) {Object} result
+   * @apiSuccess (200) {String} result.action
+   *
+   * @apiSuccessExample {json} Success-Example (code 200 for some reason XD):
+   *     HTTP/1.1 200
+   *     {
+   *        "action": "delete"
+   *     }
+   *
+   * @apiError userid_too_long Userid can only be 18 characters long (500 code for some reason)
+   * @apiError not_sufficientv User has not enough chests (500 for some reason)
+   * @apiError body_missing Request Body is missing (500 code for some reason)
+   * @apiError property_required Property name required (400 for some reason)
+   *
+   */
 exports.deleteChests = async function (req, res) {
   const userid = req.params.userid
   if (userid.length > 18) return Response.userid_too_long(res)
