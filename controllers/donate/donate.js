@@ -3,6 +3,7 @@ const Response = require('../../helpers/response-helper')
 
   /**
    * @api {get} /donate Add Donation
+   * @apiVersion 1.2.1
    * @apiName AddDonation
    * @apiDescription Add Donation
    * @apiGroup Donation

@@ -1,6 +1,6 @@
 {
   "name": "designhub-api",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "REST API written in node.js using express, mysql and standardjs",
   "main": "server.js",
   "scripts": {

@@ -4,6 +4,7 @@ const morgan = require('morgan')
 const bodyParser = require('body-parser')
 const config = require('./config.json')
 const app = express()
+const path = require('path')
 
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
@@ -11,6 +12,9 @@ app.use(cors({
   credentials: true,
   origin: true
 }))
+
+app.use('/doc', express.static(path.join(__dirname, './public/apidoc')))
+
 app.use(morgan('short'))
 
 app.use((req, res, next) => {
@@ -32,7 +36,7 @@ console.log('Magic happens on port ' + port)
 // development error handler
 // will print stacktrace
 if (config.env === 'development') {
-  app.use((err, req, res, next) => {
+  app.use((err, req, res) => {
     res.status(err.status || 500)
     return res.json({
       error: {

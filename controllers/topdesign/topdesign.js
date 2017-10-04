@@ -5,7 +5,7 @@ const votes = require('./votes')
 
   /**
    * @api {get} /topdesign/posts Get all posts
-   * @apiVersion 1.2.0
+   * @apiVersion 1.2.1
    * @apiName GetAllPosts
    * @apiDescription Get all Posts
    * @apiGroup Posts
@@ -24,7 +24,7 @@ exports.findAll = function (req, res) {
 
   /**
    * @api {get} /topdesign/posts/currentmonth Get all Posts for current Month
-   * @apiVersion 1.2.0
+   * @apiVersion 1.2.1
    * @apiName GetAllPostsCurrMonth
    * @apiDescription Get all Posts for current Month (query params??)
    * @apiGroup Posts
@@ -43,7 +43,7 @@ exports.findAllCurrentMonth = function (req, res) {
 
   /**
    * @api {get} /topdesign/posts/month  Get all Posts sorted by Month
-   * @apiVersion 1.2.0
+   * @apiVersion 1.2.1
    * @apiName GetAllPostsByMonth
    * @apiDescription Return all Posts grouped by month
    * @apiGroup Posts
@@ -74,7 +74,7 @@ exports.findAllMonth = function (req, res) {
 
   /**
    * @api {get} /topdesign/posts/:id  Get Post by Id
-   * @apiVersion 1.2.0
+   * @apiVersion 1.2.1
    * @apiName GetById
    * @apiDescription Get Post by Id
    * @apiGroup Posts
@@ -99,7 +99,7 @@ exports.findById = function (req, res) {
 
   /**
    * @api {post} /topdesign/posts/  Add Post
-   * @apiVersion 1.2.0
+   * @apiVersion 1.2.1
    * @apiName AddPost
    * @apiDescription Add new post
    * @apiGroup Posts
@@ -149,7 +149,7 @@ exports.add = async (req, res) => {
 
   /**
    * @api {put} /topdesign/posts/:id Update Status of Post
-   * @apiVersion 1.2.0
+   * @apiVersion 1.2.1
    * @apiName UpdatePost
    * @apiDescription Update Status of Post
    * @apiGroup Posts
@@ -204,7 +204,7 @@ exports.changeStatus = async function (req, res) {
 
   /**
    * @api {delete} /topdesign/posts/:id Delete Post
-   * @apiVersion 1.2.0
+   * @apiVersion 1.2.1
    * @apiName DeletePost
    * @apiDescription Delete Post
    * @apiGroup Posts
