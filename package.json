@@ -4,6 +4,7 @@
   "description": "REST API written in node.js using express, mysql and standardjs",
   "main": "server.js",
   "scripts": {
+    "apidoc": "./node_modules/.bin/gulp doc",
     "test": "npm run autoformat",
     "autoformat": "standard --fix",
     "standard": "standard",
@@ -25,7 +26,10 @@
   "license": "MIT",
   "apidoc": {
     "title": "Designhub API",
-    "url": "https://github.com/dsgnhb/api"
+    "description": "REST API written in node.js using express, mysql and standardjs",
+    "template": {
+      "forceLanguage": "en"
+    }
   },
   "dependencies": {
     "body-parser": "^1.17.2",
@@ -36,6 +40,8 @@
     "mysql": "^2.14.1"
   },
   "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-apidoc": "^0.2.6",
     "standard": "^10.0.3"
   }
 }

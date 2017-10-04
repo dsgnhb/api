@@ -1,10 +1,14 @@
 const express = require('express')
+const path = require('path')
 const main = express.Router()
 const R = require('./helpers/route-helper')
 
 const design = require('./controllers/topdesign/topdesign.js')
 const level = require('./controllers/levels/levels.js')
 const donation = require('./controllers/donate/donate.js')
+const docPath = path.join(__dirname, './public/apidoc')
+
+main.use('/doc', express.static(docPath))
 
 main.get('/', function (req, res) {
   res.json({version: 1})

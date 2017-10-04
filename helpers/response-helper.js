@@ -2,7 +2,8 @@ module.exports = {
   not_found: (res) => {
     return res.status(404).json({error: 'Not found'})
   },
-
+  // FIXME: 500 code is used for internal server errors.
+  // There this ton of 4xx errors, use them properly
   body_missing: (res) => {
     res.status(500).json({error: 'Request Body is missing'})
   },
