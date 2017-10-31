@@ -1,7 +1,7 @@
 const con = require('../../helpers/Connection').getConnection()
 const Response = require('../../helpers/response-helper')
 
-  /**
+/**
    * @api {post} /levels/xp/:userid  Add XP
    * @apiVersion 1.2.1
    * @apiName AddXP
@@ -53,7 +53,8 @@ exports.addXP = async function (req, res) {
         discriminator: body.discriminator,
         avatar: body.avatar,
         xp: body.xp,
-        chests: 0
+        chests: 0,
+        coins: 100
       }
       con.query('INSERT INTO discord_levels SET ?', [data], function (error) {
         if (error) throw error
@@ -71,7 +72,7 @@ exports.addXP = async function (req, res) {
   })
 }
 
-  /**
+/**
    * @api {delete} /levels/xp/:userid Delete XP
    * @apiVersion 1.2.1
    * @apiName DeleteXP
@@ -121,7 +122,8 @@ exports.deleteXP = async function (req, res) {
         discriminator: body.discriminator,
         avatar: body.avatar,
         xp: 0,
-        chests: 0
+        chests: 0,
+        coins: 100
       }
       con.query('INSERT INTO discord_levels SET ?', [data], function (error) {
         if (error) throw error

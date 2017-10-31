@@ -54,7 +54,7 @@ exports.addCoins = async function (req, res) {
         avatar: body.avatar,
         xp: 0,
         chests: 0,
-        coins: body.coins
+        coins: 100 + body.coins
       }
       con.query('INSERT INTO discord_levels SET ?', [data], function (error) {
         if (error) throw error
@@ -123,7 +123,7 @@ exports.deleteCoins = async function (req, res) {
         avatar: body.avatar,
         xp: 0,
         chests: 0,
-        coins: 0
+        coins: 100
       }
       con.query('INSERT INTO discord_levels SET ?', [data], function (error) {
         if (error) throw error
