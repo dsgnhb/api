@@ -6,7 +6,7 @@ const design = require('./controllers/topdesign/topdesign.js')
 const level = require('./controllers/levels/levels.js')
 const donation = require('./controllers/donate/donate.js')
 
-main.get('/', function(req, res) {
+main.get('/', function (req, res) {
   res.json({ version: 1 })
 })
 
