@@ -32,7 +32,7 @@ const Response = require('../../helpers/response-helper')
    *
    */
 
-exports.addCoins = async function (req, res) {
+exports.addCoins = async function(req, res) {
   const userid = req.params.userid
   if (userid.length > 18) return Response.userid_too_long(res)
   const body = req.body
@@ -44,7 +44,7 @@ exports.addCoins = async function (req, res) {
       return Response.property_required(res, needed[i])
     }
   }
-  con.query('UPDATE discord_levels SET coins = coins + ? WHERE userid = ?', [body.coins, userid], function (error, results) {
+  con.query('UPDATE discord_levels SET coins = coins + ? WHERE userid = ?', [body.coins, userid], function(error, results) {
     if (error) throw error
     if (results.changedRows === 0) {
       let data = {
@@ -54,13 +54,13 @@ exports.addCoins = async function (req, res) {
         avatar: body.avatar,
         xp: 0,
         chests: 0,
-        coins: body.coins
+        coins: 100 + body.coins
       }
-      con.query('INSERT INTO discord_levels SET ?', [data], function (error) {
+      con.query('INSERT INTO discord_levels SET ?', [data], function(error) {
         if (error) throw error
       })
     }
-    con.query('SELECT coins FROM discord_levels WHERE userid = ?', [userid], function (error, results) {
+    con.query('SELECT coins FROM discord_levels WHERE userid = ?', [userid], function(error, results) {
       if (error) throw error
       const newCoins = results[0].coins
       res.json({
@@ -99,7 +99,7 @@ exports.addCoins = async function (req, res) {
    * @apiError property_required Property name required (400 for some reason)
    *
    */
-exports.deleteCoins = async function (req, res) {
+exports.deleteCoins = async function(req, res) {
   const userid = req.params.userid
   if (userid.length > 18) return Response.userid_too_long(res)
 
@@ -111,7 +111,7 @@ exports.deleteCoins = async function (req, res) {
     if (!body.hasOwnProperty(needed[i])) return Response.property_required(res, needed[i])
   }
 
-  con.query('SELECT coins FROM discord_levels WHERE userid = ?', [userid], function (error, results) {
+  con.query('SELECT coins FROM discord_levels WHERE userid = ?', [userid], function(error, results) {
     if (error) throw error
     const coins = results[0]
     if (!coins) {
@@ -123,14 +123,14 @@ exports.deleteCoins = async function (req, res) {
         avatar: body.avatar,
         xp: 0,
         chests: 0,
-        coins: 0
+        coins: 100
       }
-      con.query('INSERT INTO discord_levels SET ?', [data], function (error) {
+      con.query('INSERT INTO discord_levels SET ?', [data], function(error) {
         if (error) throw error
         return Response.not_sufficient(res, 'coins')
       })
     } else if (coins.coins >= body.coins) {
-      con.query('UPDATE discord_levels SET coins = coins - ? WHERE userid = ?', [body.coins, userid], function (error) {
+      con.query('UPDATE discord_levels SET coins = coins - ? WHERE userid = ?', [body.coins, userid], function(error) {
         if (error) throw error
         Response.success(res, {
           action: 'delete'
