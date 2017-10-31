@@ -32,7 +32,7 @@ const Response = require('../../helpers/response-helper')
    *
    */
 
-exports.addXP = async function(req, res) {
+exports.addXP = async function (req, res) {
   const userid = req.params.userid
   if (userid.length > 18) return Response.userid_too_long(res)
   const body = req.body
@@ -44,7 +44,7 @@ exports.addXP = async function(req, res) {
       return Response.property_required(res, needed[i])
     }
   }
-  con.query('UPDATE discord_levels SET xp = xp + ? WHERE userid = ?', [body.xp, userid], function(error, results) {
+  con.query('UPDATE discord_levels SET xp = xp + ? WHERE userid = ?', [body.xp, userid], function (error, results) {
     if (error) throw error
     if (results.changedRows === 0) {
       let data = {
@@ -56,11 +56,11 @@ exports.addXP = async function(req, res) {
         chests: 0,
         coins: 100
       }
-      con.query('INSERT INTO discord_levels SET ?', [data], function(error) {
+      con.query('INSERT INTO discord_levels SET ?', [data], function (error) {
         if (error) throw error
       })
     }
-    con.query('SELECT xp FROM discord_levels WHERE userid = ?', [userid], function(error, results) {
+    con.query('SELECT xp FROM discord_levels WHERE userid = ?', [userid], function (error, results) {
       if (error) throw error
       const newXP = results[0].xp
       Response.success(res, {
@@ -99,7 +99,7 @@ exports.addXP = async function(req, res) {
    * @apiError property_required Property name required (400 for some reason)
    *
    */
-exports.deleteXP = async function(req, res) {
+exports.deleteXP = async function (req, res) {
   const userid = req.params.userid
   if (userid.length > 18) return Response.userid_too_long(res)
   const body = req.body
@@ -111,7 +111,7 @@ exports.deleteXP = async function(req, res) {
       return Response.property_required(res, needed[i])
     }
   }
-  con.query('SELECT xp FROM discord_levels WHERE userid = ?', [userid], function(error, results) {
+  con.query('SELECT xp FROM discord_levels WHERE userid = ?', [userid], function (error, results) {
     if (error) throw error
     const xp = results[0]
     if (!xp) {
@@ -125,12 +125,12 @@ exports.deleteXP = async function(req, res) {
         chests: 0,
         coins: 100
       }
-      con.query('INSERT INTO discord_levels SET ?', [data], function(error) {
+      con.query('INSERT INTO discord_levels SET ?', [data], function (error) {
         if (error) throw error
         return Response.not_sufficient(res, 'xp')
       })
     } else if (xp.cp >= body.xp) {
-      con.query('UPDATE discord_levels SET xp = xp - ? WHERE userid = ?', [body.xp, userid], function(error) {
+      con.query('UPDATE discord_levels SET xp = xp - ? WHERE userid = ?', [body.xp, userid], function (error) {
         if (error) throw error
         Response.success(res, {
           action: 'delete'
