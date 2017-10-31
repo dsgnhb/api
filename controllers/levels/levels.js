@@ -16,7 +16,7 @@ const Response = require('../../helpers/response-helper')
    */
 
 exports.findAll = async function (req, res) {
-  con.query('SELECT userid, username, discriminator, avatar, xp, chests FROM discord_levels ORDER BY xp DESC', function (error, results) {
+  con.query('SELECT userid, username, discriminator, avatar, xp, chests, coins FROM discord_levels ORDER BY xp DESC', function (error, results) {
     if (error) throw error
     for (let i = 0; i < results.length; i++) {
       const element = results[i]
@@ -41,7 +41,7 @@ exports.findAll = async function (req, res) {
 exports.findById = async function (req, res) {
   const userid = req.params.userid
   con.query(
-    'SELECT username, discriminator, avatar, xp, chests, (SELECT COUNT(id) FROM discord_levels as dc_levels WHERE dc_levels.xp >= levels.xp) AS rank FROM discord_levels as levels WHERE userid = ?',
+    'SELECT username, discriminator, avatar, xp, chests, coins, (SELECT COUNT(id) FROM discord_levels as dc_levels WHERE dc_levels.xp >= levels.xp) AS rank FROM discord_levels as levels WHERE userid = ?',
     [userid],
     function (error, results) {
       if (error) throw error
