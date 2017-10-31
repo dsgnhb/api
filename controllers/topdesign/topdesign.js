@@ -3,6 +3,17 @@ const con = require('../../helpers/Connection').getConnection()
 const Response = require('../../helpers/response-helper')
 const votes = require('./votes')
 
+  /**
+   * @api {get} /topdesign/posts Get all posts
+   * @apiVersion 1.2.1
+   * @apiName GetAllPosts
+   * @apiDescription Get all Posts
+   * @apiGroup Posts
+   *
+   * @apiSuccess (200) {Object[]} results
+   *
+   */
+
 exports.findAll = function (req, res) {
   // Return all Posts
   con.query('SELECT designs.id, designs.username, designs.avatar, designs.userid, designs.image, COUNT(likes.postid) AS likes FROM discord_topdesign AS designs LEFT JOIN discord_topdesign_likes AS likes ON designs.id = likes.postid WHERE designs.active = 1 GROUP BY designs.id ORDER BY likes DESC', function (error, results) {
@@ -10,6 +21,17 @@ exports.findAll = function (req, res) {
     Response.success(res, results)
   })
 }
+
+  /**
+   * @api {get} /topdesign/posts/currentmonth Get all Posts for current Month
+   * @apiVersion 1.2.1
+   * @apiName GetAllPostsCurrMonth
+   * @apiDescription Get all Posts for current Month (query params??)
+   * @apiGroup Posts
+   *
+   * @apiSuccess (200) {Object[]} results
+   *
+   */
 exports.findAllCurrentMonth = function (req, res) {
   // Return all Posts from current month
   const timeshort = f.timeshort(new Date())
@@ -18,6 +40,17 @@ exports.findAllCurrentMonth = function (req, res) {
     Response.success(res, results)
   })
 }
+
+  /**
+   * @api {get} /topdesign/posts/month  Get all Posts sorted by Month
+   * @apiVersion 1.2.1
+   * @apiName GetAllPostsByMonth
+   * @apiDescription Return all Posts grouped by month
+   * @apiGroup Posts
+   *
+   * @apiSuccess (200) {Object[]} results
+   *
+   */
 exports.findAllMonth = function (req, res) {
   // Return all Posts grouped by month
   con.query('SELECT designs.id, designs.timeshort, designs.username, designs.avatar, designs.userid, designs.image, ' +
@@ -38,6 +71,19 @@ exports.findAllMonth = function (req, res) {
     Response.success(res, grouped)
   })
 }
+
+  /**
+   * @api {get} /topdesign/posts/:id  Get Post by Id
+   * @apiVersion 1.2.1
+   * @apiName GetById
+   * @apiDescription Get Post by Id
+   * @apiGroup Posts
+   *
+   * @apiSuccess (200) {Object} result
+   *
+   * @apiError not_found Not found (404)
+   *
+   */
 exports.findById = function (req, res) {
   const id = req.params.id
   con.query('SELECT designs.id, designs.timeshort, designs.username, designs.avatar, designs.userid, designs.image, COUNT(likes.postid) AS likes FROM discord_topdesign AS designs LEFT JOIN discord_topdesign_likes AS likes ON designs.id = likes.postid WHERE designs.id = ?', [id], function (error, results) {
@@ -50,6 +96,34 @@ exports.findById = function (req, res) {
     }
   })
 }
+
+  /**
+   * @api {post} /topdesign/posts/  Add Post
+   * @apiVersion 1.2.1
+   * @apiName AddPost
+   * @apiDescription Add new post
+   * @apiGroup Posts
+   *
+   * @apiParam {String} username
+   * @apiParam {Number} userid
+   * @apiParam {Object} avatar
+   * @apiParam {Object} content
+   * @apiParam {Object} image
+   *
+   * @apiSuccess (200) {Object} result
+   * @apiSuccess (200) {String} result.action
+   * @apiSuccess (200) {Number} result.postid
+   *
+   * @apiSuccessExample {json} Success-Example:
+   *     HTTP/1.1 200
+   *     {
+   *        "action": "add",
+   *        "postid": 3
+   *     }
+   *
+   * @apiError body_missing Request Body is missing (500 code for some reason)
+   *
+   */
 exports.add = async (req, res) => {
   const body = req.body
   if (!req.body) return Response.body_missing(res)
@@ -72,6 +146,31 @@ exports.add = async (req, res) => {
     Response.success(res, {action: 'add', postid: results.insertId})
   })
 }
+
+  /**
+   * @api {put} /topdesign/posts/:id Update Status of Post
+   * @apiVersion 1.2.1
+   * @apiName UpdatePost
+   * @apiDescription Update Status of Post
+   * @apiGroup Posts
+   *
+   *
+   * @apiSuccess (200) {Object} result
+   * @apiSuccess (200) {String="deactivate","activate"} result.action
+   * @apiSuccess (200) {Number} result.likes
+   * @apiSuccess (200) {String} result.username
+   *
+   * @apiSuccessExample {json} Success-Example:
+   *     HTTP/1.1 200
+   *     {
+   *        "action": "deactivate",
+   *        "likes": 3,
+   *        "posted_by": "JohnDoe"
+   *     }
+   *
+   * @apiError not_found Not found (404)
+   *
+   */
 exports.changeStatus = async function (req, res) {
   const postid = req.params.id
   con.query('SELECT designs.active, designs.username,  COUNT(likes.postid) AS likes FROM discord_topdesign AS designs LEFT JOIN discord_topdesign_likes AS likes ON designs.id = likes.postid WHERE designs.id = ? GROUP BY designs.id ORDER BY likes DESC', [postid], function (error, results) {
@@ -102,6 +201,26 @@ exports.changeStatus = async function (req, res) {
     }
   })
 }
+
+  /**
+   * @api {delete} /topdesign/posts/:id Delete Post
+   * @apiVersion 1.2.1
+   * @apiName DeletePost
+   * @apiDescription Delete Post
+   * @apiGroup Posts
+   *
+   * @apiSuccess (200) {Object} result
+   * @apiSuccess (200) {String} result.action
+   *
+   * @apiSuccessExample {json} Success-Example:
+   *     HTTP/1.1 200
+   *     {
+   *        "action": "delete"
+   *     }
+   *
+   * @apiError not_found Not found (404)
+   *
+   */
 exports.delete = function (req, res) {
   const postid = req.params.id
 

@@ -10,3 +10,4 @@ notifications:
   email:
     on_success: never
     on_failure: never
+  webhooks: https://flooo.me/travis/designhub-dev.php

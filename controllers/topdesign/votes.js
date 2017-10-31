@@ -1,6 +1,32 @@
 const Response = require('../../helpers/response-helper')
 const f = require('../../helpers/functions')
 const con = require('../../helpers/Connection').getConnection()
+
+  /**
+   * @api {post} /topdesign/vote/:postid   Vote for Post
+   * @apiVersion 1.2.1
+   * @apiName VoteForPost
+   * @apiDescription  Vote for Post
+   * @apiGroup Vote
+   *
+   * @apiSuccess (200) {Object} result
+   * @apiSuccess (200) {String="add","remove"} result.action
+   * @apiSuccess (200) {Number} result.likes
+   * @apiSuccess (200) {String} result.username
+   *
+   * @apiSuccessExample {json} Success-Example:
+   *     HTTP/1.1 200
+   *     {
+   *        "action": "add",
+   *        "likes": 3,
+   *        "posted_by": "JohnDoe"
+   *     }
+   *
+   * @apiError not_found Not found
+   * @apiError body_missing Request Body is missing
+   * @apiError property_required Property name required
+   *
+   */
 exports.vote = function (req, res) {
   const postid = req.params.postid
   const body = req.body
@@ -42,6 +68,19 @@ exports.vote = function (req, res) {
     })
   })
 }
+
+  /**
+   * @api {get} /topdesign/vote/:userid Get Posts User voted for
+   * @apiVersion 1.2.1
+   * @apiName GetVotedPostsForUser
+   * @apiDescription Get Posts User voted for
+   * @apiGroup Vote
+   *
+   * @apiSuccess (200) {Object} result
+   *
+   * @apiError not_found Not found (404)
+   *
+   */
 exports.voted = function (req, res) {
   const userid = req.params.userid
   con.query('SELECT discord_topdesign.id AS id, discord_topdesign.timeshort AS timeshort FROM discord_topdesign, discord_topdesign_likes WHERE discord_topdesign_likes.postid = discord_topdesign.id AND discord_topdesign_likes.userid = ?', [userid], function (error, results) {
@@ -51,6 +90,19 @@ exports.voted = function (req, res) {
     Response.success(res, grouped)
   })
 }
+
+  /**
+   * @api {get} /topdesign/submissions/:userid  Get Submissions from Users
+   * @apiVersion 1.2.1
+   * @apiName GetSubmissionsFromUser
+   * @apiDescription  Get Submissions from User
+   * @apiGroup Vote
+   *
+   * @apiSuccess (200) {Object} result
+   *
+   * @apiError not_found Not found (404)
+   *
+   */
 exports.submissions = function (req, res) {
   const userid = req.params.userid
   con.query('SELECT designs.id, designs.timeshort, designs.username, designs.avatar, designs.userid, designs.image, COUNT(likes.postid) AS likes FROM discord_topdesign AS designs LEFT JOIN discord_topdesign_likes AS likes ON designs.id = likes.postid WHERE designs.userid = ?', [userid], function (error, results) {

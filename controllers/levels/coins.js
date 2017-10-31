@@ -1,29 +1,29 @@
 const con = require('../../helpers/Connection').getConnection()
 const Response = require('../../helpers/response-helper')
 
-  /**
-   * @api {post} /levels/chests/:userid Add Chests
+/**
+   * @api {post} /levels/coins/:userid Add Coins
    * @apiVersion 1.2.1
-   * @apiName AddChests
-   * @apiDescription Add Chests
+   * @apiName AddCoins
+   * @apiDescription Add Coins
    * @apiGroup Levels
    *
    * @apiParam {String} username
    * @apiParam {Object} avatar
-   * @apiParam {Number} chests
+   * @apiParam {Number} coins
    * @apiParam {Object} discriminator
    *
    * @apiSuccess (200) {Object} result
    * @apiSuccess (200) {String} result.action
-   * @apiSuccess (200) {Number} result.oldChests
-   * @apiSuccess (200) {Number} result.newChests
+   * @apiSuccess (200) {Number} result.oldCoins
+   * @apiSuccess (200) {Number} result.newCoins
    *
    * @apiSuccessExample {json} Success-Example:
    *     HTTP/1.1 200
    *     {
    *        "action": "add",
-   *        "oldChests": 3
-   *        "newChests": 5
+   *        "oldCoins": 3
+   *        "newCoins": 5
    *     }
    *
    * @apiError userid_too_long Userid can only be 18 characters long (500 code for some reason)
@@ -32,19 +32,19 @@ const Response = require('../../helpers/response-helper')
    *
    */
 
-exports.addChests = async function (req, res) {
+exports.addCoins = async function (req, res) {
   const userid = req.params.userid
   if (userid.length > 18) return Response.userid_too_long(res)
   const body = req.body
   if (!body) return Response.body_missing(res)
 
-  const needed = ['username', 'avatar', 'chests', 'discriminator']
+  const needed = ['username', 'avatar', 'coins', 'discriminator']
   for (let i = 0; i < needed.length; i++) {
     if (!body.hasOwnProperty(needed[i])) {
       return Response.property_required(res, needed[i])
     }
   }
-  con.query('UPDATE discord_levels SET chests = chests + ? WHERE userid = ?', [body.chests, userid], function (error, results) {
+  con.query('UPDATE discord_levels SET coins = coins + ? WHERE userid = ?', [body.coins, userid], function (error, results) {
     if (error) throw error
     if (results.changedRows === 0) {
       let data = {
@@ -53,34 +53,35 @@ exports.addChests = async function (req, res) {
         discriminator: body.discriminator,
         avatar: body.avatar,
         xp: 0,
-        chests: body.chests
+        chests: 0,
+        coins: body.coins
       }
       con.query('INSERT INTO discord_levels SET ?', [data], function (error) {
         if (error) throw error
       })
     }
-    con.query('SELECT chests FROM discord_levels WHERE userid = ?', [userid], function (error, results) {
+    con.query('SELECT coins FROM discord_levels WHERE userid = ?', [userid], function (error, results) {
       if (error) throw error
-      const newChests = results[0].chests
+      const newCoins = results[0].coins
       res.json({
         action: 'add',
-        oldChests: newChests - body.chests,
-        newChests: newChests
+        oldCoins: newCoins - body.coins,
+        newCoins: newCoins
       })
     })
   })
 }
 
-  /**
-   * @api {delete} /levels/chests/:userid Delete Chests
+/**
+   * @api {delete} /levels/coins/:userid Delete Coins
    * @apiVersion 1.2.1
-   * @apiName DeleteChests
-   * @apiDescription Delete Chests
+   * @apiName DeleteCoins
+   * @apiDescription Delete coins
    * @apiGroup Levels
    *
    * @apiParam {String} username
    * @apiParam {Object} avatar
-   * @apiParam {Number} chests
+   * @apiParam {Number} coins
    * @apiParam {Object} discriminator
    *
    * @apiSuccess (200) {Object} result
@@ -93,27 +94,27 @@ exports.addChests = async function (req, res) {
    *     }
    *
    * @apiError userid_too_long Userid can only be 18 characters long (500 code for some reason)
-   * @apiError not_sufficientv User has not enough chests (500 for some reason)
+   * @apiError not_sufficientv User has not enough coins (500 for some reason)
    * @apiError body_missing Request Body is missing (500 code for some reason)
    * @apiError property_required Property name required (400 for some reason)
    *
    */
-exports.deleteChests = async function (req, res) {
+exports.deleteCoins = async function (req, res) {
   const userid = req.params.userid
   if (userid.length > 18) return Response.userid_too_long(res)
 
   const body = req.body
   if (!body) return Response.body_missing(res)
 
-  const needed = ['username', 'avatar', 'chests', 'discriminator']
+  const needed = ['username', 'avatar', 'coins', 'discriminator']
   for (let i = 0; i < needed.length; i++) {
     if (!body.hasOwnProperty(needed[i])) return Response.property_required(res, needed[i])
   }
 
-  con.query('SELECT chests FROM discord_levels WHERE userid = ?', [userid], function (error, results) {
+  con.query('SELECT coins FROM discord_levels WHERE userid = ?', [userid], function (error, results) {
     if (error) throw error
-    const chests = results[0]
-    if (!chests) {
+    const coins = results[0]
+    if (!coins) {
       // USER isn't in DB yet
       let data = {
         userid: userid,
@@ -121,22 +122,23 @@ exports.deleteChests = async function (req, res) {
         discriminator: body.discriminator,
         avatar: body.avatar,
         xp: 0,
-        chests: 0
+        chests: 0,
+        coins: 0
       }
       con.query('INSERT INTO discord_levels SET ?', [data], function (error) {
         if (error) throw error
-        return Response.not_sufficient(res, 'chests')
+        return Response.not_sufficient(res, 'coins')
       })
-    } else if (chests.chests >= body.chests) {
-      con.query('UPDATE discord_levels SET chests = chests - ? WHERE userid = ?', [body.chests, userid], function (error) {
+    } else if (coins.coins >= body.coins) {
+      con.query('UPDATE discord_levels SET coins = coins - ? WHERE userid = ?', [body.coins, userid], function (error) {
         if (error) throw error
         Response.success(res, {
           action: 'delete'
         })
       })
     } else {
-      // USER has not enough CHESTS
-      Response.not_sufficient(res, 'chests')
+      // USER has not enough COINS
+      Response.not_sufficient(res, 'coins')
     }
   })
 }
