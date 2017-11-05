@@ -22,5 +22,9 @@ module.exports = {
 
   property_required: (res, property) => {
     return res.status(400).json({error: 'Property ' + property + ' required'})
+  },
+
+  already_existing: (res) => {
+    return res.status(408).json({error: 'You already inserted the topdesign for this month.'})
   }
 }

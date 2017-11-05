@@ -1,10 +1,13 @@
 'use strict'
 
 const gulp = require('gulp')
+// GULP PLUGINS
 const apidoc = require('gulp-apidoc')
+// /GULPPLUGINS
+
 const path = require('path')
 
-gulp.task('doc', function () {
+gulp.task('doc', () => {
   apidoc({
     config: path.join(__dirname, './'),
     src: path.join(__dirname, './controllers/'),
