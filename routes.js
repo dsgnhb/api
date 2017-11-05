@@ -7,7 +7,7 @@ const level = require('./controllers/levels/levels.js')
 const donation = require('./controllers/donate/donate.js')
 
 main.get('/', function (req, res) {
-  res.json({version: 1})
+  res.json({ version: 1 })
 })
 
 main.post(R.donate('/'), donation.add) // Add Donation
@@ -31,6 +31,8 @@ main.post(R.levels('/xp/:userid'), level.addXP) // Add XP
 main.delete(R.levels('/xp/:userid'), level.deleteXP) // Delete XP
 main.post(R.levels('/chests/:userid'), level.addChests) // Add Chests
 main.delete(R.levels('/chests/:userid'), level.deleteChests) // Delete Chests
+main.post(R.levels('/coins/:userid'), level.addCoins) // Add Coins
+main.delete(R.levels('/coins/:userid'), level.deleteCoins) // Delete Coins
 /*
 main.stack.forEach(function(r){
   if (r.route && r.route.path) {

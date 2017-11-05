@@ -2,28 +2,28 @@ const con = require('../../helpers/Connection').getConnection()
 const Response = require('../../helpers/response-helper')
 
 /**
-   * @api {post} /levels/xp/:userid  Add XP
-   * @apiVersion 1.2.2
-   * @apiName AddXP
-   * @apiDescription Add xp (windows xp?)
+   * @api {post} /levels/coins/:userid Add Coins
+   * @apiVersion 1.2.1
+   * @apiName AddCoins
+   * @apiDescription Add Coins
    * @apiGroup Levels
    *
    * @apiParam {String} username
    * @apiParam {Object} avatar
-   * @apiParam {Number} xp
-   * @apiParam {Object} discriminator Seems like a number, but who cares
+   * @apiParam {Number} coins
+   * @apiParam {Object} discriminator
    *
    * @apiSuccess (200) {Object} result
    * @apiSuccess (200) {String} result.action
-   * @apiSuccess (200) {Number} result.oldXP
-   * @apiSuccess (200) {Number} result.newXP
+   * @apiSuccess (200) {Number} result.oldCoins
+   * @apiSuccess (200) {Number} result.newCoins
    *
    * @apiSuccessExample {json} Success-Example:
    *     HTTP/1.1 200
    *     {
    *        "action": "add",
-   *        "oldXP": 3
-   *        "newXP": 5
+   *        "oldCoins": 3
+   *        "newCoins": 5
    *     }
    *
    * @apiError userid_too_long Userid can only be 18 characters long (500 code for some reason)
@@ -32,19 +32,19 @@ const Response = require('../../helpers/response-helper')
    *
    */
 
-exports.addXP = async function (req, res) {
+exports.addCoins = async function (req, res) {
   const userid = req.params.userid
   if (userid.length > 18) return Response.userid_too_long(res)
   const body = req.body
   if (!body) return Response.body_missing(res)
 
-  const needed = ['username', 'avatar', 'xp', 'discriminator']
+  const needed = ['username', 'avatar', 'coins', 'discriminator']
   for (let i = 0; i < needed.length; i++) {
     if (!body.hasOwnProperty(needed[i])) {
       return Response.property_required(res, needed[i])
     }
   }
-  con.query('UPDATE discord_levels SET xp = xp + ? WHERE userid = ?', [body.xp, userid], function (error, results) {
+  con.query('UPDATE discord_levels SET coins = coins + ? WHERE userid = ?', [body.coins, userid], function (error, results) {
     if (error) throw error
     if (results.changedRows === 0) {
       let data = {
@@ -52,36 +52,36 @@ exports.addXP = async function (req, res) {
         username: body.username,
         discriminator: body.discriminator,
         avatar: body.avatar,
-        xp: body.xp,
+        xp: 0,
         chests: 0,
-        coins: 100
+        coins: 100 + body.coins
       }
       con.query('INSERT INTO discord_levels SET ?', [data], function (error) {
         if (error) throw error
       })
     }
-    con.query('SELECT xp FROM discord_levels WHERE userid = ?', [userid], function (error, results) {
+    con.query('SELECT coins FROM discord_levels WHERE userid = ?', [userid], function (error, results) {
       if (error) throw error
-      const newXP = results[0].xp
-      Response.success(res, {
+      const newCoins = results[0].coins
+      res.json({
         action: 'add',
-        oldXP: newXP - body.xp,
-        newXP: newXP
+        oldCoins: newCoins - body.coins,
+        newCoins: newCoins
       })
     })
   })
 }
 
 /**
-   * @api {delete} /levels/xp/:userid Delete XP
-   * @apiVersion 1.2.2
-   * @apiName DeleteXP
-   * @apiDescription Delete XP
+   * @api {delete} /levels/coins/:userid Delete Coins
+   * @apiVersion 1.2.1
+   * @apiName DeleteCoins
+   * @apiDescription Delete coins
    * @apiGroup Levels
    *
    * @apiParam {String} username
    * @apiParam {Object} avatar
-   * @apiParam {Number} xp
+   * @apiParam {Number} coins
    * @apiParam {Object} discriminator
    *
    * @apiSuccess (200) {Object} result
@@ -94,27 +94,27 @@ exports.addXP = async function (req, res) {
    *     }
    *
    * @apiError userid_too_long Userid can only be 18 characters long (500 code for some reason)
-   * @apiError not_sufficientv User has not enough xp (500 for some reason)
+   * @apiError not_sufficientv User has not enough coins (500 for some reason)
    * @apiError body_missing Request Body is missing (500 code for some reason)
    * @apiError property_required Property name required (400 for some reason)
    *
    */
-exports.deleteXP = async function (req, res) {
+exports.deleteCoins = async function (req, res) {
   const userid = req.params.userid
   if (userid.length > 18) return Response.userid_too_long(res)
+
   const body = req.body
   if (!body) return Response.body_missing(res)
 
-  const needed = ['username', 'avatar', 'xp', 'discriminator']
+  const needed = ['username', 'avatar', 'coins', 'discriminator']
   for (let i = 0; i < needed.length; i++) {
-    if (!body.hasOwnProperty(needed[i])) {
-      return Response.property_required(res, needed[i])
-    }
+    if (!body.hasOwnProperty(needed[i])) return Response.property_required(res, needed[i])
   }
-  con.query('SELECT xp FROM discord_levels WHERE userid = ?', [userid], function (error, results) {
+
+  con.query('SELECT coins FROM discord_levels WHERE userid = ?', [userid], function (error, results) {
     if (error) throw error
-    const xp = results[0]
-    if (!xp) {
+    const coins = results[0]
+    if (!coins) {
       // USER isn't in DB yet
       let data = {
         userid: userid,
@@ -127,18 +127,18 @@ exports.deleteXP = async function (req, res) {
       }
       con.query('INSERT INTO discord_levels SET ?', [data], function (error) {
         if (error) throw error
-        return Response.not_sufficient(res, 'xp')
+        return Response.not_sufficient(res, 'coins')
       })
-    } else if (xp.cp >= body.xp) {
-      con.query('UPDATE discord_levels SET xp = xp - ? WHERE userid = ?', [body.xp, userid], function (error) {
+    } else if (coins.coins >= body.coins) {
+      con.query('UPDATE discord_levels SET coins = coins - ? WHERE userid = ?', [body.coins, userid], function (error) {
         if (error) throw error
         Response.success(res, {
           action: 'delete'
         })
       })
     } else {
-      // USER has not enough XP
-      return Response.not_sufficient(res, 'xp')
+      // USER has not enough COINS
+      Response.not_sufficient(res, 'coins')
     }
   })
 }

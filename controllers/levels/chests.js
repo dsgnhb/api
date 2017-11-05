@@ -1,7 +1,7 @@
 const con = require('../../helpers/Connection').getConnection()
 const Response = require('../../helpers/response-helper')
 
-  /**
+/**
    * @api {post} /levels/chests/:userid Add Chests
    * @apiVersion 1.2.2
    * @apiName AddChests
@@ -53,7 +53,8 @@ exports.addChests = async function (req, res) {
         discriminator: body.discriminator,
         avatar: body.avatar,
         xp: 0,
-        chests: body.chests
+        chests: body.chests,
+        coins: 100
       }
       con.query('INSERT INTO discord_levels SET ?', [data], function (error) {
         if (error) throw error
@@ -71,7 +72,7 @@ exports.addChests = async function (req, res) {
   })
 }
 
-  /**
+/**
    * @api {delete} /levels/chests/:userid Delete Chests
    * @apiVersion 1.2.2
    * @apiName DeleteChests
@@ -121,7 +122,8 @@ exports.deleteChests = async function (req, res) {
         discriminator: body.discriminator,
         avatar: body.avatar,
         xp: 0,
-        chests: 0
+        chests: 0,
+        coins: 100
       }
       con.query('INSERT INTO discord_levels SET ?', [data], function (error) {
         if (error) throw error
