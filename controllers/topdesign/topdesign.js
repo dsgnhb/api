@@ -97,12 +97,15 @@ exports.findById = function (req, res) {
   })
 }
 
-function findbyUserID (userid) {
-  con.query('SELECT designs.id, designs.timeshort WHERE designs.userid = ?', [userid], function (error, results) {
+// noinspection RedundantIfStatementJS
+function findbyUserIDandTime (userid) {
+  con.query('SELECT discord_topdesign.id WHERE discord_topdesign.userid = ? AND discord_topdesign.timeshort = ?', [userid, f.timeshort(new Date())], function (error, results) {
     if (error) throw error
-    results = results[0]
-    let actualdate = f.timeshort(new Date())
-    return !(!results.id || actualdate === results.timeshort)
+
+    if (!results[0].id) {
+      return false
+    }
+    return true
   })
 }
 
@@ -145,7 +148,7 @@ exports.add = async (req, res) => {
     }
   }
 
-  if (!findbyUserID(body.userid)) {
+  if (!findbyUserIDandTime(body.userid)) {
     return Response.already_existing(res)
   }
 
