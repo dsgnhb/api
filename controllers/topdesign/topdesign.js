@@ -3,7 +3,7 @@ const con = require('../../helpers/Connection').getConnection()
 const Response = require('../../helpers/response-helper')
 const votes = require('./votes')
 
-  /**
+/**
    * @api {get} /topdesign/posts Get all posts
    * @apiVersion 1.2.2
    * @apiName GetAllPosts
@@ -16,13 +16,16 @@ const votes = require('./votes')
 
 exports.findAll = function (req, res) {
   // Return all Posts
-  con.query('SELECT designs.id, designs.username, designs.avatar, designs.userid, designs.image, COUNT(likes.postid) AS likes FROM discord_topdesign AS designs LEFT JOIN discord_topdesign_likes AS likes ON designs.id = likes.postid WHERE designs.active = 1 GROUP BY designs.id ORDER BY likes DESC', function (error, results) {
-    if (error) throw error
-    Response.success(res, results)
-  })
+  con.query(
+    'SELECT designs.id, designs.username, designs.avatar, designs.userid, designs.image, COUNT(likes.postid) AS likes FROM discord_topdesign AS designs LEFT JOIN discord_topdesign_likes AS likes ON designs.id = likes.postid WHERE designs.active = 1 GROUP BY designs.id ORDER BY likes DESC',
+    function (error, results) {
+      if (error) throw error
+      Response.success(res, results)
+    }
+  )
 }
 
-  /**
+/**
    * @api {get} /topdesign/posts/currentmonth Get all Posts for current Month
    * @apiVersion 1.2.2
    * @apiName GetAllPostsCurrMonth
@@ -35,13 +38,17 @@ exports.findAll = function (req, res) {
 exports.findAllCurrentMonth = function (req, res) {
   // Return all Posts from current month
   const timeshort = f.timeshort(new Date())
-  con.query('SELECT designs.id, designs.username, designs.avatar, designs.userid, designs.image, COUNT(likes.postid) AS likes FROM discord_topdesign AS designs LEFT JOIN discord_topdesign_likes AS likes ON designs.id = likes.postid WHERE designs.active = 1 AND timeshort = ? GROUP BY designs.id ORDER BY likes DESC', [timeshort], function (error, results) {
-    if (error) throw error
-    Response.success(res, results)
-  })
+  con.query(
+    'SELECT designs.id, designs.username, designs.avatar, designs.userid, designs.image, COUNT(likes.postid) AS likes FROM discord_topdesign AS designs LEFT JOIN discord_topdesign_likes AS likes ON designs.id = likes.postid WHERE designs.active = 1 AND timeshort = ? GROUP BY designs.id ORDER BY likes DESC',
+    [timeshort],
+    function (error, results) {
+      if (error) throw error
+      Response.success(res, results)
+    }
+  )
 }
 
-  /**
+/**
    * @api {get} /topdesign/posts/month  Get all Posts sorted by Month
    * @apiVersion 1.2.2
    * @apiName GetAllPostsByMonth
@@ -53,26 +60,29 @@ exports.findAllCurrentMonth = function (req, res) {
    */
 exports.findAllMonth = function (req, res) {
   // Return all Posts grouped by month
-  con.query('SELECT designs.id, designs.timeshort, designs.username, designs.avatar, designs.userid, designs.image, ' +
-    'COUNT(likes.postid) AS likes FROM discord_topdesign AS designs ' +
-    'LEFT JOIN discord_topdesign_likes AS likes ON designs.id = likes.postid WHERE designs.active = 1 ' +
-    'GROUP BY designs.id ' +
-    'ORDER BY designs.timeshort DESC, likes DESC', function (error, results) {
-    if (error) throw error
-    let grouped = f.groupBy(results, 'timeshort')
-    for (let key in grouped) {
-      if (grouped.hasOwnProperty(key)) {
-        for (let i = 0; i < grouped[key].length; i++) {
-          grouped[key][i].winner = false
+  con.query(
+    'SELECT designs.id, designs.timeshort, designs.username, designs.avatar, designs.userid, designs.image, ' +
+      'COUNT(likes.postid) AS likes FROM discord_topdesign AS designs ' +
+      'LEFT JOIN discord_topdesign_likes AS likes ON designs.id = likes.postid WHERE designs.active = 1 ' +
+      'GROUP BY designs.id ' +
+      'ORDER BY designs.timeshort DESC, likes DESC',
+    function (error, results) {
+      if (error) throw error
+      let grouped = f.groupBy(results, 'timeshort')
+      for (let key in grouped) {
+        if (grouped.hasOwnProperty(key)) {
+          for (let i = 0; i < grouped[key].length; i++) {
+            grouped[key][i].winner = false
+          }
+          grouped[key][0].winner = true
         }
-        grouped[key][0].winner = true
       }
+      Response.success(res, grouped)
     }
-    Response.success(res, grouped)
-  })
+  )
 }
 
-  /**
+/**
    * @api {get} /topdesign/posts/:id  Get Post by Id
    * @apiVersion 1.2.2
    * @apiName GetById
@@ -86,30 +96,34 @@ exports.findAllMonth = function (req, res) {
    */
 exports.findById = function (req, res) {
   const id = req.params.id
-  con.query('SELECT designs.id, designs.timeshort, designs.username, designs.avatar, designs.userid, designs.image, COUNT(likes.postid) AS likes FROM discord_topdesign AS designs LEFT JOIN discord_topdesign_likes AS likes ON designs.id = likes.postid WHERE designs.id = ?', [id], function (error, results) {
-    if (error) throw error
-    results = results[0]
-    if (!results.id) {
-      Response.not_found(404)
-    } else {
-      Response.success(res, results)
+  con.query(
+    'SELECT designs.id, designs.timeshort, designs.username, designs.avatar, designs.userid, designs.image, COUNT(likes.postid) AS likes FROM discord_topdesign AS designs LEFT JOIN discord_topdesign_likes AS likes ON designs.id = likes.postid WHERE designs.id = ?',
+    [id],
+    function (error, results) {
+      if (error) throw error
+      results = results[0]
+      if (!results.id) {
+        Response.not_found(404)
+      } else {
+        Response.success(res, results)
+      }
     }
-  })
+  )
 }
 
 // noinspection RedundantIfStatementJS
 function findbyUserIDandTime (userid) {
-  con.query('SELECT discord_topdesign.id WHERE discord_topdesign.userid = ? AND discord_topdesign.timeshort = ?', [userid, f.timeshort(new Date())], function (error, results) {
+  const timeshort = f.timeshort(new Date())
+  con.query('SELECT discord_topdesign.id FROM discord_topdesign WHERE discord_topdesign.userid = ? AND discord_topdesign.timeshort = ?', [userid, timeshort], function (error, results) {
     if (error) throw error
-
-    if (!results[0].id) {
+    if (results.length === 0) {
       return false
     }
     return true
   })
 }
 
-  /**
+/**
    * @api {post} /topdesign/posts/  Add Post
    * @apiVersion 1.2.2
    * @apiName AddPost
@@ -148,7 +162,8 @@ exports.add = async (req, res) => {
     }
   }
 
-  if (!findbyUserIDandTime(body.userid)) {
+  if (findbyUserIDandTime(body.userid)) {
+    console.log('already posted')
     return Response.already_existing(res)
   }
 
@@ -161,11 +176,11 @@ exports.add = async (req, res) => {
   data.timeshort = timeshort
   con.query('INSERT INTO discord_topdesign SET ?', [data], function (error, results) {
     if (error) throw error
-    Response.success(res, {action: 'add', postid: results.insertId})
+    Response.success(res, { action: 'add', postid: results.insertId })
   })
 }
 
-  /**
+/**
    * @api {put} /topdesign/posts/:id Update Status of Post
    * @apiVersion 1.2.2
    * @apiName UpdatePost
@@ -191,36 +206,40 @@ exports.add = async (req, res) => {
    */
 exports.changeStatus = async function (req, res) {
   const postid = req.params.id
-  con.query('SELECT designs.active, designs.username,  COUNT(likes.postid) AS likes FROM discord_topdesign AS designs LEFT JOIN discord_topdesign_likes AS likes ON designs.id = likes.postid WHERE designs.id = ? GROUP BY designs.id ORDER BY likes DESC', [postid], function (error, results) {
-    if (error) throw error
-    let post = results[0]
-    if (!post) return Response.not_found(res)
-    switch (post.active) {
-      case 1:
-        con.query('UPDATE discord_topdesign SET active = 0 WHERE id = ?', [postid], function (error) {
-          if (error) throw error
-          Response.success(res, {
-            action: 'deactivate',
-            likes: post.likes,
-            posted_by: post.username
+  con.query(
+    'SELECT designs.active, designs.username,  COUNT(likes.postid) AS likes FROM discord_topdesign AS designs LEFT JOIN discord_topdesign_likes AS likes ON designs.id = likes.postid WHERE designs.id = ? GROUP BY designs.id ORDER BY likes DESC',
+    [postid],
+    function (error, results) {
+      if (error) throw error
+      let post = results[0]
+      if (!post) return Response.not_found(res)
+      switch (post.active) {
+        case 1:
+          con.query('UPDATE discord_topdesign SET active = 0 WHERE id = ?', [postid], function (error) {
+            if (error) throw error
+            Response.success(res, {
+              action: 'deactivate',
+              likes: post.likes,
+              posted_by: post.username
+            })
           })
-        })
-        break
-      case 0:
-        con.query('UPDATE discord_topdesign SET active = 1 WHERE id = ?', [postid], function (error) {
-          if (error) throw error
-          Response.success(res, {
-            action: 'activate',
-            likes: post.likes,
-            posted_by: post.username
+          break
+        case 0:
+          con.query('UPDATE discord_topdesign SET active = 1 WHERE id = ?', [postid], function (error) {
+            if (error) throw error
+            Response.success(res, {
+              action: 'activate',
+              likes: post.likes,
+              posted_by: post.username
+            })
           })
-        })
-        break
+          break
+      }
     }
-  })
+  )
 }
 
-  /**
+/**
    * @api {delete} /topdesign/posts/:id Delete Post
    * @apiVersion 1.2.2
    * @apiName DeletePost
