@@ -97,7 +97,7 @@ exports.findAllMonth = function (req, res) {
 exports.findById = function (req, res) {
   const id = req.params.id
   con.query(
-    'SELECT designs.id, designs.timeshort, designs.username, designs.avatar, designs.userid, designs.image, COUNT(likes.postid) AS likes FROM discord_topdesign AS designs LEFT JOIN discord_topdesign_likes AS likes ON designs.id = likes.postid WHERE designs.id = ?',
+    'SELECT designs.id, designs.timeshort, designs.username, designs.avatar, designs.userid, designs.image, designs.active, COUNT(likes.postid) AS likes FROM discord_topdesign AS designs LEFT JOIN discord_topdesign_likes AS likes ON designs.id = likes.postid WHERE designs.id = ?',
     [id],
     function (error, results) {
       if (error) throw error
