@@ -4,7 +4,7 @@ const con = require('../../helpers/Connection').getConnection()
 
   /**
    * @api {post} /topdesign/vote/:postid   Vote for Post
-   * @apiVersion 1.2.1
+   * @apiVersion 1.2.2
    * @apiName VoteForPost
    * @apiDescription  Vote for Post
    * @apiGroup Vote
@@ -71,7 +71,7 @@ exports.vote = function (req, res) {
 
   /**
    * @api {get} /topdesign/vote/:userid Get Posts User voted for
-   * @apiVersion 1.2.1
+   * @apiVersion 1.2.2
    * @apiName GetVotedPostsForUser
    * @apiDescription Get Posts User voted for
    * @apiGroup Vote
@@ -93,7 +93,7 @@ exports.voted = function (req, res) {
 
   /**
    * @api {get} /topdesign/submissions/:userid  Get Submissions from Users
-   * @apiVersion 1.2.1
+   * @apiVersion 1.2.2
    * @apiName GetSubmissionsFromUser
    * @apiDescription  Get Submissions from User
    * @apiGroup Vote

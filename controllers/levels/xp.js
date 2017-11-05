@@ -3,7 +3,7 @@ const Response = require('../../helpers/response-helper')
 
   /**
    * @api {post} /levels/xp/:userid  Add XP
-   * @apiVersion 1.2.1
+   * @apiVersion 1.2.2
    * @apiName AddXP
    * @apiDescription Add xp (windows xp?)
    * @apiGroup Levels
@@ -73,7 +73,7 @@ exports.addXP = async function (req, res) {
 
   /**
    * @api {delete} /levels/xp/:userid Delete XP
-   * @apiVersion 1.2.1
+   * @apiVersion 1.2.2
    * @apiName DeleteXP
    * @apiDescription Delete XP
    * @apiGroup Levels

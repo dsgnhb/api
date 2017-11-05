@@ -5,7 +5,7 @@ const votes = require('./votes')
 
   /**
    * @api {get} /topdesign/posts Get all posts
-   * @apiVersion 1.2.1
+   * @apiVersion 1.2.2
    * @apiName GetAllPosts
    * @apiDescription Get all Posts
    * @apiGroup Posts
@@ -24,7 +24,7 @@ exports.findAll = function (req, res) {
 
   /**
    * @api {get} /topdesign/posts/currentmonth Get all Posts for current Month
-   * @apiVersion 1.2.1
+   * @apiVersion 1.2.2
    * @apiName GetAllPostsCurrMonth
    * @apiDescription Get all Posts for current Month (query params??)
    * @apiGroup Posts
@@ -43,7 +43,7 @@ exports.findAllCurrentMonth = function (req, res) {
 
   /**
    * @api {get} /topdesign/posts/month  Get all Posts sorted by Month
-   * @apiVersion 1.2.1
+   * @apiVersion 1.2.2
    * @apiName GetAllPostsByMonth
    * @apiDescription Return all Posts grouped by month
    * @apiGroup Posts
@@ -74,7 +74,7 @@ exports.findAllMonth = function (req, res) {
 
   /**
    * @api {get} /topdesign/posts/:id  Get Post by Id
-   * @apiVersion 1.2.1
+   * @apiVersion 1.2.2
    * @apiName GetById
    * @apiDescription Get Post by Id
    * @apiGroup Posts
@@ -97,9 +97,18 @@ exports.findById = function (req, res) {
   })
 }
 
+function findbyUserID (userid) {
+  con.query('SELECT designs.id, designs.timeshort WHERE designs.userid = ?', [userid], function (error, results) {
+    if (error) throw error
+    results = results[0]
+    let actualdate = f.timeshort(new Date())
+    return !(!results.id || actualdate === results.timeshort)
+  })
+}
+
   /**
    * @api {post} /topdesign/posts/  Add Post
-   * @apiVersion 1.2.1
+   * @apiVersion 1.2.2
    * @apiName AddPost
    * @apiDescription Add new post
    * @apiGroup Posts
@@ -122,6 +131,7 @@ exports.findById = function (req, res) {
    *     }
    *
    * @apiError body_missing Request Body is missing (500 code for some reason)
+   * @apiError 408 {error: 'You already inserted the topdesign for this month.'}
    *
    */
 exports.add = async (req, res) => {
@@ -134,6 +144,11 @@ exports.add = async (req, res) => {
       return Response.body_missing(res)
     }
   }
+
+  if (!findbyUserID(body.userid)) {
+    return Response.already_existing(res)
+  }
+
   let data = body
   let avatar = await f.imgur(body.avatar)
   let image = await f.imgur(body.image)
@@ -149,7 +164,7 @@ exports.add = async (req, res) => {
 
   /**
    * @api {put} /topdesign/posts/:id Update Status of Post
-   * @apiVersion 1.2.1
+   * @apiVersion 1.2.2
    * @apiName UpdatePost
    * @apiDescription Update Status of Post
    * @apiGroup Posts
@@ -204,7 +219,7 @@ exports.changeStatus = async function (req, res) {
 
   /**
    * @api {delete} /topdesign/posts/:id Delete Post
-   * @apiVersion 1.2.1
+   * @apiVersion 1.2.2
    * @apiName DeletePost
    * @apiDescription Delete Post
    * @apiGroup Posts

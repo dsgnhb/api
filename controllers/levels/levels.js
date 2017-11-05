@@ -5,7 +5,7 @@ const Response = require('../../helpers/response-helper')
 
   /**
    * @api {get} /levels Get all Level System data
-   * @apiVersion 1.2.1
+   * @apiVersion 1.2.2
    * @apiName GetAllLevels
    * @apiDescription Get all levels (dunno what that mean)
    * @apiGroup Levels
@@ -27,7 +27,7 @@ exports.findAll = async function (req, res) {
 
   /**
    * @api {get} /levels/:userid Get Level System data by userid
-   * @apiVersion 1.2.1
+   * @apiVersion 1.2.2
    * @apiName GetLevelsByUserId
    * @apiDescription Get level
    * @apiGroup Levels

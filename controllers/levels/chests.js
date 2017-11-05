@@ -3,7 +3,7 @@ const Response = require('../../helpers/response-helper')
 
   /**
    * @api {post} /levels/chests/:userid Add Chests
-   * @apiVersion 1.2.1
+   * @apiVersion 1.2.2
    * @apiName AddChests
    * @apiDescription Add Chests
    * @apiGroup Levels
@@ -73,7 +73,7 @@ exports.addChests = async function (req, res) {
 
   /**
    * @api {delete} /levels/chests/:userid Delete Chests
-   * @apiVersion 1.2.1
+   * @apiVersion 1.2.2
    * @apiName DeleteChests
    * @apiDescription Delete Chests
    * @apiGroup Levels
