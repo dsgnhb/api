@@ -2,7 +2,6 @@ language: node_js
 node_js:
 - '7'
 - '8'
-- 'node'
 before_install: npm install -g apidoc
 install: npm install
 script: standard
@@ -11,3 +10,11 @@ notifications:
     on_success: never
     on_failure: never
   webhooks: https://flooo.me/travis/designhub-dev.php
+deploy:
+  provider: releases
+  api_key:
+    secure: OYaM8EHLDSEWIAwmSCPoAsXXWolNXD+jcPbWxht8WbJHCGEhMWOsox49peIHR7mV73OlrpOKzFKg1WPPQAGQFdn22sYzk6zA1WoDc1eZLoHz4AY99ccahOcbtMCjxlvRNGJu9KsmkJkmwuqq+cQMGGMUzc7fOcTIQ2/c/AzqZ639X6RMc6k1ljCc+ekDJ9UWuiap/rtSYnmxEqeHFlTu1o5J2sgO8lJp8AMEhy+1YD54jGCVcrglrkZWPjwEC5vX84QrXMii423985oOBKvom5jgohembcBUTtRVwxxnDPgr91xzj/XSlM9ShzdkqCcX0m7i+gf5Nbt1sIiKMx0ZgKdRT95P8YGK7t5B/G2A2cMIw/rE5pPlXaM8DExfOH9TMalGAF56zhbrY/ZkgW9SddYGVMbCftAP+RMXZ3BARnXyw9LRsjNx/LmSvg94tj2WAcoUrg43ugSafCOBzCx38bQj14KuQqc1kYtC5yp5W6wNad3vupgV+gmIYd3Fl3mb1kJK4Cdb8lBeLP6YI0qhR8y8GAKDztS4a/596Xr8HUfKmktVGZpwEh3oUH8Tdah6zjyfwHx5AMXTgpzshK7YjVmb7s17xbgTG8yIx+asDy+U3s+iRC6ZfRRegz7nj2yCY2kgJdtgYeFKczkhIBtvBk7Ty25WLXbwIEtXHe4vrjI=
+#  file: ''
+  on:
+    repo: dsgnhb/api
+    branch: dev
