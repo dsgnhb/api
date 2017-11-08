@@ -103,7 +103,7 @@ exports.findById = function (req, res) {
       if (error) throw error
       results = results[0]
       if (!results.id) {
-        Response.not_found(404)
+        Response.not_found(res)
       } else {
         Response.success(res, results)
       }
@@ -116,7 +116,10 @@ function findbyUserIDandTime (userid) {
   return new Promise((resolve, reject) => {
     const timeshort = f.timeshort(new Date())
     con.query('SELECT discord_topdesign.id FROM discord_topdesign WHERE discord_topdesign.userid = ? AND discord_topdesign.timeshort = ?', [userid, timeshort], function (error, results) {
-      if (error) throw error
+      if (error) {
+        reject(error)
+        throw error
+      }
       if (results.length === 0) {
         resolve(false)
       }
