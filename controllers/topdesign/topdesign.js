@@ -103,7 +103,7 @@ exports.findById = function (req, res) {
       if (error) throw error
       results = results[0]
       if (!results.id) {
-        Response.not_found(404)
+        Response.not_found(res)
       } else {
         Response.success(res, results)
       }
