@@ -42,7 +42,7 @@ exports.vote = function (req, res) {
   con.query('SELECT designs.id, designs.username, COUNT(likes.postid) AS likes FROM discord_topdesign AS designs LEFT JOIN discord_topdesign_likes AS likes ON designs.id = likes.postid WHERE designs.active = 1 AND timeshort = ? AND designs.id = ? GROUP BY designs.id ORDER BY likes DESC', [timeshort, postid], function (error, results) {
     if (error) throw error
     let post = results[0]
-    if (!post) return Response.not_found(404)
+    if (!post) return Response.not_found(res)
     con.query('DELETE FROM discord_topdesign_likes WHERE postid = ? AND userid = ?', [postid, body.userid], function (error, results) {
       if (error) throw error
       if (results.affectedRows === 0) {
