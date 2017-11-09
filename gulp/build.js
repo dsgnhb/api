@@ -5,8 +5,8 @@ let gulp = require('gulp'),
   $ = require('gulp-load-plugins')({
     pattern: ['gulp-*', 'del', 'run-sequence', 'gulp-apidoc']
   }),
-  apidoc = require('gulp-apidoc'),
-  path= require('path'),
+ // apidoc = require('gulp-apidoc'),
+ // path= require('path'),
   config = require('./config.json'),
   tsConfig = require('../tsconfig.json');
 
@@ -56,7 +56,7 @@ gulp.task('compile', false, () => {
 
 /**
  * Generates API Docs
- */
+
 gulp.task('apidoc', 'Builds APIDocs', (callback) => {
 
   apidoc({
@@ -64,7 +64,7 @@ gulp.task('apidoc', 'Builds APIDocs', (callback) => {
     src: path.resolve(__dirname,'../src/'),
     dest: gulp.dest('dist/apidoc')
   },callback);
-});
+});*/
 
 /**
  * Build the server app
