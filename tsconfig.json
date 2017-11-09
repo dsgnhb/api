@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "target" : "es2017",
+        "module": "commonjs",
+        "noImplicitAny": false,
+        "removeComments": false,
+        "preserveConstEnums": true,
+        "outDir": "dist",
+        "sourceMap": true
+    },
+    "files": [
+        "src/**/*.ts",
+        "gulp/**/*.ts"
+    ]
+}

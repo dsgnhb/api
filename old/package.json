@@ -1,0 +1,47 @@
+{
+  "name": "designhub-api",
+  "version": "1.2.2",
+  "description": "REST API written in node.js using express, mysql and standardjs",
+  "main": "server.js",
+  "scripts": {
+    "apidoc": "./node_modules/.bin/gulp doc",
+    "test": "npm run autoformat",
+    "autoformat": "standard --fix",
+    "standard": "standard",
+    "build": "apidoc -i controllers/ -o apidoc/ && npm run autoformat"
+  },
+  "author": "flo",
+  "contributors": [
+    {
+      "name": "Luk vonStrom",
+      "email": "lukvonstrom@web.de",
+      "url": "https://lukvonstrom.de"
+    },
+    {
+      "name": "Fin Reinhhard",
+      "email": "fin.reinhard@icloud.com",
+      "url": "http://Angu.li"
+    }
+  ],
+  "license": "MIT",
+  "apidoc": {
+    "title": "Designhub API",
+    "description": "REST API written in node.js using express, mysql and standardjs",
+    "template": {
+      "forceLanguage": "en"
+    }
+  },
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "cors": "^2.8.4",
+    "express": "^4.15.4",
+    "imgur": "^0.2.1",
+    "morgan": "^1.9.0",
+    "mysql": "^2.14.1"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-apidoc": "^0.2.6",
+    "standard": "^10.0.3"
+  }
+}

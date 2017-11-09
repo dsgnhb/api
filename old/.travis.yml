@@ -1,0 +1,13 @@
+language: node_js
+node_js:
+- '7'
+- '8'
+- 'node'
+before_install: npm install -g apidoc
+install: npm install
+script: standard
+notifications:
+  email:
+    on_success: never
+    on_failure: never
+  webhooks: https://flooo.me/travis/designhub-dev.php

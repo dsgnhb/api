@@ -2,9 +2,11 @@ language: node_js
 node_js:
 - '7'
 - '8'
-before_install: npm install -g apidoc
+before_install: npm install -g gulp
 install: npm install
-script: standard
+before_script: gulp lint
+script: gulp test
+before_deploy: gulp package
 notifications:
   email:
     on_success: never
@@ -13,8 +15,13 @@ notifications:
 deploy:
   provider: releases
   api_key:
-    secure: OYaM8EHLDSEWIAwmSCPoAsXXWolNXD+jcPbWxht8WbJHCGEhMWOsox49peIHR7mV73OlrpOKzFKg1WPPQAGQFdn22sYzk6zA1WoDc1eZLoHz4AY99ccahOcbtMCjxlvRNGJu9KsmkJkmwuqq+cQMGGMUzc7fOcTIQ2/c/AzqZ639X6RMc6k1ljCc+ekDJ9UWuiap/rtSYnmxEqeHFlTu1o5J2sgO8lJp8AMEhy+1YD54jGCVcrglrkZWPjwEC5vX84QrXMii423985oOBKvom5jgohembcBUTtRVwxxnDPgr91xzj/XSlM9ShzdkqCcX0m7i+gf5Nbt1sIiKMx0ZgKdRT95P8YGK7t5B/G2A2cMIw/rE5pPlXaM8DExfOH9TMalGAF56zhbrY/ZkgW9SddYGVMbCftAP+RMXZ3BARnXyw9LRsjNx/LmSvg94tj2WAcoUrg43ugSafCOBzCx38bQj14KuQqc1kYtC5yp5W6wNad3vupgV+gmIYd3Fl3mb1kJK4Cdb8lBeLP6YI0qhR8y8GAKDztS4a/596Xr8HUfKmktVGZpwEh3oUH8Tdah6zjyfwHx5AMXTgpzshK7YjVmb7s17xbgTG8yIx+asDy+U3s+iRC6ZfRRegz7nj2yCY2kgJdtgYeFKczkhIBtvBk7Ty25WLXbwIEtXHe4vrjI=
-#  file: ''
+    secure: EKx6wzCi33BYrmohVFy6Op7O4uRKQyKCRuEacksMsq9NEsfVM9p3581AG55UjOTJsou0wTo+S0EnRRBSb3eXCo9cp4soYDMYKM256b1tTpOi2/eWnxmoWSjNojof2y9Q8btxied+J26V1aQbq5lLZvx4yoqPAn1EaG3GoKawNOK3cYmYYyWg+/iD5PGpCTIzMDIe914NIQqiNpntI1cunsJ0IbuiTlhEvJH/iJmVOgr60CwKlwSaVLLT1dQgdXrj3CZrnY0uktvIEC6jiu5qgTF5uLMxJP7EpgkSYFW20yIxE6eyjWklYx2qwMkfpI8lCJw89eBUboETrMo8mpEx0VX9n5kkXNF0syMygiyX0l78cRq8QfAJWSXWYk5cHvtaFbYeabafKcJl9tQq2U5weRxcOs6PF6mEUd7GRPreTvC5epgjGEdAJ4K+mr1e9rGHS7OcR6cndfyR5mNx55r5rhRaXbX/bnqFYga6MhkvX+T3BxKucZkoL6TUQEAE/Ze1xm0aS0jly3D8dNaR5EnoGYO5hR9rBh3Nl5afj04XzzvR8QrD16YnKvRAQk7c5acVciWZxNTrnETEKuR+q6qB9YzDACd5h+go3QEMk7OfGgX8h8f66Ve7SxD+rxwrQxwE0Oz6Yle5v+c08ePWq2hG3dLTBsNtXrEGTa57PmAILog=
+  file: tmp/release.tar.gz
+  skip_cleanup: true
   on:
     repo: dsgnhb/api
-    branch: dev
+    tags: true
+    all_branches: true
+    node: '8'
+after_success:
+  - gulp coveralls

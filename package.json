@@ -1,15 +1,7 @@
 {
   "name": "designhub-api",
-  "version": "1.2.2",
-  "description": "REST API written in node.js using express, mysql and standardjs",
-  "main": "server.js",
-  "scripts": {
-    "apidoc": "./node_modules/.bin/gulp doc",
-    "test": "npm run autoformat",
-    "autoformat": "standard --fix",
-    "standard": "standard",
-    "build": "apidoc -i controllers/ -o apidoc/ && npm run autoformat"
-  },
+  "version": "1.5.0",
+  "description": "REST API written in TypeScript using express and mysql",
   "author": "flo",
   "contributors": [
     {
@@ -26,22 +18,68 @@
   "license": "MIT",
   "apidoc": {
     "title": "Designhub API",
-    "description": "REST API written in node.js using express, mysql and standardjs",
     "template": {
       "forceLanguage": "en"
     }
   },
   "dependencies": {
-    "body-parser": "^1.17.2",
+    "@types/body-parser": "^1.16.8",
+    "@types/cookie-parser": "^1.4.1",
+    "@types/cors": "^2.8.2",
+    "@types/debug": "0.0.30",
+    "@types/dotenv": "^4.0.2",
+    "@types/express": "^4.0.39",
+    "@types/mime": "^2.0.0",
+    "@types/morgan": "^1.7.35",
+    "@types/mysql": "^2.15.1",
+    "@types/node": "^8.0.50",
+    "@types/serve-favicon": "^2.2.29",
+    "body-parser": "^1.18.2",
+    "cookie-parser": "^1.4.3",
     "cors": "^2.8.4",
-    "express": "^4.15.4",
-    "imgur": "^0.2.1",
+    "debug": "^3.1.0",
+    "dotenv": "^4.0.0",
+    "express": "^4.16.2",
     "morgan": "^1.9.0",
-    "mysql": "^2.14.1"
+    "mysql": "^2.15.0",
+    "path": "^0.12.7",
+    "pm2": "^2.7.2",
+    "serve-favicon": "^2.4.5"
   },
   "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-preset-es2017": "^6.24.1",
+    "babel-require": "^1.0.1",
+    "del": "^2.2.2",
     "gulp": "^3.9.1",
-    "gulp-apidoc": "^0.2.6",
-    "standard": "^10.0.3"
+    "gulp-bump": "^2.8.0",
+    "gulp-filter": "^4.0.0",
+    "gulp-git": "^1.15.1",
+    "gulp-gzip": "^1.4.0",
+    "gulp-help": "^1.6.1",
+    "gulp-istanbul": "^1.1.2",
+    "gulp-load-plugins": "^1.5.0",
+    "gulp-nodemon": "^2.2.1",
+    "gulp-notify": "^2.2.0",
+    "gulp-nsp": "^2.4.2",
+    "gulp-rename": "^1.2.2",
+    "gulp-shell": "^0.5.2",
+    "gulp-tar": "^1.9.0",
+    "gulp-todo": "^5.4.0",
+    "gulp-tslint": "^8.1.2",
+    "gulp-typescript": "^3.2.3",
+    "minimist": "^1.2.0",
+    "q": "^1.5.1",
+    "require-dir": "^0.3.2",
+    "run-sequence": "^1.2.2",
+    "tslint": "^5.8.0",
+    "typescript": "^2.6.1",
+    "typings": "^1.5.0"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "postinstall": "typings install"
   }
 }
