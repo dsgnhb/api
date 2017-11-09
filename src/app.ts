@@ -3,16 +3,18 @@
 // Include dependencies
 import * as express from 'express';
 import * as path from 'path';
-import * as logger from 'morgan';
 import * as favicon from 'serve-favicon';
 import * as cookieParser from 'cookie-parser';
 import * as bodyParser from 'body-parser';
+import * as cors from 'cors';
+import * as morgan from 'morgan';
 
 // Modular Route definitions
 import * as exampleRoute from './routes/base';
 
 // Error handler service
 import { development as DevelopmentErrorHandler, production as ProductionErrorHandler } from './services/errorHandler';
+import {config} from "dotenv";
 
 // Main app
 const app = express();
@@ -22,11 +24,26 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 app.use(favicon(__dirname + '/public/favicon.ico'));
-app.use(logger('dev'));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-// app.use(express.static(path.join(__dirname, 'public'))); //serve public files
+// app.use(express.static(path.join(__dirname, 'public'))); //serve public
+app.use(morgan('short'));
+
+app.use(cors({
+    credentials: true,
+    origin: true
+}));
+
+
+app.use((req, res, next) => {
+    const publicEndpoints = ['/', '/topdesign/posts/month', '/levels', '/donate', '/topdesign/posts/currentmonth'];
+    if (!config.apiKeys.includes(req.header('token')) && publicEndpoints.indexOf(req.path) === -1) {
+        res.status(403).json({error: 'Missing correct access Token'});
+        return;
+    }
+    next()
+});
 
 // Register routes (as middleware layer through express.Router())
 app.use(exampleRoute);

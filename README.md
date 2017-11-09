@@ -1,12 +1,12 @@
 # API [![Build Status](https://travis-ci.org/dsgnhb/api.svg?branch=dev)](https://travis-ci.org/dsgnhb/api)
 
 
-REST API written in node.js using express, mysql and standardjs.
+REST API written in node.js using express and mysql
 
 This API is primarily intended for intern usage.
 
-## API Docs
-Find the API Docs in the release bundle, or in the `dist/apidoc` folder after building.
+###### API Docs (don't work yet)
+###### Find the API Docs in the release bundle, or in the `dist/apidoc` folder after building.
 
 ## Build system
 
