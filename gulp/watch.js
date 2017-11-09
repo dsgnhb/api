@@ -31,7 +31,7 @@ gulp.task('nonTsWatcher', false, () => {
 /**
  * Combined watcher
  */
-gulp.task('watch', 'Master watch task, adds cumulative watches (test/lint)', ['tdd', 'tsWatcher', 'nonTsWatcher'], () => {});
+gulp.task('watch', 'Master watch task, adds cumulative watches (test/lint)', [/*'tdd',*/ 'tsWatcher', 'nonTsWatcher'], () => {});
 
 /**
  * Combined watch and server

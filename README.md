@@ -20,7 +20,6 @@ Several gulp tasks are provided, which are described by running `gulp help`:
 
 - Node must be installed on the system
 - Run `npm install` from the root folder to install all required dev/build dependencies
-- (Optionally) Install *Typings* `npm install typings -g` globally to update typescript definitions when desired
 
 ## Developing
 

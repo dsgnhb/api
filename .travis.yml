@@ -5,7 +5,7 @@ node_js:
 before_install: npm install -g gulp
 install: npm install
 before_script: gulp lint
-script: gulp test
+#script: gulp test
 before_deploy: gulp package
 notifications:
   email:
