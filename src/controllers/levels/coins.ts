@@ -3,7 +3,7 @@ import {Respond} from '../../services/response';
 import {getConnection} from '../../services/connection';
 
 const con = getConnection();
-module Chests {
+module Coins {
     /**
      * @api {post} /levels/coins/:userid Add Coins
      * @apiVersion 1.2.1
@@ -35,7 +35,7 @@ module Chests {
      *
      */
 
-    export async function addCoins (req: Request, res: Response) {
+    export async function add (req: Request, res: Response) {
         const userid = req.params.userid;
         if (userid.length > 18) { return Respond.userid_too_long(res); }
         const body = req.body;
@@ -101,7 +101,7 @@ module Chests {
      * @apiError property_required Property name required (400 for some reason)
      *
      */
-    export async function deleteCoins (req: Request, res: Response) {
+    export async function remove (req: Request, res: Response) {
         const userid = req.params.userid;
         if (userid.length > 18) { return Respond.userid_too_long(res); }
 

@@ -3,7 +3,7 @@ import {Respond} from '../../services/response';
 import {getConnection} from '../../services/connection';
 
 const con = getConnection();
-module Xp {
+module XP {
     /**
      * @api {post} /levels/xp/:userid  Add XP
      * @apiVersion 1.2.2
@@ -35,7 +35,7 @@ module Xp {
      *
      */
 
-   export async function addXp (req: Request, res: Response) {
+   export async function add (req: Request, res: Response) {
         const userid = req.params.userid;
         if (userid.length > 18) { return Response.userid_too_long(res); }
         const body = req.body;
@@ -102,7 +102,7 @@ module Xp {
      * @apiError property_required Property name required (400 for some reason)
      *
      */
-   export async function deleteXp (req: Request, res: Response) {
+   export async function remove (req: Request, res: Response) {
         const userid = req.params.userid;
         if (userid.length > 18) { return Response.userid_too_long(res); }
         const body = req.body;

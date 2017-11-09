@@ -1,5 +1,5 @@
 import {mysql as config} from '../config-rewrapper';
-import mysql, {Pool} from 'mysql';
+import {Pool} from 'mysql';
 
 let con: Pool;
 
