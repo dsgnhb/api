@@ -14,7 +14,7 @@ import * as exampleRoute from './routes/base';
 
 // Error handler service
 import { development as DevelopmentErrorHandler, production as ProductionErrorHandler } from './services/errorHandler';
-import {config} from "dotenv";
+import {config} from 'dotenv';
 
 // Main app
 const app = express();
@@ -42,7 +42,7 @@ app.use((req, res, next) => {
         res.status(403).json({error: 'Missing correct access Token'});
         return;
     }
-    next()
+    next();
 });
 
 // Register routes (as middleware layer through express.Router())
