@@ -10,9 +10,6 @@ typings/*
 src/.env
 # TODOs
 TODO
-# Configuration
-config.json
-
 # User-specific stuff:
 .vscode/**
 .idea/**/workspace.xml
