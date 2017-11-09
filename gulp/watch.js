@@ -4,15 +4,15 @@ let gulp = require('gulp');
 
 
 // flag to prevent multiple tests firing
-let testRunned = false;
+//let testRunned = false;
 
-gulp.task('tdd', 'Runs unit tests when file changes are detected', () => {
-  gulp.watch('dist/**/*.js', {awaitWriteFinish: true}, () => {
-    if (testRunned) {return false;}
-    testRunned = true;
-    gulp.start('testWithoutBuild', () => testRunned = false);
-  });
-});
+//gulp.task('tdd', 'Runs unit tests when file changes are detected', () => {
+//  gulp.watch('dist/**/*.js', {awaitWriteFinish: true}, () => {
+//    if (testRunned) {return false;}
+//    testRunned = true;
+//    gulp.start('testWithoutBuild', () => testRunned = false);
+//  });
+//});
 
 /**
  * Watches for ts files

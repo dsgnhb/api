@@ -20,7 +20,7 @@ function getPackageJson() {
   return JSON.parse($.fs.readFileSync('./package.json', 'utf-8'));
 }
 
-gulp.task('bump', false, ['lint', 'test'], () =>
+gulp.task('bump', false, ['lint', /*'test'*/], () =>
   gulp.src(['./package.json', './bower.json'])
     .pipe($.bump({ type: VERSION_TYPE}))
     .pipe(gulp.dest('./'))

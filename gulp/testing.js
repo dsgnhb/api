@@ -5,10 +5,10 @@ let gulp = require('gulp'),
   $ = require('gulp-load-plugins')({
     pattern: ['gulp-*', 'q', 'run-sequence', 'del']
   }),
-  environment = require('./lib/environment.js'),
-  Jasmine = require('jasmine'),
-  jasmine = new Jasmine();
-
+  environment = require('./lib/environment.js');//,
+ // Jasmine = require('jasmine'),
+  //jasmine = new Jasmine();
+/*
 
 // Configure Jasmine
 jasmine.loadConfigFile('src/spec/support/jasmine.json');
@@ -39,9 +39,9 @@ gulp.task('mochaTests', false, () => {
 
 // Code coverage report
 gulp.task('testCoverage', 'Generate a test coverage report (for mocha tests only)', () =>
-  $.runSequence(['build', 'cleanCoverage'], 'copyNonTs', () =>
-    gulp.src('dist/**/*.js')
-        .pipe($.istanbul())
+  $.runSequence(['build', 'cleanCoverage'], 'copyNonTs', () =>*/
+   // gulp.src('dist/**/*.js')
+      /*  .pipe($.istanbul())
         .pipe($.istanbul.hookRequire())
         .on('finish', function () {
           gulp.src('dist/spec/routes/exampleMochaSpec.js')
@@ -54,20 +54,20 @@ gulp.task('testCoverage', 'Generate a test coverage report (for mocha tests only
             );
         })
     )
-);
+);*/
 
 // Submit generated code coverage information to coveralls
-gulp.task('coveralls', 'Submit generated code coverage information to coveralls (works only under travis ci environment)', ['testCoverage'], () => {
-  gulp.src('coverage/**/lcov.info')
-      .pipe($.coveralls());
-});
+//gulp.task('coveralls', 'Submit generated code coverage information to coveralls (works only under travis ci environment)', ['testCoverage'], () => {
+//  gulp.src('coverage/**/lcov.info')
+//      .pipe($.coveralls());
+//});*/
 
 
 // Cleans the coverage folder
-gulp.task('cleanCoverage', false, () => $.del(['coverage']));
+//gulp.task('cleanCoverage', false, () => $.del(['coverage']));
 
 // Main test tasks, choose between mocha or jasmine (or keep both)
-gulp.task('test', 'Run unit tests (once)', ['build'], () => {
-  gulp.start('jasmineTests','mochaTests');
-});
-gulp.task('testWithoutBuild', 'Run unit tests(once) without building application', ['jasmineTests','mochaTests'])
+//gulp.task('test', 'Run unit tests (once)', ['build'], () => {
+//  gulp.start('jasmineTests','mochaTests');
+//});
+//gulp.task('testWithoutBuild', 'Run unit tests(once) without building application', ['jasmineTests','mochaTests'])
