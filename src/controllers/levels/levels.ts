@@ -1,5 +1,4 @@
-import {Request, Response} from 'express';
-import {Respond} from '../../services/response';
+import * as Re from '../../services/response';
 import {getConnection} from '../../services/connection';
 
 const con = getConnection();
@@ -15,7 +14,7 @@ module Levels {
      *
      */
 
-    export async function findAll (req: Request, res: Response) {
+    export async function findAllLevels (req, res) {
         con.query('SELECT userid, username, discriminator, avatar, xp, chests, coins' +
             ' FROM discord_levels ORDER BY xp DESC',
                   function (error, results) {
@@ -40,7 +39,7 @@ module Levels {
      * @apiError not_found Not found (404)
      *
      */
-    export async function findbyID (req: Request, res: Response) {
+    export async function findLevelbyID (req, res) {
         const userid = req.params.userid;
         con.query(
             'SELECT username, discriminator, avatar, xp, chests, coins,' +
@@ -50,8 +49,8 @@ module Levels {
             function (error, results) {
                 if (error) { throw error; }
                 results = results[0];
-                if (!results) { return Response.not_found(res); }
-                Response.success(res, results);
+                if (!results) { return Re.not_found(res); }
+                Re.success(res, results);
             }
         );
     }

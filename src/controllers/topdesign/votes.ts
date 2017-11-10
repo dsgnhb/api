@@ -1,9 +1,13 @@
-import {Request, Response} from 'express';
-import {Respond} from '../../services/response';
+import * as Re from '../../services/response';
 import {getConnection} from '../../services/connection';
+import Utility = require('../../util/util');
+import groupBy = Utility.groupBy;
+
+
 
 const con = getConnection();
 module Votes {
+
     /**
      * @api {post} /topdesign/vote/:postid   Vote for Post
      * @apiVersion 1.2.2
@@ -29,18 +33,19 @@ module Votes {
      * @apiError property_required Property name required
      *
      */
-    export function vote (req: Request, res: Response) {
+    export function vote (req, res) {
         const postid = req.params.postid;
         const body = req.body;
-        if (!body) { return Response.body_missing(res); }
+        const timeshort = Utility.timeshort(new Date());
+        if (!body) { return Re.body_missing(res); }
 
         const needed = ['userid'];
         for (let i = 0; i < needed.length; i++) {
             if (!body.hasOwnProperty(needed[i])) {
-                return Response.property_required(res, needed[i]);
+                return Re.property_required(res, needed[i]);
             }
         }
-        const timeshort = f.timeshort(new Date());
+
         con.query('SELECT designs.id, designs.username, COUNT(likes.postid) AS likes ' +
             'FROM discord_topdesign AS designs LEFT JOIN discord_topdesign_likes AS likes ' +
             'ON designs.id = likes.postid WHERE designs.active = 1 AND timeshort = ? AND designs.id = ?' +
@@ -48,7 +53,7 @@ module Votes {
                   [timeshort, postid], function (error, results) {
             if (error) { throw error; }
             let post = results[0];
-            if (!post) { return Response.not_found(res); }
+            if (!post) { return Re.not_found(res); }
             con.query('DELETE FROM discord_topdesign_likes ' +
                 'WHERE postid = ? AND userid = ?',
                       [postid, body.userid], function (error, results) {
@@ -60,14 +65,14 @@ module Votes {
                     };
                     con.query('INSERT INTO discord_topdesign_likes SET ?', [data], function (error) {
                         if (error) { throw error; }
-                        Response.success(res, {
+                        Re.success(res, {
                             action: 'add',
                             likes: post.likes + 1,
                             posted_by: post.username
                         });
                     });
                 } else {
-                    Response.success(res, {
+                    Re.success(res, {
                         action: 'remove',
                         likes: post.likes - 1,
                         posted_by: post.username
@@ -89,7 +94,7 @@ module Votes {
      * @apiError not_found Not found (404)
      *
      */
-    export function voted (req: Request, res: Response) {
+    export function voted (req, res) {
         const userid = req.params.userid;
         con.query('SELECT discord_topdesign.id AS id, discord_topdesign.timeshort ' +
             'AS timeshort FROM discord_topdesign, discord_topdesign_likes ' +
@@ -97,9 +102,9 @@ module Votes {
             'AND discord_topdesign_likes.userid = ?',
                   [userid], function (error, results) {
             if (error) { throw error; }
-            let grouped = f.groupBy(results, 'timeshort');
-            if (!grouped || results.length < 1) { return Response.not_found(res); }
-            Response.success(res, grouped);
+            let grouped = groupBy(results, 'timeshort');
+            if (!grouped || results.length < 1) { return Re.not_found(res); }
+            Re.success(res, grouped);
         });
     }
 
@@ -115,16 +120,16 @@ module Votes {
      * @apiError not_found Not found (404)
      *
      */
-    export function submissions (req: Request, res: Response) {
+    export function submissions (req, res) {
         const userid = req.params.userid;
         con.query('SELECT designs.id, designs.timeshort, designs.username, designs.avatar, designs.userid, designs.image,' +
             ' COUNT(likes.postid) AS likes FROM discord_topdesign AS designs LEFT JOIN discord_topdesign_likes AS likes ' +
             'ON designs.id = likes.postid WHERE designs.userid = ?',
                   [userid], function (error, results) {
             if (error) { throw error; }
-            let grouped = f.groupBy(results, 'timeshort');
-            if (grouped.null) { return Response.not_found(res); }
-            Response.success(res, grouped);
+            let grouped = groupBy(results, 'timeshort');
+            if (grouped.null) { return Re.not_found(res); }
+            Re.success(res, grouped);
         });
     }
 

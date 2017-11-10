@@ -1,5 +1,4 @@
-import {Request, Response} from 'express';
-import {Respond} from '../../services/response';
+import * as Re from '../../services/response';
 import {getConnection} from '../../services/connection';
 
 const con = getConnection();
@@ -35,16 +34,16 @@ module XP {
      *
      */
 
-   export async function add (req: Request, res: Response) {
+   export async function addXP (req, res) {
         const userid = req.params.userid;
-        if (userid.length > 18) { return Response.userid_too_long(res); }
+        if (userid.length > 18) { return Re.userid_too_long(res); }
         const body = req.body;
-        if (!body) { return Response.body_missing(res); }
+        if (!body) { return Re.body_missing(res); }
 
         const needed = ['username', 'avatar', 'xp', 'discriminator'];
         for (let i = 0; i < needed.length; i++) {
             if (!body.hasOwnProperty(needed[i])) {
-                return Response.property_required(res, needed[i]);
+                return Re.property_required(res, needed[i]);
             }
         }
         con.query('UPDATE discord_levels SET xp = xp + ? WHERE userid = ?', [body.xp, userid], function (error, results) {
@@ -66,7 +65,7 @@ module XP {
             con.query('SELECT xp FROM discord_levels WHERE userid = ?', [userid], function (error, results) {
                 if (error) { throw error; }
                 const newXP = results[0].xp;
-                Response.success(res, {
+                Re.success(res, {
                     action: 'add',
                     oldXP: newXP - body.xp,
                     newXP: newXP
@@ -102,16 +101,16 @@ module XP {
      * @apiError property_required Property name required (400 for some reason)
      *
      */
-   export async function remove (req: Request, res: Response) {
+   export async function deleteXP (req, res) {
         const userid = req.params.userid;
-        if (userid.length > 18) { return Response.userid_too_long(res); }
+        if (userid.length > 18) { return Re.userid_too_long(res); }
         const body = req.body;
-        if (!body) { return Response.body_missing(res); }
+        if (!body) { return Re.body_missing(res); }
 
         const needed = ['username', 'avatar', 'xp', 'discriminator'];
         for (let i = 0; i < needed.length; i++) {
             if (!body.hasOwnProperty(needed[i])) {
-                return Response.property_required(res, needed[i]);
+                return Re.property_required(res, needed[i]);
             }
         }
         con.query('SELECT xp FROM discord_levels WHERE userid = ?', [userid], function (error, results) {
@@ -130,18 +129,18 @@ module XP {
                 };
                 con.query('INSERT INTO discord_levels SET ?', [data], function (error) {
                     if (error) { throw error; }
-                    return Response.not_sufficient(res, 'xp');
+                    return Re.not_sufficient(res, 'xp');
                 });
             } else if (xp.cp >= body.xp) {
                 con.query('UPDATE discord_levels SET xp = xp - ? WHERE userid = ?', [body.xp, userid], function (error) {
                     if (error) { throw error; }
-                    Response.success(res, {
+                    Re.success(res, {
                         action: 'delete'
                     });
                 });
             } else {
                 // USER has not enough XP
-                return Response.not_sufficient(res, 'xp');
+                return Re.not_sufficient(res, 'xp');
             }
         });
     }

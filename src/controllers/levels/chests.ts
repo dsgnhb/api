@@ -1,5 +1,4 @@
-import {Request, Response} from 'express';
-import {Respond} from '../../services/response';
+import * as Re from '../../services/response';
 import {getConnection} from '../../services/connection';
 
 const con = getConnection();
@@ -35,16 +34,16 @@ module Chests {
      *
      */
 
-    export async function add(req: Request, res: Response) {
+    export async function addChest(req, res) {
         const userid = req.params.userid;
-        if (userid.length > 18) { return Respond.userid_too_long(res); }
+        if (userid.length > 18) { return Re.userid_too_long(res); }
         const body = req.body;
-        if (!body) { return Respond.body_missing(res); }
+        if (!body) { return Re.body_missing(res); }
 
         const needed = ['username', 'avatar', 'chests', 'discriminator'];
         for (let i = 0; i < needed.length; i++) {
             if (!body.hasOwnProperty(needed[i])) {
-                return Respond.property_required(res, needed[i]);
+                return Re.property_required(res, needed[i]);
             }
         }
         con.query('UPDATE discord_levels SET chests = chests + ? WHERE userid = ?', [body.chests, userid], function (error, results) {
@@ -66,7 +65,7 @@ module Chests {
             con.query('SELECT chests FROM discord_levels WHERE userid = ?', [userid], function (error, results) {
                 if (error) { throw error; }
                 const newChests = results[0].chests;
-                Respond.success(res, {
+                Re.success(res, {
                     action: 'add',
                     oldChests: newChests - body.chests,
                     newChests: newChests
@@ -102,16 +101,16 @@ module Chests {
      * @apiError property_required Property name required (400 for some reason)
      *
      */
-    export async function remove(req: Request, res: Response) {
+    export async function deleteChest(req, res) {
         const userid = req.params.userid;
-        if (userid.length > 18) { return Respond.userid_too_long(res); }
+        if (userid.length > 18) { return Re.userid_too_long(res); }
 
         const body = req.body;
-        if (!body) { return Respond.body_missing(res); }
+        if (!body) { return Re.body_missing(res); }
 
         const needed = ['username', 'avatar', 'chests', 'discriminator'];
         for (let i = 0; i < needed.length; i++) {
-            if (!body.hasOwnProperty(needed[i])) { return Respond.property_required(res, needed[i]); }
+            if (!body.hasOwnProperty(needed[i])) { return Re.property_required(res, needed[i]); }
         }
 
         con.query('SELECT chests FROM discord_levels WHERE userid = ?', [userid], function (error, results) {
@@ -130,18 +129,18 @@ module Chests {
                 };
                 con.query('INSERT INTO discord_levels SET ?', [data], function (error) {
                     if (error) { throw error; }
-                    return Respond.not_sufficient(res, 'chests');
+                    return Re.not_sufficient(res, 'chests');
                 });
             } else if (chests.chests >= body.chests) {
                 con.query('UPDATE discord_levels SET chests = chests - ? WHERE userid = ?', [body.chests, userid], function (error) {
                     if (error) { throw error; }
-                    Respond.success(res, {
+                    Re.success(res, {
                         action: 'delete'
                     });
                 });
             } else {
                 // USER has not enough CHESTS
-                Respond.not_sufficient(res, 'chests');
+                Re.not_sufficient(res, 'chests');
             }
         });
     }

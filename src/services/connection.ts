@@ -1,5 +1,5 @@
-import {mysql as config} from '../config-rewrapper';
-import {Pool} from 'mysql';
+import conf = require('../config-rewrapper');
+import {createPool, Pool} from 'mysql';
 
 let con: Pool;
 
@@ -14,12 +14,12 @@ module Connection {
     export function getConnection(): Pool {
         let self = this;
         if (con) { return con; }
-        con = mysql.createPool({
+        con = createPool({
             connectionLimit: 10,
-            host: config.host,
-            user: config.user,
-            password: config.password,
-            database: config.database,
+            host: conf.mysql.host,
+            user: conf.mysql.user,
+            password: conf.mysql.password,
+            database: conf.mysql.database,
             debug: false
         });
 

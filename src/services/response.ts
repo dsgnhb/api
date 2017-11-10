@@ -1,6 +1,6 @@
 import {Response} from 'express';
 
-module Respond {
+module Re {
     export function not_found(res: Response) {
     return res.status(404).json({error: 'Not found'});
     }
@@ -30,4 +30,4 @@ return res.status(408).json({error: 'You already inserted the topdesign for this
     }
 }
 
-export = Respond;
+export = Re;

@@ -1,3 +1,6 @@
+import C = require('../config-rewrapper');
+
+const imgur = require('imgur');
 module Utility {
     export function timeshort(date: Date): String {
         let monthInt = date.getMonth() + 1;
@@ -11,4 +14,16 @@ module Utility {
             return rv;
         },               {});
     }
+
+    export async function imgurUpload(url) {
+        imgur.setClientId(C.imgur.clientSecret);
+        try {
+            let json = await imgur.uploadUrl(url);
+            return json.data.link;
+        } catch (ex) {
+            console.error(ex.message);
+        }
+        return undefined;
+    }
 }
+export = Utility;

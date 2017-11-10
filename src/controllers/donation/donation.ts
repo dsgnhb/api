@@ -1,7 +1,5 @@
-import {Request, Response} from 'express';
-
 import {getConnection} from '../../services/connection';
-import * as Respond from '../../services/response';
+import * as Re from '../../services/response';
 
 const con = getConnection();
 module Donation {
@@ -29,19 +27,20 @@ module Donation {
      * @apiError property_required Property name required (400 for some reason)
      *
      */
-    export async function add(req: Request, res: Response) {
+    export async function addDonation(req, res) {
         const body: Body = req.body;
-        if (!req.body) { return Respond.body_missing(res); }
+        if (!req.body) { return Re.body_missing(res); }
 
-        const needed = ['ip', 'code', 'name'];
+        const needed: Array<string> = ['ip', 'code', 'name'];
         needed.some((property) => {
-                if (req.body.hasOwnProperty(property)) {
-                    return Respond.property_required(res, property);
+                if (!req.body.hasOwnProperty(property)) {
+                    Re.property_required(res, property);
+                    return true;
                 }
             });
         con.query('INSERT INTO discord_donations SET ?', [body], function (error) {
             if (error) { throw error; }
-            return Respond.success(res, {action: 'add'});
+            return Re.success(res, {action: 'add'});
         });
     }
 
@@ -55,10 +54,10 @@ module Donation {
      * @apiSuccess (200) {Object[]} results
      *
      */
-    export async function findAll(req: Request, res: Response) {
+    export async function findAllDonations(req, res) {
         con.query('SELECT * FROM discord_donations', (error, results) => {
             if (error) { throw error; }
-            Respond.success(res, results);
+            Re.success(res, results);
         });
     }
 }

@@ -1,5 +1,4 @@
-import {Request, Response} from 'express';
-import {Respond} from '../../services/response';
+import * as Re from '../../services/response';
 import {getConnection} from '../../services/connection';
 
 const con = getConnection();
@@ -35,16 +34,16 @@ module Coins {
      *
      */
 
-    export async function add (req: Request, res: Response) {
+    export async function addCoin (req, res) {
         const userid = req.params.userid;
-        if (userid.length > 18) { return Respond.userid_too_long(res); }
+        if (userid.length > 18) { return Re.userid_too_long(res); }
         const body = req.body;
-        if (!body) { return Respond.body_missing(res); }
+        if (!body) { return Re.body_missing(res); }
 
         const needed = ['username', 'avatar', 'coins', 'discriminator'];
         for (let i = 0; i < needed.length; i++) {
             if (!body.hasOwnProperty(needed[i])) {
-                return Respond.property_required(res, needed[i]);
+                return Re.property_required(res, needed[i]);
             }
         }
         con.query('UPDATE discord_levels SET coins = coins + ? WHERE userid = ?', [body.coins, userid], function (error, results) {
@@ -101,16 +100,16 @@ module Coins {
      * @apiError property_required Property name required (400 for some reason)
      *
      */
-    export async function remove (req: Request, res: Response) {
+    export async function deleteCoin (req, res) {
         const userid = req.params.userid;
-        if (userid.length > 18) { return Respond.userid_too_long(res); }
+        if (userid.length > 18) { return Re.userid_too_long(res); }
 
         const body = req.body;
-        if (!body) { return Respond.body_missing(res); }
+        if (!body) { return Re.body_missing(res); }
 
         const needed = ['username', 'avatar', 'coins', 'discriminator'];
         for (let i = 0; i < needed.length; i++) {
-            if (!body.hasOwnProperty(needed[i])) { return Respond.property_required(res, needed[i]); }
+            if (!body.hasOwnProperty(needed[i])) { return Re.property_required(res, needed[i]); }
         }
 
         con.query('SELECT coins FROM discord_levels WHERE userid = ?', [userid], function (error, results) {
@@ -129,18 +128,18 @@ module Coins {
                 };
                 con.query('INSERT INTO discord_levels SET ?', [data], function (error) {
                     if (error) { throw error; }
-                    return Respond.not_sufficient(res, 'coins');
+                    return Re.not_sufficient(res, 'coins');
                 });
             } else if (coins.coins >= body.coins) {
                 con.query('UPDATE discord_levels SET coins = coins - ? WHERE userid = ?', [body.coins, userid], function (error) {
                     if (error) { throw error; }
-                    Respond.success(res, {
+                    Re.success(res, {
                         action: 'delete'
                     });
                 });
             } else {
                 // USER has not enough COINS
-                Respond.not_sufficient(res, 'coins');
+                Re.not_sufficient(res, 'coins');
             }
         });
     }
