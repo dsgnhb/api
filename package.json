@@ -1,6 +1,6 @@
 {
   "name": "designhub-api",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "description": "REST API written in TypeScript using express and mysql",
   "author": "flo",
   "contributors": [
