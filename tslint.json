@@ -54,7 +54,7 @@
 		"no-trailing-whitespace": true,
 		"no-unused-expression": false,
 		"no-unused-variable": false,
-		"no-var-requires": true,
+		"no-var-requires": false,
 		"one-line": [
 			true,
 			"check-open-brace",
