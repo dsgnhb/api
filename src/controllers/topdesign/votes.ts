@@ -134,3 +134,4 @@ module Votes {
     }
 
 }
+export = Votes;

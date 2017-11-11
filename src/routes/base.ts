@@ -15,7 +15,6 @@ let router = Router();
 router.get('/', (req: Request, res: Response) => {
     res.json({version: '1.5.0'});
 });
-
 router.post(donate('/'), Donation.addDonation); // Add Donation
 router.get(donate('/'), Donation.findAllDonations);
 

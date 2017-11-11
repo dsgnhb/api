@@ -293,3 +293,4 @@ module Topdesign {
         });
     }
 }
+export = Topdesign;

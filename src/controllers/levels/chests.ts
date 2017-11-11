@@ -145,3 +145,4 @@ module Chests {
         });
     }
 }
+export = Chests;

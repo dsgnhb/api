@@ -145,3 +145,4 @@ module Coins {
     }
 
 }
+export = Coins;

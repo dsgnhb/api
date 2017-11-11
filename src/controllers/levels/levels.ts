@@ -55,3 +55,4 @@ module Levels {
         );
     }
 }
+export = Levels;

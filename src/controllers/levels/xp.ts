@@ -145,3 +145,4 @@ module XP {
         });
     }
 }
+export = XP;
