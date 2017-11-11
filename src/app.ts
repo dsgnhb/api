@@ -12,6 +12,7 @@ import * as morgan from 'morgan';
 // Modular Route definitions
 import * as router from './routes/base';
 
+
 // Error handler service
 import { development as DevelopmentErrorHandler, production as ProductionErrorHandler } from './services/errorHandler';
 import C = require('./config-rewrapper');
@@ -37,7 +38,7 @@ app.use(cors({
 
 
 app.use((req, res, next) => {
-    const publicEndpoints = ['/', '/topdesign/posts/month', '/levels', '/donate', '/topdesign/posts/currentmonth'];
+    const publicEndpoints: Array<string> = ['/', '/topdesign/posts/month', '/levels', '/donate', '/topdesign/posts/currentmonth'];
     if (!C.apiKeys.includes(req.header('token')) && publicEndpoints.indexOf(req.path) === -1) {
         res.status(403).json({error: 'Missing correct access Token'});
         return;
