@@ -80,6 +80,6 @@
     "node": ">=0.10.0"
   },
   "scripts": {
-    "postinstall": "typings install"
+    "postinstall": "npm i -g typings && typings install"
   }
 }
