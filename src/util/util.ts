@@ -19,6 +19,9 @@ module Utility {
         imgur.setClientId(C.imgur.clientSecret);
         try {
             let json = await imgur.uploadUrl(url);
+            if (C.development) {
+                console.log('Imgur Data: ' + json);
+            }
             return json.data.link;
         } catch (ex) {
             console.error(ex.message);

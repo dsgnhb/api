@@ -28,7 +28,6 @@ app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(cookieParser());
-// app.use(express.static(path.join(__dirname, 'public'))); //serve public
 app.use(morgan('short'));
 
 app.use(cors({
@@ -61,7 +60,7 @@ app.use((req: express.Request, res: express.Response, next: Function) => {
 
 // development error handler - will print stacktrace
 // production error handler - no stacktraces leaked to user
-if (app.get('env') === 'development') {
+if (C.development) {
   app.use(DevelopmentErrorHandler);
 } else {
   app.use(ProductionErrorHandler);

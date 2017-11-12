@@ -2,6 +2,7 @@
 
 // Test routes
 import {Request, Response, Router} from 'express';
+import C = require('./config-rewrapper');
 
 const Donation = require('../controllers/donation/donation');
 const TopDesign = require('../controllers/topdesign/topdesign');
@@ -38,13 +39,14 @@ router.post(levels('/chests/:userid'), Chests.addChest); // Add Chests
 router.delete(levels('/chests/:userid'), Chests.deleteChest); // Delete Chests
 router.post(levels('/coins/:userid'), Coins.addCoin); // Add Coins
 router.delete(levels('/coins/:userid'), Coins.deleteCoin); // Delete Coins
-/*
-main.stack.forEach(function(r){
-  if (r.route && r.route.path) {
-    console.log(r.route.path + '  ' + r.route.stack[0].method);
 
+if (C.development) {
+main.stack.forEach(function(r) {
+  if (r.route && r.route.path) {
+    console.log(r.route.stack[0].method + '  ' + r.route.path  );
   }
-}) */
+});
+}
 
 function topdesign (routename) {
     return `/topdesign${routename}`;

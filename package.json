@@ -80,7 +80,6 @@
     "node": ">=0.10.0"
   },
   "scripts": {
-    "postinstall": "typings install",
-    "hi": "echo hi"
+    "postinstall": "typings install"
   }
 }

@@ -10,5 +10,6 @@ export = {
         clientID: process.env.IMGUR_CLIENT_ID,
         clientSecret: process.env.IMGUR_CLIENT_SECRET
     },
-    env: process.env.ENVIRONMENT
+    env: process.env.ENVIRONMENT,
+    development: process.env.ENVIRONMENT.contains('development')
 };
