@@ -16,6 +16,7 @@ import * as router from './routes/base';
 // Error handler service
 import { development as DevelopmentErrorHandler, production as ProductionErrorHandler } from './services/errorHandler';
 import C = require('./config-rewrapper');
+import {errors} from 'celebrate';
 
 // Main app
 const app = express();
@@ -47,6 +48,8 @@ app.use((req, res, next) => {
 
 // Register routes (as middleware layer through express.Router())
 app.use(router);
+
+app.use(errors());
 
 // catch 404 and forward to error handler
 app.use((req: express.Request, res: express.Response, next: Function) => {
