@@ -182,8 +182,7 @@ module Topdesign {
             }
         }
 
-        let exists = await this.findbyUserIDandTime(body.userid);
-        if (exists) {
+        if (await this.findbyUserIDandTime(body.userid)) {
             return Re.already_existing(res);
         }
 
