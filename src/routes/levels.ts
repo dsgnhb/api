@@ -1,5 +1,5 @@
-import {Router} from "express";
-import {levels} from "../services/route";
+import {Router} from 'express';
+import {levels} from '../services/route';
 const Chests = require('../controllers/levels/chests');
 const Coins = require('../controllers/levels/coins');
 const Level = require('../controllers/levels/levels');

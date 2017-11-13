@@ -1,5 +1,5 @@
-import {Router} from "express";
-import {topdesign} from "../services/route";
+import {Router} from 'express';
+import {topdesign} from '../services/route';
 
 const Vote = require('../controllers/topdesign/votes');
 
