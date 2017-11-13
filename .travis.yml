@@ -21,5 +21,5 @@ deploy:
     repo: dsgnhb/api
     branch: refactor
     tags: true
-after_success:
-- gulp coveralls
+#after_success:
+#- gulp coveralls
