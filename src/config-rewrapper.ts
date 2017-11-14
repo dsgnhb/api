@@ -11,5 +11,5 @@ export = {
         clientSecret: process.env.IMGUR_CLIENT_SECRET
     },
     env: process.env.ENVIRONMENT,
-    development: process.env.ENVIRONMENT.contains('development')
+    development: process.env.ENVIRONMENT.includes('development')
 };
