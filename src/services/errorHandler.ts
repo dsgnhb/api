@@ -11,7 +11,7 @@ module ErrorHandler {
    */
   let handler = (err: Error, req: Request, res: Response, next: Function, includeStackTrace: boolean) => {
     res.status(res.statusCode || 500);
-    res.render('error', {
+    res.json({
       message: err.message,
       error:   includeStackTrace ? err : {}
     });
