@@ -46,7 +46,8 @@
     "mysql": "^2.15.0",
     "path": "^0.12.7",
     "pm2": "^2.7.2",
-    "serve-favicon": "^2.4.5"
+    "serve-favicon": "^2.4.5",
+    "express-handlebars": "^3.0.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",

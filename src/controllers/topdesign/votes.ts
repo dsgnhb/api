@@ -41,11 +41,13 @@ module Votes {
 
         const needed = ['userid'];
         for (let i = 0; i < needed.length; i++) {
+            // This 2 Liner checks if our request is properly sent. Maybe we could add a type check here too?
             if (!body.hasOwnProperty(needed[i])) {
                 return Re.property_required(res, needed[i]);
             }
         }
 
+        // FIXME: Fuck this, I see, why it's nescessay but it could be performed in the Database too...
         con.query('SELECT designs.id, designs.username, COUNT(likes.postid) AS likes ' +
             'FROM discord_topdesign AS designs LEFT JOIN discord_topdesign_likes AS likes ' +
             'ON designs.id = likes.postid WHERE designs.active = 1 AND timeshort = ? AND designs.id = ?' +
@@ -59,11 +61,7 @@ module Votes {
                       [postid, body.userid], function (error, results) {
                 if (error) { throw error; }
                 if (results.affectedRows === 0) {
-                    let data = {
-                        userid: body.userid,
-                        postid: postid
-                    };
-                    con.query('INSERT INTO discord_topdesign_likes SET ?', [data], function (error) {
+                    con.query('INSERT INTO discord_topdesign_likes SET ?', {userid: body.userid, postid: postid}, function (error) {
                         if (error) { throw error; }
                         Re.success(res, {
                             action: 'add',
