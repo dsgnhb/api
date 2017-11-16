@@ -54,6 +54,7 @@
     "babel-require": "^1.0.1",
     "del": "^2.2.2",
     "gulp": "^3.9.1",
+    "gulp-apidoc": "^0.2.6",
     "gulp-bump": "^2.8.0",
     "gulp-filter": "^4.0.0",
     "gulp-git": "^1.15.1",

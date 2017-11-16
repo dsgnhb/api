@@ -5,8 +5,7 @@ let gulp = require('gulp'),
   $ = require('gulp-load-plugins')({
     pattern: ['gulp-*', 'del', 'run-sequence', 'gulp-apidoc']
   }),
- // apidoc = require('gulp-apidoc'),
- // path= require('path'),
+  apidoc = require('gulp-apidoc'),
   config = require('./config.json'),
   tsConfig = require('../tsconfig.json');
 
@@ -15,10 +14,10 @@ let gulp = require('gulp'),
  *
  * @link https://github.com/ivogabe/gulp-typescript
  */
-var tsProject = $.typescript.createProject('tsconfig.json', {
+const tsProject = $.typescript.createProject('tsconfig.json', {
   // Override package version of typescript to use latest compiler version
   typescript: require('typescript')
-});
+})
 
 /**
  * Cleans the dist folder
@@ -47,8 +46,8 @@ gulp.task('lint', 'Runs a typescript linter on the application code', () =>
  */
 gulp.task('compile', false, () => {
 
-  var tsResult = gulp.src(tsConfig.files)
-    .pipe(tsProject($.typescript.reporter.longReporter()));
+  const tsResult = gulp.src(tsConfig.files)
+    .pipe(tsProject($.typescript.reporter.longReporter()))
 
   return tsResult.js
     .pipe(gulp.dest('dist'));
@@ -56,15 +55,15 @@ gulp.task('compile', false, () => {
 
 /**
  * Generates API Docs
-
+ */
 gulp.task('apidoc', 'Builds APIDocs', (callback) => {
 
   apidoc({
-    config: path.resolve(__dirname,'../'),
-    src: path.resolve(__dirname,'../src/'),
-    dest: gulp.dest('dist/apidoc')
+    config: './',
+    src: './src/',
+    dest: './dist/apidoc'
   },callback);
-});*/
+});
 
 /**
  * Build the server app
@@ -73,6 +72,6 @@ gulp.task('build', 'Builds the server app (compiles & copies)', (callback) =>
   $.runSequence('clean',
               ['compile'],
               'copyNonTs',
-             // 'apidoc',
+              'apidoc',
               callback)
 );

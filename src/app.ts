@@ -19,6 +19,7 @@ import post_router from './routes/posts';
 import levels_router from './routes/levels';
 import donate_router from './routes/donate';
 import root_router from './routes/root';
+import * as path from 'path';
 
 // Main app
 const app = express();
@@ -37,6 +38,7 @@ app.use(cors({
     origin: true
 }));
 
+app.use('/documentation', express.static(path.join(__dirname, './apidoc')));
 
 app.use((req, res, next) => {
     const publicEndpoints: Array<string> = ['/', '/topdesign/posts/month', '/levels', '/donate', '/topdesign/posts/currentmonth'];
