@@ -12,4 +12,4 @@ export = {
   },
   env: process.env.ENVIRONMENT,
   development: process.env.ENVIRONMENT.includes('development')
-}
+};
