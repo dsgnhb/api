@@ -5,8 +5,8 @@ REST API written in node.js using express and mysql
 
 This API is primarily intended for intern usage.
 
-###### API Docs (don't work yet)
-###### Find the API Docs in the release bundle, or in the `dist/apidoc` folder after building.
+## API Docs
+The generated ApiDocs are stored in the `dist/apidoc` folder after building, or accessible via the route `/documentation`
 
 ## Build system
 
@@ -14,7 +14,6 @@ Several gulp tasks are provided, which are described by running `gulp help`:
 
 - typescript linting/compiling tasks (watch/watchAndServe/lint/tdd)
 - server application + autorestart it when code changes (through [nodemon](https://www.npmjs.com/package/nodemon))
-- run tests (jasmine/mocha + supertest included as examples)
 
 ## Installation
 
