@@ -33,6 +33,7 @@
     "@types/morgan": "^1.7.35",
     "@types/mysql": "^2.15.1",
     "@types/node": "^8.0.50",
+    "@types/sequelize": "^4.0.79",
     "@types/serve-favicon": "^2.2.29",
     "body-parser": "^1.18.2",
     "celebrate": "^7.0.1",
@@ -46,6 +47,7 @@
     "mysql": "^2.15.0",
     "path": "^0.12.7",
     "pm2": "^2.7.2",
+    "sequelize": "^4.22.8",
     "serve-favicon": "^2.4.5"
   },
   "devDependencies": {
