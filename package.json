@@ -1,13 +1,17 @@
 {
   "name": "designhub-api",
-  "version": "1.5.4",
+  "version": "1.6.0",
   "description": "REST API written in TypeScript using express and mysql",
-  "author": "flo",
+  "author": "dsgnhb",
   "contributors": [
     {
       "name": "Luk vonStrom",
       "email": "lukvonstrom@web.de",
       "url": "https://lukvonstrom.de"
+    },
+    {
+      "name": "flo",
+      "url": "http://flooo.me"
     },
     {
       "name": "Fin Reinhhard",
@@ -41,13 +45,14 @@
     "debug": "^3.1.0",
     "dotenv": "^4.0.0",
     "express": "^4.16.2",
+    "express-handlebars": "^3.0.0",
     "imgur": "^0.2.1",
     "morgan": "^1.9.0",
     "mysql": "^2.15.0",
     "path": "^0.12.7",
     "pm2": "^2.7.2",
-    "serve-favicon": "^2.4.5",
-    "express-handlebars": "^3.0.0"
+    "sequelize": "^4.22.8",
+    "serve-favicon": "^2.4.5"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",

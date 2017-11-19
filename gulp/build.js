@@ -28,7 +28,7 @@ gulp.task('clean', false, () => $.del(['dist']));
  * Precopies all non-ts files into the dist folder
  */
 gulp.task('copyNonTs', false, () =>
-  gulp.src(['src/.env', 'src/**/*', '!src/**/*.ts'])
+  gulp.src(['!src/.env', 'src/**/*', '!src/**/*.ts'])
     .pipe(gulp.dest('dist'))
 );
 
