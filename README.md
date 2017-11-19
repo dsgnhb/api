@@ -26,7 +26,7 @@ Several gulp tasks are provided, which are described by running `gulp help`:
 during development to get hot code-reloading/test running when you modify your code
 
 ## Running production server:
-
+### Do not forget renaming the file `.env.example` located in `src` folder to `.env` and insert your data correctly.
 To make use of all your server resources, it is recommended to run the server in cluster mode (via the [PM2](https://www.npmjs.com/package/pm2) package)
 
 Use the `gulp serveCluster` task. You can monitor the cluster and issue commands by running pm2 command (for this you might want to install pm2 globally, `npm install pm2 -g`)
