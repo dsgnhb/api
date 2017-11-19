@@ -1,13 +1,17 @@
 {
   "name": "designhub-api",
-  "version": "1.5.4",
+  "version": "1.6.0",
   "description": "REST API written in TypeScript using express and mysql",
-  "author": "flo",
+  "author": "dsgnhb",
   "contributors": [
     {
       "name": "Luk vonStrom",
       "email": "lukvonstrom@web.de",
       "url": "https://lukvonstrom.de"
+    },
+    {
+      "name": "flo",
+      "url": "http://flooo.me"
     },
     {
       "name": "Fin Reinhhard",
