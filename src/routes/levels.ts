@@ -1,9 +1,9 @@
 import {Router} from 'express';
 import {levels} from '../services/route';
-const Chests = require('../controllers/levels/chests');
-const Coins = require('../controllers/levels/coins');
+const Chests = require('../controllers/levels/chests/chests');
+const Coins = require('../controllers/levels/coins/coins');
 const Level = require('../controllers/levels/levels');
-const XP = require('../controllers/levels/xp');
+const XP = require('../controllers/levels/xp/xp');
 let levels_router = Router();
 
 levels_router.get(levels('/'), Level.findAllLevels); // Get all Level System data

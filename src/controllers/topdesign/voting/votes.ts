@@ -1,6 +1,6 @@
-import * as Re from '../../services/response';
-import {getConnection} from '../../services/connection';
-import Utility = require('../../util/util');
+import * as Re from '../../../services/response';
+import {getConnection} from '../../../services/connection';
+import Utility = require('../../../util/util');
 import groupBy = Utility.groupBy;
 
 

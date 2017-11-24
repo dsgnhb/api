@@ -1,7 +1,7 @@
 import {Router} from 'express';
 import {topdesign} from '../services/route';
 
-const Vote = require('../controllers/topdesign/votes');
+const Vote = require('../controllers/topdesign/voting/votes');
 
 let topdesign_router = Router();
 
