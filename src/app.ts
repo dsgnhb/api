@@ -65,6 +65,16 @@ app.use((req: express.Request, res: express.Response, next: Function) => {
     return next(err);
 });
 
+app.use('*', (err, req, res, next) => {
+    if (err.isJoi) {
+        let error = {};
+        error[err.details.name] = err.details.message;
+        res.status(500).json(JSON.stringify(error));
+    }
+
+    return next(err);
+});
+
 // error handlers
 
 // development error handler - will print stacktrace
