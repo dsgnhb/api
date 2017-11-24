@@ -1,8 +1,9 @@
 'use strict';
 
-const celebrate = require('celebrate');
+const {celebrate} = require('celebrate');
 
-class Vayder {
+
+export class Vayder {
 
     /** Will validate the request object with the specified schemas
      * @param {Object} schemaMap - map of req inputs => JOI schema to validate
@@ -15,10 +16,12 @@ class Vayder {
         return celebrate(schemaMap, opts);
     }
 
+    // noinspection JSUnusedGlobalSymbols
     /** Facade wrapper for validateInputs
      * @param {Object} schemaObj - JOI schema to validate input against
      * @param {Object} options - [optional] options to pass to Joi directly
      */
+
     static validateHeaders(schemaObj, options) {
         return Vayder.validateInputs({ headers: schemaObj }, options);
     }
@@ -31,6 +34,7 @@ class Vayder {
         return Vayder.validateInputs({ body: schemaObj }, options);
     }
 
+    // noinspection JSUnusedGlobalSymbols
     /** Facade wrapper for validateInputs
      * @param {Object} schemaObj - JOI schema to validate input against
      * @param {Object} options - [optional] options to pass to Joi directly
@@ -39,6 +43,7 @@ class Vayder {
         return Vayder.validateInputs({ params: schemaObj }, options);
     }
 
+    // noinspection JSUnusedGlobalSymbols
     /** Facade wrapper for validateInputs
      * @param {Object} schemaObj - JOI schema to validate input against
      * @param {Object} options - [optional] options to pass to Joi directly
@@ -47,8 +52,6 @@ class Vayder {
         return Vayder.validateInputs({ query: schemaObj }, options);
     }
 }
-
-module.exports = Vayder;
 
 /*
 MIT License
