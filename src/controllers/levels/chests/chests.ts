@@ -1,52 +1,49 @@
-import * as Re from '../../services/response';
-import {getConnection} from '../../services/connection';
+import * as Re from '../../../services/response';
+import {getConnection} from '../../../services/connection';
 
 const con = getConnection();
-module Coins {
+module Chests {
     /**
-     * @api {post} /levels/coins/:userid Add Coins
-     * @apiVersion 1.2.1
-     * @apiName AddCoins
-     * @apiDescription Add Coins
+     * @api {post} /levels/chests/:userid Add Chests
+     * @apiVersion 1.2.2
+     * @apiName AddChests
+     * @apiDescription Add Chests
      * @apiGroup Levels
      *
      * @apiParam {String} username
      * @apiParam {Object} avatar
-     * @apiParam {Number} coins
+     * @apiParam {Number} chests
      * @apiParam {Object} discriminator
      *
      * @apiSuccess (200) {Object} result
      * @apiSuccess (200) {String} result.action
-     * @apiSuccess (200) {Number} result.oldCoins
-     * @apiSuccess (200) {Number} result.newCoins
+     * @apiSuccess (200) {Number} result.oldChests
+     * @apiSuccess (200) {Number} result.newChests
      *
      * @apiSuccessExample {json} Success-Example:
      *     HTTP/1.1 200
      *     {
      *        "action": "add",
-     *        "oldCoins": 3
-     *        "newCoins": 5
+     *        "oldChests": 3
+     *        "newChests": 5
      *     }
      *
-     * @apiError userid_too_long Userid can only be 18 characters long (500 code for some reason)
-     * @apiError body_missing Request Body is missing (500 code for some reason)
-     * @apiError property_required Property name required (400 for some reason)
      *
      */
 
-    export async function addCoin (req, res) {
+    export async function addChest(req, res) {
         const userid = req.params.userid;
         if (userid.length > 18) { return Re.userid_too_long(res); }
         const body = req.body;
         if (!body) { return Re.body_missing(res); }
 
-        const needed = ['username', 'avatar', 'coins', 'discriminator'];
+        const needed = ['username', 'avatar', 'chests', 'discriminator'];
         for (let i = 0; i < needed.length; i++) {
             if (!body.hasOwnProperty(needed[i])) {
                 return Re.property_required(res, needed[i]);
             }
         }
-        con.query('UPDATE discord_levels SET coins = coins + ? WHERE userid = ?', [body.coins, userid], function (error, results) {
+        con.query('UPDATE discord_levels SET chests = chests + ? WHERE userid = ?', [body.chests, userid], function (error, results) {
             if (error) { throw error; }
             if (results.changedRows === 0) {
                 let data = {
@@ -55,34 +52,35 @@ module Coins {
                     discriminator: body.discriminator,
                     avatar: body.avatar,
                     xp: 0,
-                    chests: 0,
-                    coins: 100 + body.coins
+                    chests: body.chests,
+                    coins: 100
                 };
                 con.query('INSERT INTO discord_levels SET ?', [data], function (error) {
                     if (error) { throw error; }
                 });
             }
-            con.query('SELECT coins FROM discord_levels WHERE userid = ?', [userid], function (error, results) {
+            con.query('SELECT chests FROM discord_levels WHERE userid = ?', [userid], function (error, results) {
                 if (error) { throw error; }
-                const newCoins = results[0].coins;
-                res.json({
+                const newChests = results[0].chests;
+                Re.success(res, {
                     action: 'add',
-                    oldCoins: newCoins - body.coins,
-                    newCoins: newCoins
+                    oldChests: newChests - body.chests,
+                    newChests: newChests
                 });
             });
         });
     }
+
     /**
-     * @api {delete} /levels/coins/:userid Delete Coins
-     * @apiVersion 1.2.1
-     * @apiName DeleteCoins
-     * @apiDescription Delete coins
+     * @api {delete} /levels/chests/:userid Delete Chests
+     * @apiVersion 1.2.2
+     * @apiName DeleteChests
+     * @apiDescription Delete Chests
      * @apiGroup Levels
      *
      * @apiParam {String} username
      * @apiParam {Object} avatar
-     * @apiParam {Number} coins
+     * @apiParam {Number} chests
      * @apiParam {Object} discriminator
      *
      * @apiSuccess (200) {Object} result
@@ -95,27 +93,27 @@ module Coins {
      *     }
      *
      * @apiError userid_too_long Userid can only be 18 characters long (500 code for some reason)
-     * @apiError not_sufficientv User has not enough coins (500 for some reason)
+     * @apiError not_sufficientv User has not enough chests (500 for some reason)
      * @apiError body_missing Request Body is missing (500 code for some reason)
      * @apiError property_required Property name required (400 for some reason)
      *
      */
-    export async function deleteCoin (req, res) {
+    export async function deleteChest(req, res) {
         const userid = req.params.userid;
         if (userid.length > 18) { return Re.userid_too_long(res); }
 
         const body = req.body;
         if (!body) { return Re.body_missing(res); }
 
-        const needed = ['username', 'avatar', 'coins', 'discriminator'];
+        const needed = ['username', 'avatar', 'chests', 'discriminator'];
         for (let i = 0; i < needed.length; i++) {
             if (!body.hasOwnProperty(needed[i])) { return Re.property_required(res, needed[i]); }
         }
 
-        con.query('SELECT coins FROM discord_levels WHERE userid = ?', [userid], function (error, results) {
+        con.query('SELECT chests FROM discord_levels WHERE userid = ?', [userid], function (error, results) {
             if (error) { throw error; }
-            const coins = results[0];
-            if (!coins) {
+            const chests = results[0];
+            if (!chests) {
                 // USER isn't in DB yet
                 let data = {
                     userid: userid,
@@ -128,21 +126,20 @@ module Coins {
                 };
                 con.query('INSERT INTO discord_levels SET ?', [data], function (error) {
                     if (error) { throw error; }
-                    return Re.not_sufficient(res, 'coins');
+                    return Re.not_sufficient(res, 'chests');
                 });
-            } else if (coins.coins >= body.coins) {
-                con.query('UPDATE discord_levels SET coins = coins - ? WHERE userid = ?', [body.coins, userid], function (error) {
+            } else if (chests.chests >= body.chests) {
+                con.query('UPDATE discord_levels SET chests = chests - ? WHERE userid = ?', [body.chests, userid], function (error) {
                     if (error) { throw error; }
                     Re.success(res, {
                         action: 'delete'
                     });
                 });
             } else {
-                // USER has not enough COINS
-                Re.not_sufficient(res, 'coins');
+                // USER has not enough CHESTS
+                Re.not_sufficient(res, 'chests');
             }
         });
     }
-
 }
-export = Coins;
+export = Chests;

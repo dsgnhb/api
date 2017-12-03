@@ -23,21 +23,10 @@ module Donation {
      *        "action": "add"
      *     }
      *
-     * @apiError body_missing Request Body is missing (500 code for some reason)
-     * @apiError property_required Property name required (400 for some reason)
      *
      */
     export async function addDonation(req, res) {
         const body: Body = req.body;
-        if (!req.body) { return Re.body_missing(res); }
-
-        const needed: Array<string> = ['ip', 'code', 'name'];
-        needed.some((property) => {
-                if (!req.body.hasOwnProperty(property)) {
-                    Re.property_required(res, property);
-                    return true;
-                }
-            });
         con.query('INSERT INTO discord_donations SET ?', [body], function (error) {
             if (error) { throw error; }
             return Re.success(res, {action: 'add'});
