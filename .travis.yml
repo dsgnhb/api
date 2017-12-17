@@ -23,3 +23,7 @@ deploy:
     tags: true
 #after_success:
 #- gulp coveralls
+cache:
+  directories:
+  - node_modules/
+  - pupeteer/
