@@ -1,6 +1,4 @@
-# API [![Build Status](https://travis-ci.org/dsgnhb/api.svg?branch=dev)](https://travis-ci.org/dsgnhb/api)
-
-[![Greenkeeper badge](https://badges.greenkeeper.io/dsgnhb/api.svg)](https://greenkeeper.io/)
+# API [![Build Status](https://travis-ci.org/dsgnhb/api.svg?branch=dev)](https://travis-ci.org/dsgnhb/api) [![Greenkeeper badge](https://badges.greenkeeper.io/dsgnhb/api.svg)](https://greenkeeper.io/)
 
 
 REST API written in node.js using express, mysql and standardjs.
