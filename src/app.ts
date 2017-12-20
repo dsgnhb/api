@@ -56,7 +56,8 @@ app.use(post_router);
 app.use(topdesign_router);
 
 // Dear Future me: This may help or may not.
-//app.use(errors());
+
+// app.use(errors());
 
 // catch 404 and forward to error handler
 app.use((req: express.Request, res: express.Response, next: Function) => {
