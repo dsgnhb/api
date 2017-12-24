@@ -7,7 +7,7 @@ root_router.get('/', getPackageVersion);
 if (process.env.CI) {
 root_router.get('/shutdown', (req, res) => {
 
-        process.exit(0);
+    process.kill(process.pid, 'SIGUSR2');
 
 });
 }

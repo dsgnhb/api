@@ -88,7 +88,7 @@ if (C.development) {
 }
 
 if (process.env.CINOTEST) {
-        process.exit(0);
+    process.kill(process.pid, 'SIGUSR2');
 }
 
 export default app;
