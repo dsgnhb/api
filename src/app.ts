@@ -87,7 +87,7 @@ if (C.development) {
   app.use(ProductionErrorHandler);
 }
 
-if (process.env.CINOTEST) {
+if (process.env.CI && process.env.CINOTEST) {
     process.exit(0);
 }
 export default app;
