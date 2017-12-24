@@ -2,7 +2,7 @@ language: node_js
 node_js:
 - '7'
 - '8'
-before_install: npm install -g gulp
+before_install: npm install -g gulp && mysql -e 'CREATE DATABASE designhub; USE designhub;' && mysql -u root < ./src/spec/designhub_preseeded.sql
 install: npm install
 before_script: gulp lint
 before_deploy: gulp package
@@ -27,3 +27,5 @@ cache:
   directories:
   - node_modules/
   - pupeteer/
+services:
+  - mysql
