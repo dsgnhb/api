@@ -31,7 +31,7 @@ Resources related to donations in the API.
 
 + Request
     + Headers
-
+    
             Token: (ApiKey)
 
 
@@ -47,11 +47,11 @@ Resources related to donations in the API.
 + Request (application/json)
 
     + Headers
-
+    
             Token: (ApiKey)
 
     + Body
-
+        
             {
                 "name" : "lukas".
                 "ip": "127.0.0.1",
@@ -96,7 +96,7 @@ Resources related to levels in the API.
         + chests: 35 (number)
         + coins: 1195 (number)
         + rank: 1 (number)
-
+    
 + Response 404 (application/json)
     + Attributes (NotFound)
 
@@ -131,7 +131,7 @@ Resources related to levels in the API.
         + action: remove (string)
         + oldXP: 5 (number)
         + newXP: 3 (number)
-
+    
 
 
 ## Chests [/levels/chests/{userid}]
@@ -150,7 +150,7 @@ Resources related to levels in the API.
         + action: add (string)
         + oldChests: 3 (number)
         + newChests: 5 (number)
-
+    
 ### Remove Chests from specified User [DELETE]
 
 + Request (application/json)
@@ -162,7 +162,7 @@ Resources related to levels in the API.
         + action: remove (string)
         + oldChests: 5 (number)
         + newChests: 3 (number)
-
+    
 
 ## Coins [/levels/coins/{userid}]
 + Parameters
@@ -180,7 +180,7 @@ Resources related to levels in the API.
         + action: add (string)
         + oldCoins: 3 (number)
         + newCoins: 5 (number)
-
+    
 ### Remove Coins from specified User [DELETE]
 
 + Request (application/json)
