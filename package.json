@@ -89,6 +89,6 @@
   },
   "scripts": {
     "postinstall": "npm i -g typings && typings install",
-    "test": "gulp serve"
+    "test": "gulp build && node ./dist/server.js"
   }
 }
