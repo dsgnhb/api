@@ -89,6 +89,6 @@
   },
   "scripts": {
     "postinstall": "npm i -g typings && typings install",
-    "test": "echo placeholder"
+    "test": "gulp serve"
   }
 }

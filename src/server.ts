@@ -8,10 +8,18 @@ if (!fs.existsSync('src/.env') && fs.existsSync('src/.env.example')) {
     process.exit(1);
 }
 
-dotenv.config({
-    path: 'src/.env'
-});
-checker();
+if (process.env.CI) {
+    dotenv.config({
+        path: 'src/.env.test'
+    });
+} else {
+    dotenv.config({
+        path: 'src/.env'
+    });
+    checker();
+}
+
+
 
 import app from './app';
 
@@ -19,8 +27,8 @@ const port = 8080;
 app.set('port', port);
 
 app.listen(app.get('port'), () => {
-    console.log('API listening on port ' + port);
-}).on('error', err => {
-    console.log('Cannot start server, port most likely in use');
-    console.log(err);
-});
+        console.log('API listening on port ' + port);
+    }).on('error', err => {
+        console.log('Cannot start server, port most likely in use');
+        console.log(err);
+    });
