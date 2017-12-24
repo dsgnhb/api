@@ -88,15 +88,6 @@ if (C.development) {
 }
 
 if (process.env.CINOTEST) {
-    process.kill(process.pid, 'SIGUSR2');
+    process.exit(0);
 }
-
-if (process.env.CINOTEST || process.env.CI) {
-    process.once('SIGUSR2', function () {
-        gracefulShutdown(function () {
-            process.kill(process.pid, 'SIGUSR2');
-        });
-    });
-}
-
 export default app;
