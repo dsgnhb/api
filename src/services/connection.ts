@@ -20,7 +20,7 @@ module Connection {
             user: conf.mysql.user,
             password: conf.mysql.password,
             database: conf.mysql.database,
-            debug: conf.development
+            debug: conf.mysql_development
         });
 
         con.on('error', function (err) {

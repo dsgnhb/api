@@ -1,4 +1,4 @@
-const { Joi }: any = require('celebrate')
+const { Joi }: any = require('celebrate');
 class EnvError extends Error {}
 
 export function checker() {
@@ -24,19 +24,19 @@ export function checker() {
             .max(40),
         ENVIRONMENT: Joi.string()
             .regex(/^(development|production)$/)
-            .error(new EnvError("ENVIRONMENT is neither 'development' nor 'production'"))
-    })
+            .error(new EnvError('ENVIRONMENT is neither \'development\' nor \'production\''))
+    });
 
-    const envcheckresult = Joi.validate(process.env, schema, { allowUnknown: true })
+    const envcheckresult = Joi.validate(process.env, schema, { allowUnknown: true });
 
     if (envcheckresult.error) {
-        console.log('The Configuration lying in `src/.env` is malformed. See:')
+        console.log('The Configuration lying in `src/.env` is malformed. See:');
         if (envcheckresult.error instanceof EnvError) {
-            console.error(envcheckresult.error)
+            console.error(envcheckresult.error);
         } else {
-            console.error(envcheckresult.error.details[0].message)
+            console.error(envcheckresult.error.details[0].message);
         }
-        process.exit(1)
+        process.exit(1);
     }
-    return
+    return;
 }
