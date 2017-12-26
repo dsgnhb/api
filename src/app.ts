@@ -38,7 +38,7 @@ app.use(cors({
     origin: true
 }));
 
-app.use('/documentation', express.static(path.join(__dirname, './apidoc')));
+app.use('/docs', express.static(path.join(__dirname, './apidoc')));
 
 app.use((req, res, next) => {
     const publicEndpoints: Array<string> = ['/', '/topdesign/posts/month', '/levels', '/donate', '/topdesign/posts/currentmonth'];
