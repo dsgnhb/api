@@ -63,7 +63,7 @@
     "gulp-apidoc": "^0.2.6",
     "gulp-bump": "^2.9.0",
     "gulp-filter": "^4.0.0",
-    "gulp-git": "^1.15.1",
+    "gulp-git": "^2.5.0",
     "gulp-gzip": "^1.4.0",
     "gulp-help": "^1.6.1",
     "gulp-istanbul": "^1.1.2",
