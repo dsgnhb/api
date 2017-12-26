@@ -1,8 +1,15 @@
+node_modules
+.idea
+.settings
+.vscode
+dist
+tmp
+coverage
+typings/*
+!typings/.gitkeep
+src/.env
 # TODOs
 TODO
-# Configuration
-config.json
-
 # User-specific stuff:
 .vscode/**
 .idea/**/workspace.xml

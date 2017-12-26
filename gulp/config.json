@@ -1,0 +1,18 @@
+{
+  "tsLinter" : {
+    "options" : {
+      "formatter": "prose"
+    },
+    "sources": [
+      "./src/*.ts",
+      "./src/**/*.ts",
+      "./gulp/**/*.ts"
+    ]
+  },
+  "tsCompiler" : {
+    "options" : {
+
+    }
+  }
+
+}
