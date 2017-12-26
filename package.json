@@ -2,7 +2,7 @@
   "name": "designhub-api",
   "version": "1.6.1",
   "description": "REST API written in TypeScript using express and mysql",
-  "author": "dsgnhb",
+  "author": "designhub",
   "contributors": [
     {
       "name": "Luk vonStrom",
