@@ -32,7 +32,7 @@ Resources related to donations in the API.
 + Request
     + Headers
     
-            Token: (ApiKey)
+            Token: TEST1
 
 
 + Response 200 (application/json)
@@ -49,7 +49,7 @@ Resources related to donations in the API.
 
     + Headers
     
-            Token: (ApiKey)
+            Token: TEST1
 
     + Body
         
@@ -77,7 +77,7 @@ Resources related to levels in the API.
 + Request
     + Headers
     
-            Token: (ApiKey)
+            Token: TEST1
 
 + Response 200 (application/json)
     + Attributes (array)
@@ -99,7 +99,7 @@ Resources related to levels in the API.
 + Request
     + Headers
     
-            Token: (ApiKey)
+            Token: TEST1
             
 + Response 200 (application/json)
     + Attributes (User)
@@ -124,7 +124,7 @@ Resources related to levels in the API.
 
     + Headers
     
-            Token: (ApiKey)
+            Token: TEST1
 
     + Body
         
@@ -146,7 +146,7 @@ Resources related to levels in the API.
 
     + Headers
     
-            Token: (ApiKey)
+            Token: TEST1
 
     + Body
         
@@ -174,7 +174,7 @@ Resources related to levels in the API.
 
     + Headers
     
-            Token: (ApiKey)
+            Token: TEST1
 
     + Body
         
@@ -195,7 +195,7 @@ Resources related to levels in the API.
 
     + Headers
     
-            Token: (ApiKey)
+            Token: TEST1
 
     + Body
         
@@ -222,7 +222,7 @@ Resources related to levels in the API.
 
     + Headers
     
-            Token: (ApiKey)
+            Token: TEST1
 
     + Body
         
@@ -243,7 +243,7 @@ Resources related to levels in the API.
 
     + Headers
     
-            Token: (ApiKey)
+            Token: TEST1
 
     + Body
         
@@ -279,7 +279,7 @@ Resources related to levels in the API.
 
     + Headers
     
-            Token: (ApiKey)
+            Token: TEST1
             
 + Response 200 (application/json)
     + Attributes (array)
@@ -293,7 +293,7 @@ Resources related to levels in the API.
 
     + Headers
     
-            Token: (ApiKey)
+            Token: TEST1
 
     + Body 
     
@@ -321,7 +321,7 @@ Resources related to levels in the API.
 
     + Headers
     
-            Token: (ApiKey)
+            Token: TEST1
 
 + Response 200 (application/json)
     + Attributes (object)
@@ -342,7 +342,7 @@ Resources related to levels in the API.
 
     + Headers
     
-            Token: (ApiKey)
+            Token: TEST1
 
 + Response 200 (application/json)
     + Attributes (array)
@@ -363,7 +363,7 @@ Resources related to levels in the API.
 
     + Headers
     
-            Token: (ApiKey)
+            Token: TEST1
 
 + Response 200 (application/json)
     + Attributes (Post)
@@ -379,7 +379,7 @@ Resources related to levels in the API.
 
     + Headers
     
-            Token: (ApiKey)
+            Token: TEST1
 
 + Response 200 (application/json)
     + Attributes (object)
@@ -394,7 +394,7 @@ Resources related to levels in the API.
 
     + Headers
     
-            Token: (ApiKey)
+            Token: TEST1
 
 
 + Response 200 (application/json)
@@ -417,7 +417,7 @@ Resources related to levels in the API.
 
     + Headers
     
-            Token: (ApiKey)
+            Token: TEST1
 
 + Response 200 (application/json)
     + Attributes (array)
@@ -436,7 +436,7 @@ Resources related to levels in the API.
 
     + Headers
     
-            Token: (ApiKey)
+            Token: TEST1
 
 + Response 200 (application/json)
     + Attributes (array)
@@ -455,7 +455,7 @@ Resources related to levels in the API.
 
     + Headers
     
-            Token: (ApiKey)
+            Token: TEST1
 
 + Response 200 (application/json)
     + Attributes (object)
