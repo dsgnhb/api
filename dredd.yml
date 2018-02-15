@@ -2,7 +2,7 @@ dry-run: null
 hookfiles: null
 language: nodejs
 sandbox: false
-server: gulp build && node ./dist/server.js
+server: node ./dist/server.js",
 server-wait: 3
 init: false
 custom: {}

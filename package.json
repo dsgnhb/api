@@ -82,12 +82,15 @@
     "require-dir": "^0.3.2",
     "run-sequence": "^1.2.2",
     "tslint": "^5.8.0",
-    "typescript": "^2.6.2"
+    "typescript": "^2.6.2",
+    "dredd": "^5.0.0"
   },
   "engines": {
     "node": ">=0.10.0"
   },
   "scripts": {
+    "build": "gulp build",
+    "buildstart": "node ./dist/server.js",
     "postinstall": "npm i -g typings && typings install",
     "test": "dredd",
     "start": "gulp watchAndServe"
