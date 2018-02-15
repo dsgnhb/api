@@ -38,7 +38,7 @@ app.use(cors({
     origin: true
 }));
 
-app.use('/docs', express.static(path.join(__dirname, './apidoc')));
+app.use('/docs', express.static(path.join(__dirname, './docs.html')));
 
 
 app.use('/', root_router);

@@ -27,7 +27,7 @@ const port = process.env.CI ? 3000 : 8080;
 app.set('port', port);
 
 app.listen(app.get('port'), () => {
-        console.log('API listening on port ' + port);
+        console.log('API listening on port ' + port + ': http://127.0.0.1:' + port);
     }).on('error', err => {
         console.log('Cannot start server, port most likely in use');
         console.log(err);

@@ -5,7 +5,7 @@ REST API written in node.js using express and mysql
 This API is primarily intended for intern usage.
 
 ## API Docs
-The generated ApiDocs are stored in the `dist/apidoc` folder after building, or accessible via the route `/documentation`
+The generated API Documentation is stored in the `dist/docs.html` folder after building, or accessible via the route `/docs`
 
 ## Build system
 

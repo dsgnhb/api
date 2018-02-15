@@ -13,6 +13,12 @@ REST API written in TypeScript using express and mysql
 + discriminator: 7929 (number, required) - Discord's Username Thing
 + avatar: https://cdn.discordapp.com/avatars/180642647424106496/393b6d7ed9371acde2c6fbd94c62ce22.png (string, required)
 
+## Post (object)
++ username: Natro | derTomekk (string, required) - Discord Username
++ avatar: https://i.imgur.com/WziAVO9.png (string, required)
++ userid: 137227722660380670 (number, required)
++ image: https://i.imgur.com/nysMj7j.png (string, required) - User's Design uploaded on imgur.com
+
 
 # Group Donation
 Resources related to donations in the API.
@@ -275,16 +281,8 @@ Resources related to levels in the API.
 
 
 
-# Group TopDesign
-
-## Data Structures
-
-### Post (object)
-+ username: Natro | derTomekk (string, required) - Discord Username
-+ avatar: https://i.imgur.com/WziAVO9.png (string, required)
-+ userid: 137227722660380670 (number, required)
-+ image: https://i.imgur.com/nysMj7j.png (string, required) - User's Design uploaded on imgur.com
-
+# Group Top Design
+Resources related to donations in the API.
 
 ## Posts [/topdesign/posts]
 
@@ -301,8 +299,6 @@ Resources related to levels in the API.
         + (Post)
             + id: 142 (number, required) -  An unique identifier of the Post
             + likes: 15 (number, required)
-
-            
 ### Add Post [POST]
 
 + Request (application/json; charset=utf-8)
@@ -326,9 +322,6 @@ Resources related to levels in the API.
     + Attributes (object)
         + action: add (string, required)
         + postid: 142 (number, required) -  An unique identifier of the Post
-
-
-
 
 
 ## Posts - Month [/topdesign/posts/month]
