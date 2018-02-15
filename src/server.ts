@@ -23,7 +23,7 @@ if (process.env.CI) {
 
 import app from './app';
 
-const port = 8080;
+const port = process.env.CI ? 3000 : 8080;
 app.set('port', port);
 
 app.listen(app.get('port'), () => {

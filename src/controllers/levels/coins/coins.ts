@@ -131,7 +131,9 @@ module Coins {
                 con.query('UPDATE discord_levels SET coins = coins - ? WHERE userid = ?', [body.coins, userid], function (error) {
                     if (error) { throw error; }
                     Re.success(res, {
-                        action: 'delete'
+                        action: 'remove',
+                        oldCoins: coins.coins,
+                        newCoins: coins.coins - body.coins
                     });
                 });
             } else {

@@ -44,6 +44,7 @@ Resources related to donations in the API.
 
 
 ### Create a New Donation [POST]
+
 + Request (application/json)
 
     + Headers
@@ -73,6 +74,11 @@ Resources related to levels in the API.
 
 ### List All Levels Data [GET]
 
++ Request
+    + Headers
+    
+            Token: (ApiKey)
+
 + Response 200 (application/json)
     + Attributes (array)
         + (User)
@@ -90,6 +96,11 @@ Resources related to levels in the API.
 
 ### List Levels Data from specified User [GET]
 
++ Request
+    + Headers
+    
+            Token: (ApiKey)
+            
 + Response 200 (application/json)
     + Attributes (User)
         + xp: 69444 (number)
@@ -110,8 +121,17 @@ Resources related to levels in the API.
 ### Add XP to specified User [POST]
 
 + Request (application/json)
-    + Attributes (User)
-        + xp: 2 (number) - How much XP to add
+
+    + Headers
+    
+            Token: (ApiKey)
+
+    + Body
+        
+            {
+                "xp" : 2
+            }
+
 
 + Response 200 (application/json)
     + Attributes
@@ -123,8 +143,17 @@ Resources related to levels in the API.
 ### Remove XP from specified User [DELETE]
 
 + Request (application/json)
-    + Attributes (User)
-        + xp: 2 (number) - How much XP to remove
+
+    + Headers
+    
+            Token: (ApiKey)
+
+    + Body
+        
+            {
+                "xp" : 2
+            }
+
 
 + Response 200 (application/json)
     + Attributes
@@ -142,8 +171,17 @@ Resources related to levels in the API.
 ### Add Chests to specified User [POST]
 
 + Request (application/json)
-    + Attributes (User)
-        + chests: 2 (number) - How many Chests to add
+
+    + Headers
+    
+            Token: (ApiKey)
+
+    + Body
+        
+            {
+                "chests" : 2
+            }
+
 
 + Response 200 (application/json)
     + Attributes
@@ -154,8 +192,17 @@ Resources related to levels in the API.
 ### Remove Chests from specified User [DELETE]
 
 + Request (application/json)
-    + Attributes (User)
-        + chests: 2 (number) - How many Chests to remove
+
+    + Headers
+    
+            Token: (ApiKey)
+
+    + Body
+        
+            {
+                "chests" : 2
+            }
+
 
 + Response 200 (application/json)
     + Attributes
@@ -172,8 +219,17 @@ Resources related to levels in the API.
 ### Add Coins to specified User [POST]
 
 + Request (application/json)
-    + Attributes (User)
-        + coins: 2 (number) - How many Coins to add
+
+    + Headers
+    
+            Token: (ApiKey)
+
+    + Body
+        
+            {
+                "coins" : 2
+            }
+
 
 + Response 200 (application/json)
     + Attributes
@@ -184,8 +240,17 @@ Resources related to levels in the API.
 ### Remove Coins from specified User [DELETE]
 
 + Request (application/json)
-    + Attributes (User)
-        + coins: 2 (number) - How many Coins to remove
+
+    + Headers
+    
+            Token: (ApiKey)
+
+    + Body
+        
+            {
+                "coins" : 2
+            }
+
 
 + Response 200 (application/json)
     + Attributes
@@ -210,6 +275,12 @@ Resources related to levels in the API.
 
 ### List All Posts [GET]
 
++ Request (application/json)
+
+    + Headers
+    
+            Token: (ApiKey)
+            
 + Response 200 (application/json)
     + Attributes (array)
         + (Post)
@@ -219,8 +290,20 @@ Resources related to levels in the API.
 ### Add Post [POST]
 
 + Request (application/json)
-    + Attributes (Post)
-        + content: #topdesign - Discord's message content
+
+    + Headers
+    
+            Token: (ApiKey)
+
+    + Body 
+    
+            {
+                "username": "Natro | derTomekk",
+                "avatar": "https://i.imgur.com/WziAVO9.png",
+                "userid": 137227722660380670,
+                "image": "https://i.imgur.com/nysMj7j.png",
+                "content": "#topdesign"
+            }
 
 
 + Response 200 (application/json)
@@ -233,6 +316,12 @@ Resources related to levels in the API.
 ## Posts - Month [/topdesign/posts/month]
 
 ### List All Posts grouped by Month [GET]
+
++ Request (application/json)
+
+    + Headers
+    
+            Token: (ApiKey)
 
 + Response 200 (application/json)
     + Attributes (object)
@@ -249,6 +338,12 @@ Resources related to levels in the API.
 
 ### List All Posts from current Month [GET]
 
++ Request (application/json)
+
+    + Headers
+    
+            Token: (ApiKey)
+
 + Response 200 (application/json)
     + Attributes (array)
         + (Post)
@@ -264,6 +359,12 @@ Resources related to levels in the API.
 
 ### List Post [GET]
 
++ Request (application/json)
+
+    + Headers
+    
+            Token: (ApiKey)
+
 + Response 200 (application/json)
     + Attributes (Post)
         + id: 142 (number, required) -  An unique identifier of the Post
@@ -274,6 +375,12 @@ Resources related to levels in the API.
 
 ### Delete Post [DELETE]
 
++ Request (application/json)
+
+    + Headers
+    
+            Token: (ApiKey)
+
 + Response 200 (application/json)
     + Attributes (object)
         + action: delete (string)
@@ -282,6 +389,13 @@ Resources related to levels in the API.
     + Attributes (NotFound)
 
 ### Update Status of Post [PUT]
+
++ Request (application/json)
+
+    + Headers
+    
+            Token: (ApiKey)
+
 
 + Response 200 (application/json)
     + Attributes (object)
@@ -299,6 +413,12 @@ Resources related to levels in the API.
 
 ### List Submissions from specified User [GET]
 
++ Request (application/json)
+
+    + Headers
+    
+            Token: (ApiKey)
+
 + Response 200 (application/json)
     + Attributes (array)
         + (Post)
@@ -306,11 +426,17 @@ Resources related to levels in the API.
             + likes: 15 (number, required)
 
 
-## Votes [/topdesign/posts/{userid}]
+## Votes [/topdesign/voted/{userid}]
 + Parameters
     + userid (UserID)
 
 ### List Posts a specified User voted for [GET]
+
++ Request (application/json)
+
+    + Headers
+    
+            Token: (ApiKey)
 
 + Response 200 (application/json)
     + Attributes (array)
@@ -324,6 +450,12 @@ Resources related to levels in the API.
     + postid: 142 (number, required) -  An unique identifier of the Post
 
 ### Vote for specified Post [GET]
+
++ Request (application/json)
+
+    + Headers
+    
+            Token: (ApiKey)
 
 + Response 200 (application/json)
     + Attributes (object)

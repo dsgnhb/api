@@ -42,7 +42,7 @@ module Levels {
     export async function findLevelbyID (req, res) {
         const userid = req.params.userid;
         con.query(
-            'SELECT username, discriminator, avatar, xp, chests, coins,' +
+            'SELECT userid,  username, discriminator, avatar, xp, chests, coins,' +
             ' (SELECT COUNT(id) FROM discord_levels as dc_levels WHERE dc_levels.xp >= levels.xp)' +
             ' AS rank FROM discord_levels as levels WHERE userid = ?',
             [userid],

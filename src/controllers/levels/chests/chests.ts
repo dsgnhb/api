@@ -132,7 +132,9 @@ module Chests {
                 con.query('UPDATE discord_levels SET chests = chests - ? WHERE userid = ?', [body.chests, userid], function (error) {
                     if (error) { throw error; }
                     Re.success(res, {
-                        action: 'delete'
+                        action: 'remove',
+                        oldChests: chests.chests,
+                        newChests: chests.chests - body.chests
                     });
                 });
             } else {
