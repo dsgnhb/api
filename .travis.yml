@@ -12,8 +12,9 @@ install: npm install
 before_script:
   - gulp lint
   - gulp build
+  - gulp serve
 scripts:
-  - gulp serve && dredd
+  - dredd
 before_deploy: gulp package
 notifications:
   email:
