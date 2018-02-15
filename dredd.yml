@@ -1,8 +1,8 @@
 dry-run: null
 hookfiles: null
 language: nodejs
-sandbox: false
-server: pm2 start ./dist/server.js --name api
+sandbox: false 
+server: pm2 start ./dist/server.js --name api -i 1
 server-wait: 10
 init: false
 custom: {}
