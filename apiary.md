@@ -8,18 +8,10 @@ REST API written in TypeScript using express and mysql
 # Data Structures
 
 ## User (object)
-+ userid: 180642647424106496 (UserID, required)
++ userid: 180642647424106496 (number, required)  - An unique identifier of the user provided by Discord
 + username: Fin (string, required) - Discord Username
 + discriminator: 7929 (number, required) - Discord's Username Thing
 + avatar: https://cdn.discordapp.com/avatars/180642647424106496/393b6d7ed9371acde2c6fbd94c62ce22.png (string, required)
-
-## UserID (string)
-userid: 180642647424106496 (string, required) - An unique identifier of the user provided by Discord
-
-## NotFound (object)
- + error: Not found (string)
-
-## ApiKey (string, required)
 
 
 # Group Donation
@@ -35,17 +27,18 @@ Resources related to donations in the API.
             Token: TEST1
 
 
-+ Response 200 (application/json)
++ Response 200 (application/json; charset=utf-8)
     + Attributes (array)
         + (object)
-            + name: Lukas (string)
-            + ip: 192.168.0.1 (string)
-            + code: 1234-1234-1234-1234 (string)
-
+            + id: 1 (number, required)
+            + timestamp: 2017-09-16T17:06:50.000Z (string, required)
+            + name: Donator (string)
+            + ip: 84.164.60.45 (string, required)
+            + code: XXXX-XXXX-XXXX-XXXX (string, required)
 
 ### Create a New Donation [POST]
 
-+ Request (application/json)
++ Request (application/json; charset=utf-8)
 
     + Headers
     
@@ -54,15 +47,17 @@ Resources related to donations in the API.
     + Body
         
             {
-                "name" : "lukas".
+                "name" : "lukas",
                 "ip": "127.0.0.1",
                 "code" : "0000-0000-0000-0000"
             }
 
 
-+ Response 201 (application/json)
++ Response 200 (application/json; charset=utf-8)
     + Attributes
-        + action: add (string)
+        + action: add (string, required)
+        
+
 
 
 
@@ -79,19 +74,19 @@ Resources related to levels in the API.
     
             Token: TEST1
 
-+ Response 200 (application/json)
++ Response 200 (application/json; charset=utf-8)
     + Attributes (array)
         + (User)
-            + xp: 69444 (number)
-            + chests: 35 (number)
-            + coins: 1195 (number)
-            + rank: 1 (number)
+            + xp: 69444 (number, required)
+            + chests: 35 (number, required)
+            + coins: 1195 (number, required)
+            + rank: 1 (number, required)
 
 
 
 ## User [/levels/{userid}]
 + Parameters
-    + userid: 180642647424106496 (string) - An unique identifier of the user provided by Discord
+    + userid: 180642647424106496 (number) - An unique identifier of the user provided by Discord
 
 
 ### List Levels Data from specified User [GET]
@@ -101,26 +96,29 @@ Resources related to levels in the API.
     
             Token: TEST1
             
-+ Response 200 (application/json)
++ Response 200 (application/json; charset=utf-8)
     + Attributes (User)
-        + xp: 69444 (number)
-        + chests: 35 (number)
-        + coins: 1195 (number)
-        + rank: 1 (number)
+        + xp: 69444 (number, required)
+        + chests: 35 (number, required)
+        + coins: 1195 (number, required)
+        + rank: 1 (number, required)
     
-+ Response 404 (application/json)
-    + Attributes (NotFound)
++ Response 404 (application/json; charset=utf-8)
+    
+    + Body
 
-
+            {
+                "error": "Not found"
+            }
 
 ## XP [/levels/xp/{userid}]
 + Parameters
-    + userid: 180642647424106496 (string) - An unique identifier of the user provided by Discord
+    + userid: 180642647424106496 (number, required) - An unique identifier of the user provided by Discord
 
 
 ### Add XP to specified User [POST]
 
-+ Request (application/json)
++ Request (application/json; charset=utf-8)
 
     + Headers
     
@@ -129,20 +127,23 @@ Resources related to levels in the API.
     + Body
         
             {
-                "xp" : 2
+                "username": "Fin",
+                "discriminator": 7929,
+                "avatar": "https://cdn.discordapp.com/avatars/180642647424106496/393b6d7ed9371acde2c6fbd94c62ce22.png",
+                "xp": 3573
             }
 
 
-+ Response 200 (application/json)
++ Response 200 (application/json; charset=utf-8)
     + Attributes
-        + action: add (string)
-        + oldXP: 3 (number)
-        + newXP: 5 (number)
+        + action: add (string, required)
+        + oldXP: 3 (number, required)
+        + newXP: 5 (number, required)
 
 
 ### Remove XP from specified User [DELETE]
 
-+ Request (application/json)
++ Request (application/json; charset=utf-8)
 
     + Headers
     
@@ -151,26 +152,27 @@ Resources related to levels in the API.
     + Body
         
             {
-                "xp" : 2
+                "username": "Fin",
+                "discriminator": 7929,
+                "avatar": "https://cdn.discordapp.com/avatars/180642647424106496/393b6d7ed9371acde2c6fbd94c62ce22.png",
+                "xp": 3573
             }
 
 
-+ Response 200 (application/json)
++ Response 200 (application/json; charset=utf-8)
     + Attributes
-        + action: remove (string)
-        + oldXP: 5 (number)
-        + newXP: 3 (number)
+        + action: remove (string, required)
+        + oldXP: 5 (number, required)
+        + newXP: 3 (number, required)
     
-
-
 ## Chests [/levels/chests/{userid}]
 + Parameters
-    + userid: 180642647424106496 (string, required) - An unique identifier of the user provided by Discord
+    + userid: 180642647424106496 (number, required) - An unique identifier of the user provided by Discord
 
 
 ### Add Chests to specified User [POST]
 
-+ Request (application/json)
++ Request (application/json; charset=utf-8)
 
     + Headers
     
@@ -179,19 +181,22 @@ Resources related to levels in the API.
     + Body
         
             {
-                "chests" : 2
+                "username": "Fin",
+                "discriminator": 7929,
+                "avatar": "https://cdn.discordapp.com/avatars/180642647424106496/393b6d7ed9371acde2c6fbd94c62ce22.png",
+                "chests": 2
             }
 
 
-+ Response 200 (application/json)
++ Response 200 (application/json; charset=utf-8)
     + Attributes
-        + action: add (string)
-        + oldChests: 3 (number)
-        + newChests: 5 (number)
+        + action: add (string, required)
+        + oldChests: 3 (number, required)
+        + newChests: 5 (number, required)
     
 ### Remove Chests from specified User [DELETE]
 
-+ Request (application/json)
++ Request (application/json; charset=utf-8)
 
     + Headers
     
@@ -200,25 +205,28 @@ Resources related to levels in the API.
     + Body
         
             {
-                "chests" : 2
+                "username": "Fin",
+                "discriminator": 7929,
+                "avatar": "https://cdn.discordapp.com/avatars/180642647424106496/393b6d7ed9371acde2c6fbd94c62ce22.png",
+                "chests": 2
             }
 
 
-+ Response 200 (application/json)
++ Response 200 (application/json; charset=utf-8)
     + Attributes
-        + action: remove (string)
-        + oldChests: 5 (number)
-        + newChests: 3 (number)
+        + action: remove (string, required)
+        + oldChests: 5 (number, required)
+        + newChests: 3 (number, required)
     
 
 ## Coins [/levels/coins/{userid}]
 + Parameters
-    + userid: 180642647424106496 (string, required) - An unique identifier of the user provided by Discord
+    + userid: 180642647424106496 (number, required) - An unique identifier of the user provided by Discord
 
 
 ### Add Coins to specified User [POST]
 
-+ Request (application/json)
++ Request (application/json; charset=utf-8)
 
     + Headers
     
@@ -227,19 +235,22 @@ Resources related to levels in the API.
     + Body
         
             {
-                "coins" : 2
+                "username": "Fin",
+                "discriminator": 7929,
+                "avatar": "https://cdn.discordapp.com/avatars/180642647424106496/393b6d7ed9371acde2c6fbd94c62ce22.png",
+                "coins": 100
             }
 
 
-+ Response 200 (application/json)
++ Response 200 (application/json; charset=utf-8)
     + Attributes
-        + action: add (string)
-        + oldCoins: 3 (number)
-        + newCoins: 5 (number)
+        + action: add (string, required)
+        + oldCoins: 3 (number, required)
+        + newCoins: 5 (number, required)
     
 ### Remove Coins from specified User [DELETE]
 
-+ Request (application/json)
++ Request (application/json; charset=utf-8)
 
     + Headers
     
@@ -248,15 +259,19 @@ Resources related to levels in the API.
     + Body
         
             {
-                "coins" : 2
+                "username": "Fin",
+                "discriminator": 7929,
+                "avatar": "https://cdn.discordapp.com/avatars/180642647424106496/393b6d7ed9371acde2c6fbd94c62ce22.png",
+                "coins": 100
             }
 
 
-+ Response 200 (application/json)
++ Response 200 (application/json; charset=utf-8)
     + Attributes
-        + action: remove (string)
-        + oldCoins: 5 (number)
-        + newCoins: 3 (number)
+        + action: remove (string, required)
+        + oldCoins: 5 (number, required)
+        + newCoins: 3 (number, required)
+
 
 
 
@@ -267,7 +282,7 @@ Resources related to levels in the API.
 ### Post (object)
 + username: Natro | derTomekk (string, required) - Discord Username
 + avatar: https://i.imgur.com/WziAVO9.png (string, required)
-+ userid: 137227722660380670 (UserID, required)
++ userid: 137227722660380670 (number, required)
 + image: https://i.imgur.com/nysMj7j.png (string, required) - User's Design uploaded on imgur.com
 
 
@@ -275,21 +290,22 @@ Resources related to levels in the API.
 
 ### List All Posts [GET]
 
-+ Request (application/json)
++ Request (application/json; charset=utf-8)
 
     + Headers
     
             Token: TEST1
             
-+ Response 200 (application/json)
++ Response 200 (application/json; charset=utf-8)
     + Attributes (array)
         + (Post)
             + id: 142 (number, required) -  An unique identifier of the Post
             + likes: 15 (number, required)
 
+            
 ### Add Post [POST]
 
-+ Request (application/json)
++ Request (application/json; charset=utf-8)
 
     + Headers
     
@@ -306,10 +322,12 @@ Resources related to levels in the API.
             }
 
 
-+ Response 200 (application/json)
++ Response 200 (application/json; charset=utf-8)
     + Attributes (object)
         + action: add (string, required)
         + postid: 142 (number, required) -  An unique identifier of the Post
+
+
 
 
 
@@ -317,13 +335,13 @@ Resources related to levels in the API.
 
 ### List All Posts grouped by Month [GET]
 
-+ Request (application/json)
++ Request (application/json; charset=utf-8)
 
     + Headers
     
             Token: TEST1
 
-+ Response 200 (application/json)
++ Response 200 (application/json; charset=utf-8)
     + Attributes (object)
         + 20179 (array)
             + (Post)
@@ -338,92 +356,113 @@ Resources related to levels in the API.
 
 ### List All Posts from current Month [GET]
 
-+ Request (application/json)
 
-    + Headers
-    
-            Token: TEST1
-
-+ Response 200 (application/json)
++ Response 200 (application/json; charset=utf-8)
     + Attributes (array)
         + (Post)
             + id: 142 (number, required) -  An unique identifier of the Post
             + likes: 15 (number, required)
-
-
 
 
 ## Single Post [/topdesign/posts/{postid}]
 + Parameters
-    + postid: 142 (number, required) -  An unique identifier of the Post
+    + postid: 44 (number, required) -  An unique identifier of the Post
 
 ### List Post [GET]
 
-+ Request (application/json)
++ Request (application/json; charset=utf-8)
 
     + Headers
     
             Token: TEST1
 
-+ Response 200 (application/json)
++ Response 200 (application/json; charset=utf-8)
     + Attributes (Post)
-        + id: 142 (number, required) -  An unique identifier of the Post
+        + id: 44 (number, required) -  An unique identifier of the Post
         + likes: 15 (number, required)
+        + timeshort: 20182 (number, required)
+        + active: 1 (number, required)
 
-+ Response 404 (application/json)
-    + Attributes (NotFound)
-
-### Delete Post [DELETE]
-
-+ Request (application/json)
-
-    + Headers
++ Response 404 (application/json; charset=utf-8)
     
-            Token: TEST1
+    + Body
 
-+ Response 200 (application/json)
-    + Attributes (object)
-        + action: delete (string)
+            {
+                "error": "Not found"
+            }
 
-+ Response 404 (application/json)
-    + Attributes (NotFound)
 
 ### Update Status of Post [PUT]
 
-+ Request (application/json)
++ Request (application/json; charset=utf-8)
 
     + Headers
     
             Token: TEST1
 
 
-+ Response 200 (application/json)
++ Response 200 (application/json; charset=utf-8)
     + Attributes (object)
-        + action: deactivate, activate (string)
-        + likes: 15 (number)
-        + posted_by: Natro | derTomekk (string)
+        + action: deactivate (string, required)
+        + likes: 15 (number, required)
+        + posted_by: Natro | derTomekk (string, required)
 
-+ Response 404 (application/json)
-    + Attributes (NotFound)
++ Response 404 (application/json; charset=utf-8)
+    
+    + Body
+
+            {
+                "error": "Not found"
+            }
+    
+### Delete Post [DELETE]
+
++ Request (application/json; charset=utf-8)
+
+    + Headers
+    
+            Token: TEST1
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes (object)
+        + action: delete (string, required)
+
++ Response 404 (application/json; charset=utf-8)
+    
+    + Body
+    
+            {
+                "error": "Not found"
+            }
+
 
 
 ## Submissions [/topdesign/submissions/{userid}]
 + Parameters
-    + userid: 180642647424106496 (string, required) - An unique identifier of the user provided by Discord
+    + userid: 229496324444127233 (string, required) - An unique identifier of the user provided by Discord
 
 ### List Submissions from specified User [GET]
 
-+ Request (application/json)
++ Request (application/json; charset=utf-8)
 
     + Headers
     
             Token: TEST1
 
-+ Response 200 (application/json)
-    + Attributes (array)
-        + (Post)
-            + id: 142 (number, required) -  An unique identifier of the Post
-            + likes: 15 (number, required)
++ Response 200 (application/json; charset=utf-8)
+    + Attributes (object)
+        + 20178 (array)
+            + (Post)
+                + id: 142 (number, required) -  An unique identifier of the Post
+                + likes: 15 (number, required)
+
++ Response 404 (application/json; charset=utf-8)
+    
+    + Body
+    
+            {
+                "error": "Not found"
+            }
 
 
 ## Votes [/topdesign/voted/{userid}]
@@ -432,18 +471,18 @@ Resources related to levels in the API.
 
 ### List Posts a specified User voted for [GET]
 
-+ Request (application/json)
++ Request (application/json; charset=utf-8)
 
     + Headers
     
             Token: TEST1
 
-+ Response 200 (application/json)
-    + Attributes (array)
-        + (Post)
-            + id: 142 (number, required) -  An unique identifier of the Post
-            + likes: 15 (number, required)
-
++ Response 200 (application/json; charset=utf-8)
+    + Attributes (object)
+        + 20178 (array)
+            + (object)
+                + id: 142 (number, required) -  An unique identifier of the Post
+                + timeshort: 20178
 
 ## Vote [/topdesign/vote/{postid}]
 + Parameters
@@ -451,13 +490,19 @@ Resources related to levels in the API.
 
 ### Vote for specified Post [GET]
 
-+ Request (application/json)
++ Request (application/json; charset=utf-8)
 
     + Headers
     
             Token: TEST1
 
-+ Response 200 (application/json)
+    + Body
+    
+            {
+                userid: 180642647424106496
+            }
+
++ Response 200 (application/json; charset=utf-8)
     + Attributes (object)
         + action: add (string)
         + likes: 16 (number)

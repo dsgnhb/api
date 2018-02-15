@@ -3,15 +3,15 @@ let keys;
 module Authentication {
 
     export function authenticate (req, res, next) {
+
         let token = req.header('token');
-        if (!this.getkeys().includes(token)) {
-            res.status(403).json({error: 'Missing correct Access Token - Aborting ...'});
-            return;
+        if (!getKeys().includes(token)) {
+            return res.status(403).json({error: 'Missing correct Access Token - Aborting ...'});
         }
         next();
     }
 
-    function getkeys() {
+    function getKeys() {
         if (keys) {return keys; }
         keys = C.apiKeys;
         return keys;

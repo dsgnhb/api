@@ -124,11 +124,13 @@ module XP {
                     if (error) { throw error; }
                     return Re.not_sufficient(res, 'xp');
                 });
-            } else if (xp.cp >= body.xp) {
+            } else if (xp.xp >= body.xp) {
                 con.query('UPDATE discord_levels SET xp = xp - ? WHERE userid = ?', [body.xp, userid], function (error) {
                     if (error) { throw error; }
                     Re.success(res, {
-                        action: 'delete'
+                        action: 'remove',
+                        oldXP: xp.xp,
+                        newXP: xp.xp - body.xp
                     });
                 });
             } else {

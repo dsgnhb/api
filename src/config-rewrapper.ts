@@ -11,6 +11,7 @@ export = {
     clientSecret: process.env.IMGUR_CLIENT_SECRET
   },
   env: process.env.ENVIRONMENT,
-  development: process.env.ENVIRONMENT.includes('development')
+  development: process.env.ENVIRONMENT.includes('development'),
+  sqldebug: process.env.SQL_DEBUG.includes('true')
 
 };

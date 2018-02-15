@@ -3,7 +3,7 @@ hookfiles: null
 language: nodejs
 sandbox: false 
 server: node ./dist/server.js
-server-wait: 10
+server-wait: 5
 init: false
 custom: {}
 names: false
@@ -17,7 +17,7 @@ inline-errors: false
 details: false
 method: []
 color: true
-level: silly
+level: info
 timestamp: false
 silent: false
 path: []
@@ -31,4 +31,4 @@ hooks-worker-handler-host: 127.0.0.1
 hooks-worker-handler-port: 61321
 config: ./dredd.yml
 blueprint: apiary.md
-endpoint: 'http://127.0.0.1:3000'
+endpoint: 'http://127.0.0.1:8080'

@@ -46,7 +46,7 @@ module Donation {
     export async function findAllDonations(req, res) {
         con.query('SELECT * FROM discord_donations', (error, results) => {
             if (error) { throw error; }
-            Re.success(res, results);
+            return Re.success(res, results);
         });
     }
 }

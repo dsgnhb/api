@@ -24,7 +24,9 @@ export function checker() {
             .max(40),
         ENVIRONMENT: Joi.string()
             .regex(/^(development|production)$/)
-            .error(new EnvError('ENVIRONMENT is neither \'development\' nor \'production\''))
+            .error(new EnvError('ENVIRONMENT is neither \'development\' nor \'production\'')),
+        SQL_DEBUG: Joi.boolean()
+            .required()
     });
 
     const envcheckresult = Joi.validate(process.env, schema, { allowUnknown: true });
