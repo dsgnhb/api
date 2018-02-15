@@ -11,7 +11,7 @@ before_script:
   - gulp lint
   - gulp build
 scripts:
-  - dredd
+  - dredd --level=silly
 before_deploy: gulp package
 notifications:
   email:
