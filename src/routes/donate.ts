@@ -1,5 +1,4 @@
 import { Router } from 'express';
-// import authenticate from '../services/authentication';
 const { authenticate } = require('../services/authentication');
 
 const DonationSchema = require('../models/validation/donation/donation');
