@@ -19,7 +19,7 @@ method: []
 color: true
 level: info
 timestamp: false
-silent: true
+silent: false
 path: []
 hooks-worker-timeout: 5000
 hooks-worker-connect-timeout: 1500
