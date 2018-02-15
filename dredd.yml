@@ -3,12 +3,12 @@ hookfiles: null
 language: nodejs
 sandbox: false
 server: node ./dist/server.js
-server-wait: 3
+server-wait: 10
 init: false
 custom: {}
 names: false
 only: []
-reporter: apiary
+reporter: []
 output: []
 header: []
 sorted: false
@@ -17,7 +17,7 @@ inline-errors: false
 details: false
 method: []
 color: true
-level: info
+level: silly
 timestamp: false
 silent: false
 path: []
