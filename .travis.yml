@@ -4,7 +4,7 @@ node_js:
 env:
   - CI=true  
 before_install:
-  - npm install -g gulp dredd
+  - npm install -g gulp dredd pm2
   - mysql -e 'CREATE DATABASE designhub;' && mysql -u root designhub < ./src/spec/designhub_preseeded.sql
   - rm -f src/.env.example
   - echo 'prepared everything.'
