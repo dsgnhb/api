@@ -79,6 +79,11 @@ if (C.development) {
   app.use(ProductionErrorHandler);
 }
 
+if (process.env.CI) {
+    console.log('Config loaded:');
+    console.log(C);
+}
+
 if (process.env.CI && process.env.CINOTEST) {
     process.exit(0);
 }
