@@ -5,31 +5,7 @@ import groupBy = Utility.groupBy;
 
 const con = getConnection();
 module Votes {
-    /**
-     * @api {post} /topdesign/vote/:postid   Vote for Post
-     * @apiVersion 1.2.2
-     * @apiName VoteForPost
-     * @apiDescription  Vote for Post
-     * @apiGroup Vote
-     *
-     * @apiSuccess (200) {Object} result
-     * @apiSuccess (200) {String="add","remove"} result.action
-     * @apiSuccess (200) {Number} result.likes
-     * @apiSuccess (200) {String} result.username
-     *
-     * @apiSuccessExample {json} Success-Example:
-     *     HTTP/1.1 200
-     *     {
-     *        "action": "add",
-     *        "likes": 3,
-     *        "posted_by": "JohnDoe"
-     *     }
-     *
-     * @apiError not_found Not found
-     * @apiError body_missing Request Body is missing
-     * @apiError property_required Property name required
-     *
-     */
+
     export async function vote(req, res) {
         const postid = req.params.postid;
         const body = req.body;
@@ -89,18 +65,7 @@ module Votes {
             }
         );
     }
-    /**
-     * @api {get} /topdesign/vote/:userid Get Posts User voted for
-     * @apiVersion 1.2.2
-     * @apiName GetVotedPostsForUser
-     * @apiDescription Get Posts User voted for
-     * @apiGroup Vote
-     *
-     * @apiSuccess (200) {Object} result
-     *
-     * @apiError not_found Not found (404)
-     *
-     */
+
     export async function voted(req, res) {
         const userid = req.params.userid;
         con.query(
@@ -121,18 +86,7 @@ module Votes {
             }
         );
     }
-    /**
-     * @api {get} /topdesign/submissions/:userid  Get Submissions from Users
-     * @apiVersion 1.2.2
-     * @apiName GetSubmissionsFromUser
-     * @apiDescription  Get Submissions from User
-     * @apiGroup Vote
-     *
-     * @apiSuccess (200) {Object} result
-     *
-     * @apiError not_found Not found (404)
-     *
-     */
+
     export async function submissions(req, res) {
         const userid = req.params.userid;
         con.query(
