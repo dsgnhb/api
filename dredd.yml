@@ -2,7 +2,7 @@ dry-run: null
 hookfiles: null
 language: nodejs
 sandbox: false
-server: node ./dist/server.js
+server: npm run buildstart
 server-wait: 10
 init: false
 custom: {}
