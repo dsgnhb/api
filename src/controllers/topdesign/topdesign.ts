@@ -5,7 +5,7 @@ import groupBy = Utility.groupBy;
 import imgur = Utility.imgurUpload;
 
 const con = getConnection();
-namespace Topdesign {
+module Topdesign {
     /**
      * @api {get} /topdesign/posts Get all posts
      * @apiVersion 1.2.2

@@ -17,3 +17,5 @@ module Authentication {
         return keys;
     }
 }
+export = Authentication;
+

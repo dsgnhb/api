@@ -1,5 +1,5 @@
 {
-  "name": "designhub-api",
+  "name": "api",
   "version": "1.7.1",
   "description": "REST API written in TypeScript using express and mysql",
   "author": "designhub",
@@ -89,6 +89,7 @@
   },
   "scripts": {
     "postinstall": "npm i -g typings && typings install",
-    "test": "gulp build && node ./dist/server.js"
+    "test": "dredd",
+    "start": "gulp watchAndServe"
   }
 }

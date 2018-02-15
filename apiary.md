@@ -165,7 +165,7 @@ Resources related to levels in the API.
 
 ## Chests [/levels/chests/{userid}]
 + Parameters
-    + userid (UserID)
+    + userid: 180642647424106496 (string, required) - An unique identifier of the user provided by Discord
 
 
 ### Add Chests to specified User [POST]
@@ -213,7 +213,7 @@ Resources related to levels in the API.
 
 ## Coins [/levels/coins/{userid}]
 + Parameters
-    + userid (UserID)
+    + userid: 180642647424106496 (string, required) - An unique identifier of the user provided by Discord
 
 
 ### Add Coins to specified User [POST]
@@ -409,7 +409,7 @@ Resources related to levels in the API.
 
 ## Submissions [/topdesign/submissions/{userid}]
 + Parameters
-    + userid (UserID)
+    + userid: 180642647424106496 (string, required) - An unique identifier of the user provided by Discord
 
 ### List Submissions from specified User [GET]
 
@@ -428,7 +428,7 @@ Resources related to levels in the API.
 
 ## Votes [/topdesign/voted/{userid}]
 + Parameters
-    + userid (UserID)
+    + userid: 180642647424106496 (string, required) - An unique identifier of the user provided by Discord
 
 ### List Posts a specified User voted for [GET]
 
