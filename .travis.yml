@@ -12,7 +12,6 @@ install: npm install
 before_script:
   - gulp lint
   - gulp build
-  - gulp serve
 scripts:
   - dredd
 before_deploy: gulp package
