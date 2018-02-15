@@ -13,7 +13,7 @@ before_script:
   - gulp lint
   - gulp build
 scripts:
-  - dredd
+  - gulp serve && dredd
 before_deploy: gulp package
 notifications:
   email:
