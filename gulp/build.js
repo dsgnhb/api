@@ -57,7 +57,7 @@ gulp.task('compile', false, () => {
  * Generates API Docs
  */
 gulp.task('docs', function () {
-  gulp.src('docs.md')
+  gulp.src('./spec/docs.md')
     .pipe(aglio({ template: 'slate' }))
     .pipe(gulp.dest('./dist'));
 });
