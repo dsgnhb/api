@@ -18,20 +18,20 @@ let gulp = require('gulp');
  * Watches for ts files
  */
 gulp.task('tsWatcher', false, () => {
-  gulp.watch(['src/**/*.ts', 'gulp/**/*.ts'], ['lint', 'compile', 'apidoc'])
+  gulp.watch(['src/**/*.ts', 'gulp/**/*.ts'], ['lint', 'compile', 'docs'])
 });
 
 /**
  * Watches for non-ts files
  */
 gulp.task('nonTsWatcher', false, () => {
-  gulp.watch(['src/.env','src/**/*', '!src/**/*.ts'], ['copyNonTs']);
+  gulp.watch(['src/.env', 'src/**/*', '!src/**/*.ts'], ['copyNonTs']);
 });
 
 /**
  * Combined watcher
  */
-gulp.task('watch', 'Master watch task, adds cumulative watches (test/lint)', [/*'tdd',*/ 'tsWatcher', 'nonTsWatcher'], () => {});
+gulp.task('watch', 'Master watch task, adds cumulative watches (test/lint)', [/*'tdd',*/ 'tsWatcher', 'nonTsWatcher'], () => { });
 
 /**
  * Combined watch and server
@@ -39,7 +39,7 @@ gulp.task('watch', 'Master watch task, adds cumulative watches (test/lint)', [/*
 gulp.task('watchAndServe', 'Launch the server on development mode, autoreloads it when there are code changes, plus registers cumulative watch task', ['serve'], () => {
   gulp.start('watch');
 }, {
-  options: {
-    'port': 'The port # the server should listen to. Defaults to value specified in .env file under PORT, or 3000 if .env not present'
-  }
-});
+    options: {
+      'port': 'The port # the server should listen to. Defaults to value specified in .env file under PORT, or 3000 if .env not present'
+    }
+  });

@@ -3,33 +3,6 @@ import {getConnection} from '../../../services/connection';
 
 const con = getConnection();
 module Chests {
-    /**
-     * @api {post} /levels/chests/:userid Add Chests
-     * @apiVersion 1.2.2
-     * @apiName AddChests
-     * @apiDescription Add Chests
-     * @apiGroup Levels
-     *
-     * @apiParam {String} username
-     * @apiParam {Object} avatar
-     * @apiParam {Number} chests
-     * @apiParam {Object} discriminator
-     *
-     * @apiSuccess (200) {Object} result
-     * @apiSuccess (200) {String} result.action
-     * @apiSuccess (200) {Number} result.oldChests
-     * @apiSuccess (200) {Number} result.newChests
-     *
-     * @apiSuccessExample {json} Success-Example:
-     *     HTTP/1.1 200
-     *     {
-     *        "action": "add",
-     *        "oldChests": 3
-     *        "newChests": 5
-     *     }
-     *
-     *
-     */
 
     export async function addChest(req, res) {
         const userid = req.params.userid;
@@ -71,33 +44,6 @@ module Chests {
         });
     }
 
-    /**
-     * @api {delete} /levels/chests/:userid Delete Chests
-     * @apiVersion 1.2.2
-     * @apiName DeleteChests
-     * @apiDescription Delete Chests
-     * @apiGroup Levels
-     *
-     * @apiParam {String} username
-     * @apiParam {Object} avatar
-     * @apiParam {Number} chests
-     * @apiParam {Object} discriminator
-     *
-     * @apiSuccess (200) {Object} result
-     * @apiSuccess (200) {String} result.action
-     *
-     * @apiSuccessExample {json} Success-Example (code 200 for some reason XD):
-     *     HTTP/1.1 200
-     *     {
-     *        "action": "delete"
-     *     }
-     *
-     * @apiError userid_too_long Userid can only be 18 characters long (500 code for some reason)
-     * @apiError not_sufficientv User has not enough chests (500 for some reason)
-     * @apiError body_missing Request Body is missing (500 code for some reason)
-     * @apiError property_required Property name required (400 for some reason)
-     *
-     */
     export async function deleteChest(req, res) {
         const userid = req.params.userid;
         if (userid.length > 18) { return Re.userid_too_long(res); }
@@ -132,7 +78,9 @@ module Chests {
                 con.query('UPDATE discord_levels SET chests = chests - ? WHERE userid = ?', [body.chests, userid], function (error) {
                     if (error) { throw error; }
                     Re.success(res, {
-                        action: 'delete'
+                        action: 'remove',
+                        oldChests: chests.chests,
+                        newChests: chests.chests - body.chests
                     });
                 });
             } else {

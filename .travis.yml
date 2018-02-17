@@ -1,10 +1,23 @@
 language: node_js
 node_js:
-- '7'
 - '8'
-before_install: npm install -g gulp && mysql -e 'CREATE DATABASE designhub;' && mysql -u root designhub < ./src/spec/designhub_preseeded.sql && rm -f src/.env.example && echo 'prepared everything.'
+env:
+    global:
+    - CI=true  
+    - IMGUR_CLIENT_ID=$IMGUR_CLIENT_ID
+    - IMGUR_CLIENT_SECRET=$IMGUR_CLIENT_SECRET
+before_install:
+  - npm install -g gulp dredd
+  - mysql -e 'CREATE DATABASE designhub;' && mysql -u root designhub < ./src/spec/designhub_preseeded.sql
+  - rm -f src/.env.example
+  - echo 'prepared everything.'
 install: npm install
-before_script: gulp lint
+before_script:
+  - gulp lint
+  - gulp build
+  - ls
+scripts:
+  - dredd
 before_deploy: gulp package
 notifications:
   email:

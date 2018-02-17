@@ -38,22 +38,14 @@ app.use(cors({
     origin: true
 }));
 
-app.use('/docs', express.static(path.join(__dirname, './apidoc')));
+app.use('/docs', express.static(path.join(__dirname, './docs.html')));
 
-app.use((req, res, next) => {
-    const publicEndpoints: Array<string> = ['/', '/topdesign/posts/month', '/levels', '/donate', '/topdesign/posts/currentmonth'];
-    if (!C.apiKeys.includes(req.header('token')) && publicEndpoints.indexOf(req.path) === -1) {
-        res.status(403).json({error: 'Missing correct access Token'});
-        return;
-    }
-    next();
-});
 
-app.use(root_router);
-app.use(donate_router);
-app.use(levels_router);
-app.use(post_router);
-app.use(topdesign_router);
+app.use('/', root_router);
+app.use('/donate', donate_router);
+app.use('/levels', levels_router);
+app.use('/topdesign/posts', post_router);
+app.use('/topdesign', topdesign_router);
 
 // Dear Future me: This may help or may not.
 
@@ -86,8 +78,14 @@ if (C.development) {
 } else {
   app.use(ProductionErrorHandler);
 }
+/*
+if (process.env.CI) {
+    console.log('Config loaded:');
+    console.log(C);
+}
 
 if (process.env.CI && process.env.CINOTEST) {
     process.exit(0);
 }
+*/
 export default app;

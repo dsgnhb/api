@@ -5,17 +5,7 @@ import groupBy = Utility.groupBy;
 import imgur = Utility.imgurUpload;
 
 const con = getConnection();
-namespace Topdesign {
-    /**
-     * @api {get} /topdesign/posts Get all posts
-     * @apiVersion 1.2.2
-     * @apiName GetAllPosts
-     * @apiDescription Get all Posts
-     * @apiGroup Posts
-     *
-     * @apiSuccess (200) {Object[]} results
-     *
-     */
+module Topdesign {
 
     export function findAllTopDesigns(req, res) {
         // Return all Posts
@@ -32,16 +22,6 @@ namespace Topdesign {
         );
     }
 
-    /**
-     * @api {get} /topdesign/posts/currentmonth Get all Posts for current Month
-     * @apiVersion 1.2.2
-     * @apiName GetAllPostsCurrMonth
-     * @apiDescription Get all Posts for current Month (query params??)
-     * @apiGroup Posts
-     *
-     * @apiSuccess (200) {Object[]} results
-     *
-     */
     export function findAllTopDesignsCurrentMonth(req, res) {
         // Return all Posts from current month
         const timeshort = Utility.timeshort(new Date());
@@ -60,16 +40,6 @@ namespace Topdesign {
         );
     }
 
-    /**
-     * @api {get} /topdesign/posts/month  Get all Posts sorted by Month
-     * @apiVersion 1.2.2
-     * @apiName GetAllPostsByMonth
-     * @apiDescription Return all Posts grouped by month
-     * @apiGroup Posts
-     *
-     * @apiSuccess (200) {Object[]} results
-     *
-     */
     export function findAllTopDesignsMonth(req, res) {
         // Return all Posts grouped by month
         con.query(
@@ -96,18 +66,6 @@ namespace Topdesign {
         );
     }
 
-    /**
-     * @api {get} /topdesign/posts/:id  Get Post by Id
-     * @apiVersion 1.2.2
-     * @apiName GetById
-     * @apiDescription Get Post by Id
-     * @apiGroup Posts
-     *
-     * @apiSuccess (200) {Object} result
-     *
-     * @apiError not_found Not found (404)
-     *
-     */
     export function findTopDesignbyID(req, res) {
         const id = req.params.id;
         con.query(
@@ -149,34 +107,6 @@ namespace Topdesign {
         });
     }
 
-    /**
-     * @api {post} /topdesign/posts/  Add Post
-     * @apiVersion 1.2.2
-     * @apiName AddPost
-     * @apiDescription Add new post
-     * @apiGroup Posts
-     *
-     * @apiParam {String} username
-     * @apiParam {Number} userid
-     * @apiParam {Object} avatar
-     * @apiParam {Object} content
-     * @apiParam {Object} image
-     *
-     * @apiSuccess (200) {Object} result
-     * @apiSuccess (200) {String} result.action
-     * @apiSuccess (200) {Number} result.postid
-     *
-     * @apiSuccessExample {json} Success-Example:
-     *     HTTP/1.1 200
-     *     {
-     *        "action": "add",
-     *        "postid": 3
-     *     }
-     *
-     * @apiError body_missing Request Body is missing (500 code for some reason)
-     * @apiError 408 {error: 'You already inserted the topdesign for this month.'}
-     *
-     */
     export async function addTopDesign(req, res) {
         const body = req.body;
         if (!req.body) {
@@ -206,30 +136,6 @@ namespace Topdesign {
         });
     }
 
-    /**
-     * @api {put} /topdesign/posts/:id Update Status of Post
-     * @apiVersion 1.2.2
-     * @apiName UpdatePost
-     * @apiDescription Update Status of Post
-     * @apiGroup Posts
-     *
-     *
-     * @apiSuccess (200) {Object} result
-     * @apiSuccess (200) {String="deactivate","activate"} result.action
-     * @apiSuccess (200) {Number} result.likes
-     * @apiSuccess (200) {String} result.username
-     *
-     * @apiSuccessExample {json} Success-Example:
-     *     HTTP/1.1 200
-     *     {
-     *        "action": "deactivate",
-     *        "likes": 3,
-     *        "posted_by": "JohnDoe"
-     *     }
-     *
-     * @apiError not_found Not found (404)
-     *
-     */
     export async function changeTopDesignStatus(req, res) {
         const postid = req.params.id;
         con.query(
@@ -277,25 +183,6 @@ namespace Topdesign {
         );
     }
 
-    /**
-     * @api {delete} /topdesign/posts/:id Delete Post
-     * @apiVersion 1.2.2
-     * @apiName DeletePost
-     * @apiDescription Delete Post
-     * @apiGroup Posts
-     *
-     * @apiSuccess (200) {Object} result
-     * @apiSuccess (200) {String} result.action
-     *
-     * @apiSuccessExample {json} Success-Example:
-     *     HTTP/1.1 200
-     *     {
-     *        "action": "delete"
-     *     }
-     *
-     * @apiError not_found Not found (404)
-     *
-     */
     export function deleteTopDesign(req, res) {
         const postid = req.params.id;
 
