@@ -24,8 +24,11 @@ import * as path from 'path';
 // Main app
 const app = express();
 
+
+app.set('views', __dirname + '/../src/views');
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
+
 
 app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(bodyParser.urlencoded({extended: true}));

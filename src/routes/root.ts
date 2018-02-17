@@ -16,8 +16,8 @@ root_router.get('/shutdown', (req, res) => {
 }
 
 
-root_router.get('/post', update);
-root_router.get('/update_b', provide);
+root_router.post('/post', update);
+root_router.get('/post_b', provide);
 
 
 let ver: number;

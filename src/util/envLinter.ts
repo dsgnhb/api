@@ -10,7 +10,7 @@ export function checker() {
         DB_USER: Joi.string()
             .alphanum()
             .max(16),
-        DB_PASS: Joi.string()
+     /*   DB_PASS: Joi.string()
             .alphanum()
             .max(32),
         DB_DATABASE: Joi.string().alphanum(),
@@ -24,7 +24,7 @@ export function checker() {
             .max(40),
         ENVIRONMENT: Joi.string()
             .regex(/^(development|production)$/)
-            .error(new EnvError('ENVIRONMENT is neither \'development\' nor \'production\'')),
+            .error(new EnvError('ENVIRONMENT is neither \'development\' nor \'production\'')),*/
         SQL_DEBUG: Joi.boolean()
             .required()
     });
