@@ -1,5 +1,8 @@
 import {Router} from 'express';
 import * as fs from 'fs';
+import provide from '../controllers/updateimage/update/provide';
+import update from '../controllers/updateimage/update';
+
 let root_router = Router();
 
 root_router.get('/', getPackageVersion);
@@ -11,6 +14,11 @@ root_router.get('/shutdown', (req, res) => {
 
 });
 }
+
+
+root_router.get('/post', update);
+root_router.get('/update_b', provide);
+
 
 let ver: number;
 function getPackageVersion(req, res) {
