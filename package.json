@@ -1,6 +1,6 @@
 {
   "name": "api",
-  "version": "1.8.0",
+  "version": "1.9.0",
   "description": "REST API written in TypeScript using express and mysql",
   "author": "designhub",
   "contributors": [
@@ -83,7 +83,7 @@
     "dredd": "^5.1.0"
   },
   "engines": {
-    "node": ">=0.10.0"
+    "node": ">=7.0.0"
   },
   "scripts": {
     "build": "gulp build",
