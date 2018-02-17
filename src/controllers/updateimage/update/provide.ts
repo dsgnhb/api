@@ -5,7 +5,6 @@ const showdown  = require('showdown'),
 export default async function (req, res) {
     map.forEach( val => {
             if (val.uuid === req.headers.uuid) {
-                console.log(val);
                 res.set('Content-Type', 'text/html');
                 return res.send(deliver_html(val.bgimg, val.header1, val.header2, converter.makeHtml(val.content)));
 
