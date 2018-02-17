@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer');
 import map from './map';
 const uuidd = require('uuid/v1');
-import C = require('../config-rewrapper');
+import C = require('../../config-rewrapper');
 
 export default async function(req, res) {
 
