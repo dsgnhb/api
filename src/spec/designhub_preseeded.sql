@@ -42,21 +42,22 @@ INSERT INTO `discord_donations` (`id`, `timestamp`, `ip`, `name`, `code`) VALUES
 
 CREATE TABLE `discord_levels` (
   `id` int(11) NOT NULL,
-  `userid` varchar(18) NOT NULL,
+  `userid` bigint(18) NOT NULL,
   `username` varchar(50) NOT NULL,
   `discriminator` int(5) NOT NULL,
   `avatar` text NOT NULL,
   `xp` int(11) NOT NULL,
-  `chests` int(11) NOT NULL
+  `chests` int(11) NOT NULL,
+   `coins` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Daten für Tabelle `discord_levels`
 --
 
-INSERT INTO `discord_levels` (`id`, `userid`, `username`, `discriminator`, `avatar`, `xp`, `chests`) VALUES
-(16, '170828613841715203', 'flo', 3087, 'https://cdn.discordapp.com/avatars/170828613841715203/2cf4a6e6b356f1b0ca5b0fb6a7c2c72b.png', 7240, 224),
-(25, '180642647424106496', 'Fin', 7929, 'https://cdn.discordapp.com/avatars/180642647424106496/393b6d7ed9371acde2c6fbd94c62ce22.png', 3573, 5);
+INSERT INTO `discord_levels` (`id`, `userid`, `username`, `discriminator`, `avatar`, `xp`, `chests`, `coins`) VALUES
+(16, 170828613841715203, 'flo', 3087, 'https://cdn.discordapp.com/avatars/170828613841715203/2cf4a6e6b356f1b0ca5b0fb6a7c2c72b.png', 7240, 224, 400),
+(25, 180642647424106496, 'Fin', 7929, 'https://cdn.discordapp.com/avatars/180642647424106496/393b6d7ed9371acde2c6fbd94c62ce22.png', 3573, 5, 7000);
 
 -- --------------------------------------------------------
 
