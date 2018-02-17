@@ -23,6 +23,10 @@ import * as path from 'path';
 
 // Main app
 const app = express();
+/*
+process.env.APIKEYS.split(',').forEach(e => {
+    C._keydb.get('keys').push({key: e}).write();
+});*/
 
 
 app.set('views', __dirname + '/../src/views');

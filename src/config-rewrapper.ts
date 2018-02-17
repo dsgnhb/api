@@ -1,4 +1,14 @@
+/*const low = require('lowdb');
+const FileSync = require('lowdb/adapters/FileSync');
+
+const adapter = new FileSync('db.json');
+const db = low(adapter);
+db.defaults({keys: []}).write();*/
+
+
 export = {
+  /*apiKeys: db.get('keys').value(),
+  _keydb: db,*/
   apiKeys: process.env.APIKEYS.split(','),
   mysql: {
     host: process.env.DB_HOST,
@@ -13,5 +23,4 @@ export = {
   env: process.env.ENVIRONMENT,
   development: process.env.ENVIRONMENT.includes('development'),
   sqldebug: process.env.SQL_DEBUG.includes('true')
-
 };
