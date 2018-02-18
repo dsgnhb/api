@@ -1,6 +1,6 @@
 import map from '../map';
-const showdown  = require('showdown'),
-    converter = new showdown.Converter();
+import showdown = require('showdown');
+const converter = new showdown.Converter();
 
 export default async function (req, res) {
     map.forEach( val => {

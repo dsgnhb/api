@@ -1,8 +1,8 @@
 import { Router } from 'express';
 const { authenticate } = require('../services/authentication');
 
-const DonationSchema = require('../models/validation/donation/donation');
-import {Vayder} from '../util/vayder';
+// const DonationSchema = require('../models/validation/donation/donation');
+// import {Vayder} from '../util/vayder';
 
 const Donation = require('../controllers/donation/donation');
 
