@@ -6,8 +6,8 @@ export default async function (req, res) {
     map.forEach( val => {
             if (val.uuid === req.headers.uuid) {
                 res.set('Content-Type', 'text/html');
+                map.splice(map.indexOf(5), 1);
                 return res.send(deliver_html(val.bgimg, val.header1, val.header2, converter.makeHtml(val.content)));
-
             }
     });
 }

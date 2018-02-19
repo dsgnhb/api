@@ -25,7 +25,7 @@ export default async function(req, res) {
 
         await browser.close();
 
-        return res.sendFile(__dirname + `/${uuid}.png`);
+        return res.set('Content-Type', 'img/png').sendFile(__dirname + `/${uuid}.png`);
     } catch (e) {
         console.log(e);
     }
