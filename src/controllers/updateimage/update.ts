@@ -11,7 +11,8 @@ export default async function(req, res) {
         map.push({uuid: uuid, header1: req.body.header1, header2: req.body.header2, content: req.body.content, bgimg: req.body.bgimg});
         const browser = await puppeteer.launch({args: [
             '--hide-scrollbars',
-            '--mute-audio'
+            '--mute-audio',
+            '--no-sandbox'
         ]});
 
         const page = await browser.newPage();

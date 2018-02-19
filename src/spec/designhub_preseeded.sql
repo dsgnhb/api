@@ -30,9 +30,9 @@ CREATE TABLE `discord_donations` (
 --
 
 INSERT INTO `discord_donations` (`id`, `timestamp`, `ip`, `name`, `code`) VALUES
-(9, '2017-09-16 17:06:50', '84.164.60.45', 'RTL', 'XXXX-XXXX-XXXX-XXXX'),
-(8, '2017-09-16 11:31:19', '2003:76:6f2d:e5e7:e049:ed8f:a93b:6361', 'flo', 'CODE-CODE-CODE-CODE'),
-(10, '2017-09-17 20:38:07', '91.66.10.164', 'perclf ', '1111-1111-1111-1111');
+(1, '2017-09-16 17:06:50', '84.164.60.45', 'RTL', 'XXXX-XXXX-XXXX-XXXX'),
+(2, '2017-09-16 11:31:19', '2003:76:6f2d:e5e7:e049:ed8f:a93b:6361', 'flo', 'CODE-CODE-CODE-CODE'),
+(3, '2017-09-17 20:38:07', '91.66.10.164', 'perclf ', '1111-1111-1111-1111');
 
 -- --------------------------------------------------------
 
@@ -56,8 +56,8 @@ CREATE TABLE `discord_levels` (
 --
 
 INSERT INTO `discord_levels` (`id`, `userid`, `username`, `discriminator`, `avatar`, `xp`, `chests`, `coins`) VALUES
-(16, 170828613841715203, 'flo', 3087, 'https://cdn.discordapp.com/avatars/170828613841715203/2cf4a6e6b356f1b0ca5b0fb6a7c2c72b.png', 7240, 224, 400),
-(25, 180642647424106496, 'Fin', 7929, 'https://cdn.discordapp.com/avatars/180642647424106496/393b6d7ed9371acde2c6fbd94c62ce22.png', 3573, 5, 7000);
+(1, 170828613841715203, 'flo', 3087, 'https://cdn.discordapp.com/avatars/170828613841715203/2cf4a6e6b356f1b0ca5b0fb6a7c2c72b.png', 7240, 224, 400),
+(2, 180642647424106496, 'Fin', 7929, 'https://cdn.discordapp.com/avatars/180642647424106496/393b6d7ed9371acde2c6fbd94c62ce22.png', 3573, 5, 7000);
 
 -- --------------------------------------------------------
 
@@ -82,8 +82,8 @@ CREATE TABLE `discord_topdesign` (
 --
 
 INSERT INTO `discord_topdesign` (`id`, `timestamp`, `timeshort`, `username`, `userid`, `avatar`, `content`, `image`, `active`) VALUES
-(44, '2017-08-02 16:51:24', 20178, 'lukas', 219204249941180431, 'http://i.imgur.com/N2iRPvn.jpg', '#topdesign', 'http://i.imgur.com/G4i0wOk.png', 0),
-(99, '2017-09-08 11:24:04', 20179, 'CreepPlays', 229496324444127233, 'https://i.imgur.com/2XskHey.png', '<#337981130886217730>', 'https://i.imgur.com/XiSZsds.png', 1);
+(1, '2017-08-02 16:51:24', 20178, 'lukas', 219204249941180431, 'http://i.imgur.com/N2iRPvn.jpg', '#topdesign', 'http://i.imgur.com/G4i0wOk.png', 0),
+(2, '2017-09-08 11:24:04', 20179, 'CreepPlays', 229496324444127233, 'https://i.imgur.com/2XskHey.png', '<#337981130886217730>', 'https://i.imgur.com/XiSZsds.png', 1);
 
 -- --------------------------------------------------------
 
@@ -103,9 +103,9 @@ CREATE TABLE `discord_topdesign_likes` (
 --
 
 INSERT INTO `discord_topdesign_likes` (`id`, `postid`, `userid`, `timestamp`) VALUES
-(179, 44, 170828613841715203, '2017-12-24 11:00:00'),
-(304, 99, 180642647424106496, '2017-12-24 12:00:00'),
-(305, 99, 180642647424106496, '2017-12-24 10:00:00');
+(1, 1, 170828613841715203, '2017-12-24 11:00:00'),
+(2, 2, 180642647424106496, '2017-12-24 12:00:00'),
+(3, 1, 180642647424106496, '2017-12-24 10:00:00');
 
 --
 -- Indizes der exportierten Tabellen
@@ -143,22 +143,22 @@ ALTER TABLE `discord_topdesign_likes`
 -- AUTO_INCREMENT für Tabelle `discord_donations`
 --
 ALTER TABLE `discord_donations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT für Tabelle `discord_levels`
 --
 ALTER TABLE `discord_levels`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT für Tabelle `discord_topdesign`
 --
 ALTER TABLE `discord_topdesign`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT für Tabelle `discord_topdesign_likes`
 --
 ALTER TABLE `discord_topdesign_likes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=312;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -369,7 +369,7 @@ Resources related to donations in the API.
 
 ## Single Post [/topdesign/posts/{postid}]
 + Parameters
-    + postid: 44 (number, required) -  An unique identifier of the Post
+    + postid: 1 (number, required) -  An unique identifier of the Post
 
 ### List Post [GET]
 
@@ -489,9 +489,9 @@ Resources related to donations in the API.
 
 ## Vote [/topdesign/vote/{postid}]
 + Parameters
-    + postid: 142 (number, required) -  An unique identifier of the Post
+    + postid: 3 (number, required) -  An unique identifier of the Post
 
-### Vote for specified Post [GET]
+### Vote for specified Post [POST]
 
 + Request (application/json; charset=utf-8)
 
@@ -511,6 +511,13 @@ Resources related to donations in the API.
         + likes: 16 (number)
         + posted_by: Natro | derTomekk (string)
 
++ Response 404 (application/json; charset=utf-8)
+    
+    + Body
+    
+            {
+                "error": "Not found"
+            }
 
 
 # Group Image processing
@@ -532,7 +539,7 @@ Resources related to donations in the API.
                 "header1": "header1",
                 "header2": "header2",
                 "content": "content",
-                "bgimg": "bgimage.png"
+                "bgimg": "https://i.imgur.com/8TzoYr9.png"
             }
             
 + Response 200 (img/png)
@@ -547,4 +554,10 @@ Resources related to donations in the API.
     
             Token: TEST1
             
-+ Response 200 (application/json; charset=utf-8)
++ Response 403 (application/json; charset=utf-8)
+    
+    + Body
+    
+            {
+                "error": "Forbidden"
+            }

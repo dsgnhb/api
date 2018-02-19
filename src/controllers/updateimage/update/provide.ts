@@ -1,14 +1,18 @@
 import map from '../map';
+import * as Re from '../../../services/response';
 import showdown = require('showdown');
 const converter = new showdown.Converter();
 
 export default async function (req, res) {
-    map.forEach( val => {
-            if (val.uuid === req.headers.uuid) {
-                res.set('Content-Type', 'text/html');
-                map.splice(map.indexOf(5), 1);
-                return res.send(deliver_html(val.bgimg, val.header1, val.header2, converter.makeHtml(val.content)));
-            }
+    if (map.length === 0) {
+      return Re.forbidden(res);
+    }
+    map.forEach((val, index) => {
+      if (val.uuid === req.headers.uuid) {
+        res.set('Content-Type', 'text/html');
+        map.splice(index, 1);
+        return res.send(deliver_html(val.bgimg, val.header1, val.header2, converter.makeHtml(val.content)));
+      }
     });
 }
 

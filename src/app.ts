@@ -29,7 +29,6 @@ process.env.APIKEYS.split(',').forEach(e => {
 });*/
 
 
-app.set('views', __dirname + '/../src/views');
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
