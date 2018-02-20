@@ -521,7 +521,7 @@ Resources related to donations in the API.
 
 
 # Group Image processing
-Resources related to donations in the API.
+Resources related to releasing branded Images in the API.
 
 ## Request Image [/post]
 
@@ -539,8 +539,8 @@ Resources related to donations in the API.
                 "header1": "header1",
                 "header2": "header2",
                 "content": "content",
-                "bgimg": "https://i.imgur.com/8TzoYr9.png",
-            }
+                "bgimg": "https://i.imgur.com/8TzoYr9.png"
+            }
             
 + Response 200 (img/png)
 
