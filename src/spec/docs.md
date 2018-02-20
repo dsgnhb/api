@@ -538,9 +538,9 @@ Resources related to donations in the API.
             {
                 "header1": "header1",
                 "header2": "header2",
-                "content": "content",
-                "bgimg": "https://i.imgur.com/8TzoYr9.png"
-            }
+                "content": "content",
+                "bgimg": "https://i.imgur.com/8TzoYr9.png",
+            }
             
 + Response 200 (img/png)
 
