@@ -538,13 +538,13 @@ Resources related to donations in the API.
             {
                 "header1": "header1",
                 "header2": "header2",
-                "content": "content",
+                "content": "content-markdown",
                 "bgimg": "https://i.imgur.com/8TzoYr9.png"
             }
             
 + Response 200 (img/png)
 
-## Internet Rendering [/post_b]
+## Internal Rendering [/post_b]
 
 ## Internal Route for Post rendering [GET]
 
