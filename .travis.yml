@@ -3,7 +3,7 @@ node_js:
 - '8'
 env:
     global:
-    - CI=true  
+    - CI=true
     - IMGUR_CLIENT_ID=$IMGUR_CLIENT_ID
     - IMGUR_CLIENT_SECRET=$IMGUR_CLIENT_SECRET
 before_install:
@@ -40,5 +40,6 @@ cache:
   directories:
   - node_modules/
   - pupeteer/
+  - /home/travis/.nvm/versions/node/
 services:
   - mysql

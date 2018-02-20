@@ -20,8 +20,7 @@ namespace Utility {
         try {
             let json = await imgur.uploadUrl(url);
             if (C.development) {
-                console.log('Imgur Data:');
-                console.dir(json, {depth: null});
+                console.log('Imgur Data: Success:',  json.success, 'HTTP Status:', json.status);
             }
             return json.data.link;
         } catch (ex) {
