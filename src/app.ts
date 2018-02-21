@@ -20,6 +20,7 @@ import levels_router from './routes/levels';
 import donate_router from './routes/donate';
 import root_router from './routes/root';
 import * as path from 'path';
+import apply_router from './routes/apply';
 
 // Main app
 const app = express();
@@ -52,6 +53,7 @@ app.use('/donate', donate_router);
 app.use('/levels', levels_router);
 app.use('/topdesign/posts', post_router);
 app.use('/topdesign', topdesign_router);
+app.use('/apply', apply_router);
 
 // Dear Future me: This may help or may not.
 
