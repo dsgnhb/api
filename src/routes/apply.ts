@@ -29,13 +29,13 @@ let schema = Joi.object().keys({
         .alphanum()
         .max(40)
         .required(),
-    experiences: Joi().string()
+    experiences: Joi.string()
         .alphanum()
         .min(20)
         .required(),
-    references: Joi().string()
+    references: Joi.string()
         .required(),
-    twitter: Joi().string()
+    twitter: Joi.string()
         .regex(/@([A-Za-z0-9_]+)/)
         .required(),
 });
