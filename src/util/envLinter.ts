@@ -30,7 +30,10 @@ export function checker() {
             .regex(/^(development|production)$/)
             .error(new EnvError('ENVIRONMENT is neither \'development\' nor \'production\'')),
         SQL_DEBUG: Joi.boolean()
-            .required()
+            .required(),
+        RECAPTCHA_KEY: Joi.string()
+            .alphanum()
+            .required(),
     });
 
     const envcheckresult = Joi.validate(process.env, schema, { allowUnknown: true });

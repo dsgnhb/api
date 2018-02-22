@@ -6,9 +6,14 @@ database.defaults({
 }).write();
 const applications = database.get('applications');
 const discord = require('./discord_webhook');
+const simple_recaptcha = require('simple-recaptcha-new');
 
 module Application {
     export async function apply(req, res) {
+
+        simple_recaptcha(process.env.RECAPTCHA_KEY, req.ip, req.body['g-recaptcha-response'], (err) => {
+            if(err) { res.json({status: 'recaptcha-error'}); }
+        });
 
         let d_appl = applications.find({discord: req.body.discord});
 

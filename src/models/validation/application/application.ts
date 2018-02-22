@@ -2,6 +2,7 @@ import {Joi} from 'celebrate';
 
 
 exports = Joi.object().keys({
+    'g-recaptcha-response': Joi.string().required(),
     about: Joi.string()
         .alphanum()
         .min(50)
