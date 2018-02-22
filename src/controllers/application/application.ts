@@ -43,4 +43,5 @@ module Application {
         return buf;
         }
 }
+export = Application;
 

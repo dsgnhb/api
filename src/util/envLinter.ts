@@ -18,14 +18,14 @@ export function checker() {
             .token(),
         DISCORD_WEBHOOK: Joi.string()
             .uri(),
-        IMGUR_CLIENT_ID: Joi.string()
+        /*IMGUR_CLIENT_ID: Joi.string()
             .alphanum()
             .min(15)
             .max(15),
         IMGUR_CLIENT_SECRET: Joi.string()
             .alphanum()
             .min(40)
-            .max(40),
+            .max(40),*/
         ENVIRONMENT: Joi.string()
             .regex(/^(development|production)$/)
             .error(new EnvError('ENVIRONMENT is neither \'development\' nor \'production\'')),
