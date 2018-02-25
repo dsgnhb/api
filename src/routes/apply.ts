@@ -1,12 +1,13 @@
 import { Router } from 'express';
+import {celebrate, Joi} from 'celebrate';
+import { validateBody } from 'vayder';
 
-import {Vayder} from '../util/vayder';
+const { authenticate } = require('../services/authentication');
 
 const Application = require('../controllers/application/application');
-const ApplicationSchema = require('../models/validation/application/application');
+import  ApplicationSchema from '../models/validation/application/application';
 
 let apply_router = Router();
-apply_router.use(Vayder.validateBody(ApplicationSchema, null));
-apply_router.post('/', Application.apply);
+apply_router.post('/', [ validateBody(ApplicationSchema), authenticate ], Application.apply);
 
 export default apply_router;

@@ -1,7 +1,7 @@
 # API
 [![MegaOP](https://img.shields.io/badge/MEGA%20OP-%E2%9C%94-green.svg)](http://dsgnhb.de) [![Build Status](https://travis-ci.org/dsgnhb/api.svg?branch=dev)](https://travis-ci.org/dsgnhb/api) [![Greenkeeper badge](https://badges.greenkeeper.io/dsgnhb/api.svg)](https://greenkeeper.io/)[ ![Discord](https://discordapp.com/api/guilds/202825877250244608/embed.png)](https://dsgnhb.de/discord)
 
-REST API written in node.js using express and mysq
+REST API written in node.js using express and mysql
 
 This API is primarily intended for intern usage.
 

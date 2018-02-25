@@ -8,18 +8,18 @@ import * as bodyParser from 'body-parser';
 import * as cors from 'cors';
 import * as morgan from 'morgan';
 import * as exphbs from 'express-handlebars';
-
+import * as path from 'path';
 
 // Error handler service
 import { development as DevelopmentErrorHandler, production as ProductionErrorHandler } from './services/errorHandler';
 import C = require('./config-rewrapper');
-// import {errors} from 'celebrate';
+import { errors } from 'celebrate';
+
 import topdesign_router from './routes/topdesign';
 import post_router from './routes/posts';
 import levels_router from './routes/levels';
 import donate_router from './routes/donate';
 import root_router from './routes/root';
-import * as path from 'path';
 import apply_router from './routes/apply';
 
 // Main app
@@ -45,6 +45,8 @@ app.use(cors({
     origin: true
 }));
 
+app.use(errors());
+
 app.use('/docs', express.static(path.join(__dirname, './docs.html')));
 
 
@@ -57,23 +59,12 @@ app.use('/apply', apply_router);
 
 // Dear Future me: This may help or may not.
 
-// app.use(errors());
 
 // catch 404 and forward to error handler
 app.use((req: express.Request, res: express.Response, next: Function) => {
     let err = new Error('Not Found');
     res.status(404);
     console.log('catching 404 error');
-    return next(err);
-});
-
-app.use('*', (err, req, res, next) => {
-    if (err.isJoi) {
-        let error = {};
-        error[err.details.name] = err.details.message;
-        res.status(500).json(JSON.stringify(error));
-    }
-
     return next(err);
 });
 

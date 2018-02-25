@@ -1,10 +1,8 @@
 import {Joi} from 'celebrate';
 
-
-exports = Joi.object().keys({
+const Schema = Joi.object().keys({
     'g-recaptcha-response': Joi.string().required(),
     about: Joi.string()
-        .alphanum()
         .min(50)
         .required(),
     age: Joi.number()
@@ -18,15 +16,12 @@ exports = Joi.object().keys({
         .email()
         .required(),
     motivation: Joi.string()
-        .alphanum()
         .min(50)
         .required(),
     name: Joi.string()
-        .alphanum()
         .max(40)
         .required(),
     experiences: Joi.string()
-        .alphanum()
         .min(20)
         .required(),
     references: Joi.string()
@@ -35,3 +30,5 @@ exports = Joi.object().keys({
         .regex(/@([A-Za-z0-9_]+)/)
         .required(),
 });
+
+export default Schema;

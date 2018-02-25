@@ -1,8 +1,9 @@
 import {Joi} from 'celebrate';
 
-
-exports = Joi.object().keys({
+const Schema = Joi.object().keys({
     ip: Joi.string().alphanum().required(),
     code: Joi.string(),
     name: Joi.string()
 });
+
+export default Schema;

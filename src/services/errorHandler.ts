@@ -9,8 +9,13 @@ module ErrorHandler {
   /**
    * Generates a 500 response
    */
-  let handler = (err: Error, req: Request, res: Response, next: Function, includeStackTrace: boolean) => {
-    res.status(res.statusCode || 500);
+  let handler = (err, req: Request, res: Response, next: Function, includeStackTrace: boolean) => {
+    if (err.isJoi) {
+      res.status(500);
+    } else {
+      res.status(res.statusCode || 500);
+    }
+
     res.json({
       message: err.message,
       error:   includeStackTrace ? err : {}

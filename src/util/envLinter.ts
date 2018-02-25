@@ -28,11 +28,10 @@ export function checker() {
             .max(40),
         ENVIRONMENT: Joi.string()
             .regex(/^(development|production)$/)
-            .error(new EnvError('ENVIRONMENT is neither \'development\' nor \'production\'')),
+            .error(new EnvError('ENVIRONMENT is neither \'development\' or \'production\'')),
         SQL_DEBUG: Joi.boolean()
             .required(),
         RECAPTCHA_KEY: Joi.string()
-            .alphanum()
             .required(),
     });
 
