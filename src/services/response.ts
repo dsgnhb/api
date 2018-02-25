@@ -5,6 +5,10 @@ module Re {
         return res.status(404).json({error: 'Not found'});
     }
 
+    export function forbidden(res: Response) {
+        return res.status(403).json({error: 'Forbidden'});
+    }
+
     export function body_missing(res: Response) {
         return res.status(500).json({error: 'Request Body is missing'});
     }

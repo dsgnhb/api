@@ -23,8 +23,8 @@
 		"jsdoc-format": true,
 		"label-position": true,
 		"max-line-length": [
-			true,
-			140
+			false,
+			5000
 		],
 		"member-ordering": [
 			true,
@@ -93,7 +93,7 @@
 		],
 		"variable-name": false,
 		"whitespace": [
-			true,
+			false,
 			"check-branch",
 			"check-decl",
 			"check-operator",

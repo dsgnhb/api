@@ -1,4 +1,5 @@
-const {Joi}: any = require('celebrate');
+import {Joi} from 'celebrate';
+
 
 exports = Joi.object().keys({
     ip: Joi.string().alphanum().required(),

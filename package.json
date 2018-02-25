@@ -1,6 +1,6 @@
 {
   "name": "api",
-  "version": "1.7.1",
+  "version": "1.10.0",
   "description": "REST API written in TypeScript using express and mysql",
   "author": "designhub",
   "contributors": [
@@ -20,12 +20,6 @@
     }
   ],
   "license": "MIT",
-  "apidoc": {
-    "title": "Designhub API",
-    "template": {
-      "forceLanguage": "en"
-    }
-  },
   "dependencies": {
     "@types/body-parser": "^1.16.8",
     "@types/cookie-parser": "^1.4.1",
@@ -33,6 +27,7 @@
     "@types/debug": "0.0.30",
     "@types/dotenv": "^4.0.2",
     "@types/express": "^4.11.1",
+    "@types/lowdb": "^1.0.0",
     "@types/mime": "^2.0.0",
     "@types/morgan": "^1.7.35",
     "@types/mysql": "^2.15.2",
@@ -47,20 +42,26 @@
     "express": "^4.16.2",
     "express-handlebars": "^3.0.0",
     "imgur": "^0.2.1",
+    "lowdb": "^1.0.0",
     "morgan": "^1.9.0",
     "mysql": "^2.15.0",
     "path": "^0.12.7",
-    "pm2": "^2.9.3",
-    "sequelize": "^4.33.4",
-    "serve-favicon": "^2.4.5"
+    "pm2": "^2.10.1",
+    "puppeteer": "^1.0.0",
+    "request-promise-native": "^1.0.5",
+    "sequelize": "^4.28.6",
+    "serve-favicon": "^2.4.5",
+    "showdown": "^1.8.6",
+    "simple-recaptcha-new": "^1.1.1",
+    "uuid": "^3.2.1"
   },
   "devDependencies": {
+    "gulp-aglio": "0.0.10",
     "babel-core": "^6.26.0",
     "babel-preset-es2017": "^6.24.1",
     "babel-require": "^1.0.1",
     "del": "^3.0.0",
     "gulp": "^3.9.1",
-    "gulp-apidoc": "^0.2.6",
     "gulp-bump": "^3.1.0",
     "gulp-filter": "^5.1.0",
     "gulp-git": "^2.5.1",
@@ -70,7 +71,7 @@
     "gulp-load-plugins": "^1.5.0",
     "gulp-nodemon": "^2.2.1",
     "gulp-notify": "^3.2.0",
-    "gulp-nsp": "^2.4.2",
+    "gulp-nsp": "^3.0.0",
     "gulp-rename": "^1.2.2",
     "gulp-shell": "^0.6.2",
     "gulp-tar": "^2.1.0",
@@ -83,10 +84,10 @@
     "run-sequence": "^2.2.1",
     "tslint": "^5.9.1",
     "typescript": "^2.7.1",
-    "dredd": "^5.0.0"
+    "dredd": "^5.1.2"
   },
   "engines": {
-    "node": ">=0.10.0"
+    "node": ">=7.0.0"
   },
   "scripts": {
     "build": "gulp build",

@@ -13,6 +13,22 @@ REST API written in TypeScript using express and mysql
 + discriminator: 7929 (number, required) - Discord's Username Thing
 + avatar: https://cdn.discordapp.com/avatars/180642647424106496/393b6d7ed9371acde2c6fbd94c62ce22.png (string, required)
 
+## Post (object)
++ username: Natro | derTomekk (string, required) - Discord Username
++ avatar: https://i.imgur.com/WziAVO9.png (string, required)
++ userid: 137227722660380670 (number, required)
++ image: https://i.imgur.com/nysMj7j.png (string, required) - User's Design uploaded on imgur.com
+
+# Group Welcome
+Resources related to donations in the API.
+
+## General [/]
+
+### Get Version [GET]
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + version: "1.9.0" (string, required)
 
 # Group Donation
 Resources related to donations in the API.
@@ -275,16 +291,8 @@ Resources related to levels in the API.
 
 
 
-# Group TopDesign
-
-## Data Structures
-
-### Post (object)
-+ username: Natro | derTomekk (string, required) - Discord Username
-+ avatar: https://i.imgur.com/WziAVO9.png (string, required)
-+ userid: 137227722660380670 (number, required)
-+ image: https://i.imgur.com/nysMj7j.png (string, required) - User's Design uploaded on imgur.com
-
+# Group Top Design
+Resources related to donations in the API.
 
 ## Posts [/topdesign/posts]
 
@@ -301,8 +309,6 @@ Resources related to levels in the API.
         + (Post)
             + id: 142 (number, required) -  An unique identifier of the Post
             + likes: 15 (number, required)
-
-            
 ### Add Post [POST]
 
 + Request (application/json; charset=utf-8)
@@ -326,9 +332,6 @@ Resources related to levels in the API.
     + Attributes (object)
         + action: add (string, required)
         + postid: 142 (number, required) -  An unique identifier of the Post
-
-
-
 
 
 ## Posts - Month [/topdesign/posts/month]
@@ -366,7 +369,7 @@ Resources related to levels in the API.
 
 ## Single Post [/topdesign/posts/{postid}]
 + Parameters
-    + postid: 44 (number, required) -  An unique identifier of the Post
+    + postid: 1 (number, required) -  An unique identifier of the Post
 
 ### List Post [GET]
 
@@ -486,9 +489,9 @@ Resources related to levels in the API.
 
 ## Vote [/topdesign/vote/{postid}]
 + Parameters
-    + postid: 142 (number, required) -  An unique identifier of the Post
+    + postid: 3 (number, required) -  An unique identifier of the Post
 
-### Vote for specified Post [GET]
+### Vote for specified Post [POST]
 
 + Request (application/json; charset=utf-8)
 
@@ -499,7 +502,7 @@ Resources related to levels in the API.
     + Body
     
             {
-                userid: 180642647424106496
+                "userid": 180642647424106496
             }
 
 + Response 200 (application/json; charset=utf-8)
@@ -507,3 +510,54 @@ Resources related to levels in the API.
         + action: add (string)
         + likes: 16 (number)
         + posted_by: Natro | derTomekk (string)
+
++ Response 404 (application/json; charset=utf-8)
+    
+    + Body
+    
+            {
+                "error": "Not found"
+            }
+
+
+# Group Image processing
+Resources related to releasing branded Images in the API.
+
+## Request Image [/post]
+
+### Request Image for Social Media Post [POST]
+
++ Request (application/json; charset=utf-8)
+
+    + Headers
+    
+            Token: TEST1
+
+    + Body
+    
+            {
+                "header1": "header1",
+                "header2": "header2",
+                "content": "content",
+                "bgimg": "https://i.imgur.com/8TzoYr9.png"
+            }
+            
++ Response 200 (img/png)
+
+## Internal Rendering [/post_b]
+
+## Internal Route for Post rendering [GET]
+
++ Request (application/json; charset=utf-8)
+
+    + Headers
+    
+            Token: TEST1
+            
++ Response 403 (application/json; charset=utf-8)
+    
+    + Body
+    
+            {
+                "error": "Forbidden"
+            }

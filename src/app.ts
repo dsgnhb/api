@@ -20,12 +20,19 @@ import levels_router from './routes/levels';
 import donate_router from './routes/donate';
 import root_router from './routes/root';
 import * as path from 'path';
+import apply_router from './routes/apply';
 
 // Main app
 const app = express();
+/*
+process.env.APIKEYS.split(',').forEach(e => {
+    C._keydb.get('keys').push({key: e}).write();
+});*/
+
 
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
+
 
 app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(bodyParser.urlencoded({extended: true}));
@@ -38,7 +45,7 @@ app.use(cors({
     origin: true
 }));
 
-app.use('/docs', express.static(path.join(__dirname, './apidoc')));
+app.use('/docs', express.static(path.join(__dirname, './docs.html')));
 
 
 app.use('/', root_router);
@@ -46,6 +53,7 @@ app.use('/donate', donate_router);
 app.use('/levels', levels_router);
 app.use('/topdesign/posts', post_router);
 app.use('/topdesign', topdesign_router);
+app.use('/apply', apply_router);
 
 // Dear Future me: This may help or may not.
 
@@ -78,12 +86,12 @@ if (C.development) {
 } else {
   app.use(ProductionErrorHandler);
 }
-
+/*
 if (process.env.CI) {
     console.log('Config loaded:');
     console.log(C);
 }
-/*
+
 if (process.env.CI && process.env.CINOTEST) {
     process.exit(0);
 }

@@ -11,9 +11,13 @@ export function checker() {
             .alphanum()
             .max(16),
         DB_PASS: Joi.string()
+            .allow('')
             .alphanum()
             .max(32),
-        DB_DATABASE: Joi.string().alphanum(),
+        DB_DATABASE: Joi.string()
+            .token(),
+        DISCORD_WEBHOOK: Joi.string()
+            .uri(),
         IMGUR_CLIENT_ID: Joi.string()
             .alphanum()
             .min(15)
@@ -26,7 +30,10 @@ export function checker() {
             .regex(/^(development|production)$/)
             .error(new EnvError('ENVIRONMENT is neither \'development\' nor \'production\'')),
         SQL_DEBUG: Joi.boolean()
-            .required()
+            .required(),
+        RECAPTCHA_KEY: Joi.string()
+            .alphanum()
+            .required(),
     });
 
     const envcheckresult = Joi.validate(process.env, schema, { allowUnknown: true });

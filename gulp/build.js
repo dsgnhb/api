@@ -3,11 +3,11 @@
 //Dependencies
 let gulp = require('gulp'),
   $ = require('gulp-load-plugins')({
-    pattern: ['gulp-*', 'del', 'run-sequence', 'gulp-apidoc']
+    pattern: ['gulp-*', 'del', 'run-sequence', 'gulp-aglio']
   }),
-  apidoc = require('gulp-apidoc'),
   config = require('./config.json'),
-  tsConfig = require('../tsconfig.json');
+  tsConfig = require('../tsconfig.json'),
+  aglio = require('gulp-aglio');
 
 /**
  * Create typescript project build reference for incremental compilation under watch tasks
@@ -56,13 +56,10 @@ gulp.task('compile', false, () => {
 /**
  * Generates API Docs
  */
-gulp.task('apidoc', 'Builds APIDocs', (callback) => {
-
-  apidoc({
-    config: './',
-    src: './src/',
-    dest: './dist/apidoc'
-  },callback);
+gulp.task('docs', function () {
+  gulp.src('./src/spec/docs.md')
+    .pipe(aglio({ template: 'slate' }))
+    .pipe(gulp.dest('./dist'));
 });
 
 /**
@@ -70,8 +67,8 @@ gulp.task('apidoc', 'Builds APIDocs', (callback) => {
  */
 gulp.task('build', 'Builds the server app (compiles & copies)', (callback) =>
   $.runSequence('clean',
-              ['compile'],
-              'copyNonTs',
-              'apidoc',
-              callback)
+    ['compile'],
+    'copyNonTs',
+    'docs',
+    callback)
 );
