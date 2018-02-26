@@ -41,7 +41,7 @@ module Application {
     function conv_obj(obj) {
         let buf = [];
         Object.keys(obj).forEach(function(key) {
-            switch (key){
+            switch (key) {
                 case 'Twitter':
                     buf.push({title: key, value: `${obj[key]}  <https://twitter.com/${obj[key].replace('@', '')}|Link>`});
                     break;
