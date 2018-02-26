@@ -8,13 +8,14 @@ const Schema = Joi.object().keys({
     age: Joi.number()
         .integer()
         .min(13)
-        .required(),
+        .required().error(new Error('Alter entspricht nicht den Vorgaben.')),
     discord: Joi.string()
         .regex(/.*#[0-9]{4}$/)
-        .required(),
+        .required()
+        .error(new Error('Discord Tag entspricht nicht den Vorgaben.')),
     mail: Joi.string()
         .email()
-        .required(),
+        .required().error(new Error('Email entspricht nicht den Vorgaben.')),
     motivation: Joi.string()
         .min(50)
         .required(),
@@ -28,7 +29,7 @@ const Schema = Joi.object().keys({
         .required(),
     twitter: Joi.string()
         .regex(/@([A-Za-z0-9_]+)/)
-        .required(),
+        .required().error(new Error('Twitter Nutzername entspricht nicht den Vorgaben.')),
 });
 
 export default Schema;
