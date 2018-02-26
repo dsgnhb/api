@@ -42,14 +42,17 @@ module Application {
         let buf = [];
         Object.keys(obj).forEach(function(key) {
             switch (key) {
-                case 'Twitter':
-                    buf.push({title: key, value: `${obj[key]}  <https://twitter.com/${obj[key].replace('@', '')}|Link>`});
-                    break;
                 case 'Discord':
                     buf.push({title: key, value: `@${obj[key]}`});
                     break;
                 case 'Mail':
                     buf.push({title: key, value: `<mailto:${obj[key]}|${obj[key]}>`});
+                    break;
+                case 'Name':
+                    buf.push({title: key, value: obj[key]});
+                    break;
+                case 'Twitter':
+                    buf.push({title: key, value: `${obj[key]}  <https://twitter.com/${obj[key].replace('@', '')}|Link>`});
                     break;
                 default:
                     // This should prevent too long fields
