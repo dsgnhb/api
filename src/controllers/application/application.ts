@@ -46,7 +46,7 @@ module Application {
                     buf.push({title: key, value: `@${obj[key]}`});
                     break;
                 case 'Mail':
-                    buf.push({title: key, value: `<mailto:${obj[key]}|${obj[key]}>`});
+                    buf.push({title: key, value: obj[key]});
                     break;
                 case 'Name':
                     buf.push({title: key, value: obj[key]});
