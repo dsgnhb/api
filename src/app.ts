@@ -11,8 +11,8 @@ import * as exphbs from 'express-handlebars';
 import * as path from 'path';
 
 // Error handler service
-import { development as DevelopmentErrorHandler, production as ProductionErrorHandler } from './services/errorHandler';
-import C = require('./config-rewrapper');
+import { development as DevelopmentErrorHandler/*, production as ProductionErrorHandler */} from './services/errorHandler';
+// import C = require('./config-rewrapper');
 import { errors } from 'celebrate';
 
 import topdesign_router from './routes/topdesign';
@@ -72,11 +72,11 @@ app.use((req: express.Request, res: express.Response, next: Function) => {
 
 // development error handler - will print stacktrace
 // production error handler - no stacktraces leaked to user
-if (C.development) {
-  app.use(DevelopmentErrorHandler);
-} else {
-  app.use(ProductionErrorHandler);
-}
+// if (C.development) {
+app.use(DevelopmentErrorHandler);
+// } else {
+//  app.use(ProductionErrorHandler);
+// }
 /*
 if (process.env.CI) {
     console.log('Config loaded:');
