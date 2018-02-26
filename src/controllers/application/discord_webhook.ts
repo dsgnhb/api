@@ -9,7 +9,7 @@ module.exports = async (fields_array) => {
       username: 'Bewerbungs Bot',
       attachments: [{
         color: '#00ff00',
-        author_name: fields_array[5].value,
+        author_name: fields_array[2].value,
         fields: fields_array,
         thumb_url: 'http://example.com/path/to/thumb.png',
         footer: 'dsgnhb API',
