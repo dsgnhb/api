@@ -1,12 +1,9 @@
 import { Router } from 'express';
-
-import {Vayder} from '../util/vayder';
-
+import { validateBody } from 'vayder';
 const Application = require('../controllers/application/application');
-const ApplicationSchema = require('../models/validation/application/application');
+import  ApplicationSchema from '../models/validation/application/application';
 
 let apply_router = Router();
-apply_router.use(Vayder.validateBody(ApplicationSchema, null));
-apply_router.post('/', Application.apply);
+apply_router.post('/', validateBody(ApplicationSchema), Application.apply);
 
 export default apply_router;
