@@ -16,15 +16,15 @@ module Application {
             let d_appl = applications.find({discord: req.body.discord});
 
             let obj = {
-                about: req.body.about,
-                age: req.body.age,
-                discord: req.body.discord,
-                mail: req.body.mail,
-                motivation: req.body.motivation,
-                name: req.body.name,
-                experiences: req.body.experiences,
-                references: req.body.references,
-                twitter: req.body.twitter,
+                About: req.body.about,
+                Age: req.body.age,
+                Discord: req.body.discord,
+                Mail: req.body.mail,
+                Motivation: req.body.motivation,
+                Name: req.body.name,
+                Experiences: req.body.experiences,
+                References: req.body.references,
+                Twitter: req.body.twitter,
             };
 
             if (d_appl.value() != null) {
@@ -41,7 +41,22 @@ module Application {
     function conv_obj(obj) {
         let buf = [];
         Object.keys(obj).forEach(function(key) {
-            buf.push({title: key, value: obj[key]});
+            switch (key){
+                case 'Twitter':
+                    buf.push({title: key, value: `${obj[key]}  <https://twitter.com/${obj[key].replace('@', '')}|Link>`});
+                    break;
+                case 'Discord':
+                    buf.push({title: key, value: `@${obj[key]}`});
+                    break;
+                case 'Mail':
+                    buf.push({title: key, value: `<mailto:${obj[key]}|${obj[key]}>`});
+                    break;
+                default:
+                    // This should prevent too long fields
+                    // buf.push({title: key, value: obj[key]});
+                    break;
+            }
+
         });
         return buf;
         }
