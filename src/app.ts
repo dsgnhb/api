@@ -26,10 +26,15 @@ import apply_router from './routes/apply';
 const app = express();
 
 app.use(favicon(__dirname + '/public/favicon.ico'));
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(cookieParser());
+
 app.use(morgan('short'));
+
+app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+app.set('view engine', 'handlebars');
 
 app.use(cors({
     credentials: true,

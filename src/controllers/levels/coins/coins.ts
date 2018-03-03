@@ -6,16 +6,9 @@ module Coins {
 
     export async function addCoin (req, res) {
         const userid = req.params.userid;
-        if (userid.length > 18) { return Re.userid_too_long(res); }
-        const body = req.body;
-        if (!body) { return Re.body_missing(res); }
 
-        const needed = ['username', 'avatar', 'coins', 'discriminator'];
-        for (let i = 0; i < needed.length; i++) {
-            if (!body.hasOwnProperty(needed[i])) {
-                return Re.property_required(res, needed[i]);
-            }
-        }
+        const body = req.body;
+
         con.query('UPDATE discord_levels SET coins = coins + ? WHERE userid = ?', [body.coins, userid], function (error, results) {
             if (error) { throw error; }
             if (results.changedRows === 0) {
@@ -44,17 +37,10 @@ module Coins {
         });
     }
 
-    export async function deleteCoin (req, res) {
+    export async function removeCoin (req, res) {
         const userid = req.params.userid;
-        if (userid.length > 18) { return Re.userid_too_long(res); }
 
         const body = req.body;
-        if (!body) { return Re.body_missing(res); }
-
-        const needed = ['username', 'avatar', 'coins', 'discriminator'];
-        for (let i = 0; i < needed.length; i++) {
-            if (!body.hasOwnProperty(needed[i])) { return Re.property_required(res, needed[i]); }
-        }
 
         con.query('SELECT coins FROM discord_levels WHERE userid = ?', [userid], function (error, results) {
             if (error) { throw error; }
