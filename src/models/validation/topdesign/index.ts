@@ -2,7 +2,7 @@ import {Joi} from 'celebrate';
 
 module TopDesign {
     export const postIdSchema = Joi.object({
-        id: Joi.postive().required()
+        id: Joi.number().postive().required()
     });
 }
 
