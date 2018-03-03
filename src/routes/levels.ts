@@ -9,7 +9,7 @@ const Coins = require('../controllers/levels/coins/coins');
 const Level = require('../controllers/levels/levels');
 const XP = require('../controllers/levels/xp/xp');
 
-import { userIdSchema } from '../models/validation/levels';
+import { userIdSchema } from '../models/validation/general';
 import { ChestSchema } from '../models/validation/levels/chests';
 import { CoinSchema } from '../models/validation/levels/coins';
 import { XPSchema } from '../models/validation/levels/xp';

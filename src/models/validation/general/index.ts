@@ -1,9 +1,9 @@
 import {Joi} from 'celebrate';
 
-module Levels {
+module General {
     export const userIdSchema = Joi.object({
         userid: Joi.required()
     });
 }
 
-export =  Levels;
+export =  General;

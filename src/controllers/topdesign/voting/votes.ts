@@ -10,17 +10,6 @@ module Votes {
         const postid = req.params.postid;
         const body = req.body;
         const timeshort = Utility.timeshort(new Date());
-        if (!body) {
-            return Re.body_missing(res);
-        }
-
-        const needed = ['userid'];
-        for (let i = 0; i < needed.length; i++) {
-            // This 2 Liner checks if our request is properly sent. Maybe we could add a type check here too?
-            if (!body.hasOwnProperty(needed[i])) {
-                return Re.property_required(res, needed[i]);
-            }
-        }
 
         // FIXME: Fuck this, I see, why it's nescessay but it could be performed in the Database too...
         con.query(
