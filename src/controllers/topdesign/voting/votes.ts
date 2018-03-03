@@ -7,7 +7,7 @@ const con = getConnection();
 module Votes {
 
     export async function vote(req, res) {
-        const postid = req.params.postid;
+        const postid = req.params.id;
         const body = req.body;
         const timeshort = Utility.timeshort(new Date());
 
