@@ -19,6 +19,7 @@ before_script:
 scripts:
   - dredd
 before_deploy: gulp package
+after_deploy: node updator.js
 notifications:
   email:
     on_success: never
