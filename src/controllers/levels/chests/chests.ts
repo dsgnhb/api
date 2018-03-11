@@ -6,16 +6,9 @@ module Chests {
 
     export async function addChest(req, res) {
         const userid = req.params.userid;
-        if (userid.length > 18) { return Re.userid_too_long(res); }
-        const body = req.body;
-        if (!body) { return Re.body_missing(res); }
 
-        const needed = ['username', 'avatar', 'chests', 'discriminator'];
-        for (let i = 0; i < needed.length; i++) {
-            if (!body.hasOwnProperty(needed[i])) {
-                return Re.property_required(res, needed[i]);
-            }
-        }
+        const body = req.body;
+
         con.query('UPDATE discord_levels SET chests = chests + ? WHERE userid = ?', [body.chests, userid], function (error, results) {
             if (error) { throw error; }
             if (results.changedRows === 0) {
@@ -44,17 +37,10 @@ module Chests {
         });
     }
 
-    export async function deleteChest(req, res) {
+    export async function removeChest(req, res) {
         const userid = req.params.userid;
-        if (userid.length > 18) { return Re.userid_too_long(res); }
 
         const body = req.body;
-        if (!body) { return Re.body_missing(res); }
-
-        const needed = ['username', 'avatar', 'chests', 'discriminator'];
-        for (let i = 0; i < needed.length; i++) {
-            if (!body.hasOwnProperty(needed[i])) { return Re.property_required(res, needed[i]); }
-        }
 
         con.query('SELECT chests FROM discord_levels WHERE userid = ?', [userid], function (error, results) {
             if (error) { throw error; }

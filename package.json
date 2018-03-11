@@ -1,6 +1,6 @@
 {
   "name": "api",
-  "version": "1.10.1",
+  "version": "1.10.5",
   "description": "REST API written in TypeScript using express and mysql",
   "author": "designhub",
   "contributors": [

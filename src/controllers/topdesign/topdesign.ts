@@ -109,16 +109,6 @@ module Topdesign {
 
     export async function addTopDesign(req, res) {
         const body = req.body;
-        if (!req.body) {
-            return Re.body_missing(res);
-        }
-
-        const needed = ['username', 'userid', 'avatar', 'content', 'image'];
-        for (let i = 0; i < needed.length; i++) {
-            if (!body.hasOwnProperty(needed[i])) {
-                return Re.body_missing(res);
-            }
-        }
 
         if (await findTopDesignbyUserIDandTime(body.userid)) {
             return Re.already_existing(res);

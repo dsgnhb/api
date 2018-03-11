@@ -11,8 +11,8 @@ import * as exphbs from 'express-handlebars';
 import * as path from 'path';
 
 // Error handler service
-import { development as DevelopmentErrorHandler, production as ProductionErrorHandler } from './services/errorHandler';
-import C = require('./config-rewrapper');
+import { development as DevelopmentErrorHandler/*, production as ProductionErrorHandler */} from './services/errorHandler';
+// import C = require('./config-rewrapper');
 import { errors } from 'celebrate';
 
 import topdesign_router from './routes/topdesign';
@@ -24,25 +24,21 @@ import apply_router from './routes/apply';
 
 // Main app
 const app = express();
-/*
-process.env.APIKEYS.split(',').forEach(e => {
-    C._keydb.get('keys').push({key: e}).write();
-});*/
 
+app.use(favicon(__dirname + '/public/favicon.ico'));
+
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+app.use(cookieParser());
+
+app.use(morgan('short'));
 
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
-
-app.use(favicon(__dirname + '/public/favicon.ico'));
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
-app.use(cookieParser());
-app.use(morgan('short'));
-
 app.use(cors({
     credentials: true,
-    origin: true
+    origin: ['https://dsgnhb.de', 'https://designhub.fun']
 }));
 
 app.use(errors());
@@ -72,11 +68,11 @@ app.use((req: express.Request, res: express.Response, next: Function) => {
 
 // development error handler - will print stacktrace
 // production error handler - no stacktraces leaked to user
-if (C.development) {
-  app.use(DevelopmentErrorHandler);
-} else {
-  app.use(ProductionErrorHandler);
-}
+// if (C.development) {
+app.use(DevelopmentErrorHandler);
+// } else {
+//  app.use(ProductionErrorHandler);
+// }
 /*
 if (process.env.CI) {
     console.log('Config loaded:');
