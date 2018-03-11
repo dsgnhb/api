@@ -36,7 +36,7 @@ namespace Utility {
                 if (err) {
                     reject(err);
                 } else {
-                    resolve(buffer.toString(stringBase));
+                    resolve(buffer.toString(stringBase).replace(/\+/g, '0').replace(/\//g, '0'));
                 }
             });
         });
