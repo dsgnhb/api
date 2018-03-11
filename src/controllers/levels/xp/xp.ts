@@ -12,7 +12,7 @@ module XP {
         con.query('UPDATE discord_levels SET xp = xp + ? WHERE userid = ?', [body.xp, userid], function (error, results) {
             if (error) { throw error; }
             if (results.changedRows === 0) {
-                let data = {
+                con.query('INSERT INTO discord_levels SET ?', [{
                     userid: userid,
                     username: body.username,
                     discriminator: body.discriminator,
@@ -20,8 +20,7 @@ module XP {
                     xp: body.xp,
                     chests: 0,
                     coins: 100
-                };
-                con.query('INSERT INTO discord_levels SET ?', [data], function (error) {
+                }], function (error) {
                     if (error) { throw error; }
                 });
             }
@@ -47,7 +46,7 @@ module XP {
             const xp = results[0];
             if (!xp) {
                 // USER isn't in DB yet
-                let data = {
+                con.query('INSERT INTO discord_levels SET ?', [{
                     userid: userid,
                     username: body.username,
                     discriminator: body.discriminator,
@@ -55,8 +54,7 @@ module XP {
                     xp: 0,
                     chests: 0,
                     coins: 100
-                };
-                con.query('INSERT INTO discord_levels SET ?', [data], function (error) {
+                }], function (error) {
                     if (error) { throw error; }
                     return Re.not_sufficient(res, 'xp');
                 });

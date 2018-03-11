@@ -10,7 +10,7 @@ module Levels {
                   function (error, results) {
             if (error) { throw error; }
             for (let i = 0; i < results.length; i++) {
-                const element = results[i];
+                let element = results[i];
                 element.rank = i + 1;
             }
             res.json(results);

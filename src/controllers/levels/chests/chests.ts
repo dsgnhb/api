@@ -12,7 +12,7 @@ module Chests {
         con.query('UPDATE discord_levels SET chests = chests + ? WHERE userid = ?', [body.chests, userid], function (error, results) {
             if (error) { throw error; }
             if (results.changedRows === 0) {
-                let data = {
+                con.query('INSERT INTO discord_levels SET ?', [{
                     userid: userid,
                     username: body.username,
                     discriminator: body.discriminator,
@@ -20,8 +20,7 @@ module Chests {
                     xp: 0,
                     chests: body.chests,
                     coins: 100
-                };
-                con.query('INSERT INTO discord_levels SET ?', [data], function (error) {
+                }], error => {
                     if (error) { throw error; }
                 });
             }
@@ -46,8 +45,7 @@ module Chests {
             if (error) { throw error; }
             const chests = results[0];
             if (!chests) {
-                // USER isn't in DB yet
-                let data = {
+                con.query('INSERT INTO discord_levels SET ?', [{
                     userid: userid,
                     username: body.username,
                     discriminator: body.discriminator,
@@ -55,8 +53,7 @@ module Chests {
                     xp: 0,
                     chests: 0,
                     coins: 100
-                };
-                con.query('INSERT INTO discord_levels SET ?', [data], function (error) {
+                }], function (error) {
                     if (error) { throw error; }
                     return Re.not_sufficient(res, 'chests');
                 });

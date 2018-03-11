@@ -1,4 +1,5 @@
 import C = require('../config-rewrapper');
+
 let keys;
 module Authentication {
 
@@ -12,7 +13,7 @@ module Authentication {
         return keys;
     }
 
-
+    // Deprecated
     export function paramAuthenticate(req, res, next) {
         gAuthenticate(req.params.token, next, res);
     }
