@@ -3,7 +3,7 @@ const exec = util.promisify(require('child_process').exec);
 module Update {
     export async function run_update(req, res) {
         res.json({message: 'Updating!..'});
-        exec('../../../update.sh');
+        exec('bash update.sh');
     }
 }
 export = Update;
