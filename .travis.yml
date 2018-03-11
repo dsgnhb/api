@@ -42,8 +42,8 @@ deploy:
       repo: dsgnhb/api
       branch: refactor
       tags: true
-  - deploy:
-    provider: script
+  - provider: script
     script: sh deploy.sh
+    skip_cleanup: false
     on:
       branch: master
