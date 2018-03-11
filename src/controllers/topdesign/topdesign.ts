@@ -152,6 +152,7 @@ module Topdesign {
                                 posted_by: post.username
                             });
                         });
+                        break;
                     case 0:
                         con.query('UPDATE discord_topdesign SET active = 1 WHERE id = ?', [postid], function(error) {
                             if (error) {
@@ -163,6 +164,7 @@ module Topdesign {
                                 posted_by: post.username
                             });
                         });
+                        break;
                     default:
                         break;
                 }

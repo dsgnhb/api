@@ -20,7 +20,7 @@ module Chests {
                     xp: 0,
                     chests: body.chests,
                     coins: 100
-                }], error => {
+                }],       error => {
                     if (error) { throw error; }
                 });
             }
@@ -53,7 +53,7 @@ module Chests {
                     xp: 0,
                     chests: 0,
                     coins: 100
-                }], function (error) {
+                }],       error => {
                     if (error) { throw error; }
                     return Re.not_sufficient(res, 'chests');
                 });

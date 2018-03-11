@@ -21,7 +21,7 @@ module Coins {
                     xp: 0,
                     chests: 0,
                     coins: 100 + body.coins
-                }], error => {
+                }],       error => {
                     if (error) { throw error; }
                 });
             }
@@ -54,7 +54,7 @@ module Coins {
                     xp: 0,
                     chests: 0,
                     coins: 100
-                }], function (error) {
+                }],       error => {
                     if (error) { throw error; }
                     return Re.not_sufficient(res, 'coins');
                 });

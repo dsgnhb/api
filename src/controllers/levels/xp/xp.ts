@@ -20,7 +20,7 @@ module XP {
                     xp: body.xp,
                     chests: 0,
                     coins: 100
-                }], function (error) {
+                }],       function (error) {
                     if (error) { throw error; }
                 });
             }
@@ -54,7 +54,7 @@ module XP {
                     xp: 0,
                     chests: 0,
                     coins: 100
-                }], function (error) {
+                }],       error => {
                     if (error) { throw error; }
                     return Re.not_sufficient(res, 'xp');
                 });
