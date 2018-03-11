@@ -1,5 +1,6 @@
 import * as lowdb from 'lowdb';
 import * as FileSync from'lowdb/adapters/FileSync';
+import {getKeys} from '../../services/authentication';
 const database = lowdb(new FileSync('./applications.json'));
 database.defaults({
     applications: []
@@ -61,8 +62,18 @@ module Application {
             }
 
         });
+        buf.push({title: 'Online-Viewer', value: `<https://api.dsgnhb.de/apply/get/${getKeys()[0]}/${obj.Discord}|Viewer>`});
         return buf;
         }
+
+
+    export async function getApplication(req, res) {
+        let application = applications.find({discord: req.params.discord});
+        if(application.value() != null) {
+            return res.json(application);
+        }
+        res.status(404).json({status: 'not found'});
+    }
 }
 export = Application;
 
