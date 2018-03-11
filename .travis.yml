@@ -6,6 +6,18 @@ env:
     - CI=true
     - IMGUR_CLIENT_ID=$IMGUR_CLIENT_ID
     - IMGUR_CLIENT_SECRET=$IMGUR_CLIENT_SECRET
+cache:
+  directories:
+  - node_modules/
+  - pupeteer/
+  - /home/travis/.nvm/versions/node/
+services:
+  - mysql
+notifications:
+  email:
+    on_success: never
+    on_failure: never
+  webhooks: https://flooo.me/travis/designhub-dev.php
 before_install:
   - npm install -g gulp dredd
   - mysql -e 'CREATE DATABASE designhub;' && mysql -u root designhub < ./src/spec/designhub_preseeded.sql
@@ -19,28 +31,18 @@ before_script:
 scripts:
   - dredd
 before_deploy: gulp package
-after_deploy: node updator.js
-notifications:
-  email:
-    on_success: never
-    on_failure: never
-  webhooks: https://flooo.me/travis/designhub-dev.php
 deploy:
-  provider: releases
-  api_key:
-    secure: Ut7v3sK8+IppZVKW+LSGkFzNvykd7fBt6Cu5qD0i4WafoDp0pPHFrht0hHOuQyoQlAyTCJrZHppCyOHGHzQdGrpv4AnY8AIzimXINv0aQIqBWmLrGw/B4vpKu3wNYHYr0Fu8o75RcD0oD1E7w2iD3yGJN6HwvCb89TQwCsKXh6S5lUZEEqlufRP5NDUc2Pu4xLKE1waJmHxm9L72A9wTABE5/yVB42gwWCvVmgGdV1vaatup97mPLGIbZK8NF7tkfnL6EiajnPf+lVFWhgyRrWvETDiBAl/uQJPzWAyf/VVeC4MkhMoSQFp/inmB/g4ptK6LjC8fWDkps2VMmgfwcAYBwoxbOaiV3Puscgr+XTYikbywTPzLaR0EMS6gzbgoAjgTge8clGrKnJkiLiZd1jldeJLYlQvsF0DjzuJXYWmmQ7xbZ1xmwRKq/SuEOQdziInQkF9+CZ7eNmnPFOqkyCGerN6oWkhIZPeiNt5+hIMaWEA9Kos8mK8CSBcWTtC7Bj6YTcwUuWBEWuzmw3AoRWEwCO9uwExlAZCEHF35qLgvlspwCRQOHLe93ptZtmGaNZm5JwhYZHUYnLAtz7/5lsJ4w0u4pEBoUnrcxgEPmmf3V5M1mVJ2NcbakYD4rZq05XLj150sxPB4fd99eBssEpaTyOAnzm0SDfR6mwnTVIc=
-  file: tmp/release.tar.gz
-  skip_cleanup: true
-  on:
-    repo: dsgnhb/api
-    branch: refactor
-    tags: true
-#after_success:
-#- gulp coveralls
-cache:
-  directories:
-  - node_modules/
-  - pupeteer/
-  - /home/travis/.nvm/versions/node/
-services:
-  - mysql
+  - provider: releases
+    api_key:
+      secure: Ut7v3sK8+IppZVKW+LSGkFzNvykd7fBt6Cu5qD0i4WafoDp0pPHFrht0hHOuQyoQlAyTCJrZHppCyOHGHzQdGrpv4AnY8AIzimXINv0aQIqBWmLrGw/B4vpKu3wNYHYr0Fu8o75RcD0oD1E7w2iD3yGJN6HwvCb89TQwCsKXh6S5lUZEEqlufRP5NDUc2Pu4xLKE1waJmHxm9L72A9wTABE5/yVB42gwWCvVmgGdV1vaatup97mPLGIbZK8NF7tkfnL6EiajnPf+lVFWhgyRrWvETDiBAl/uQJPzWAyf/VVeC4MkhMoSQFp/inmB/g4ptK6LjC8fWDkps2VMmgfwcAYBwoxbOaiV3Puscgr+XTYikbywTPzLaR0EMS6gzbgoAjgTge8clGrKnJkiLiZd1jldeJLYlQvsF0DjzuJXYWmmQ7xbZ1xmwRKq/SuEOQdziInQkF9+CZ7eNmnPFOqkyCGerN6oWkhIZPeiNt5+hIMaWEA9Kos8mK8CSBcWTtC7Bj6YTcwUuWBEWuzmw3AoRWEwCO9uwExlAZCEHF35qLgvlspwCRQOHLe93ptZtmGaNZm5JwhYZHUYnLAtz7/5lsJ4w0u4pEBoUnrcxgEPmmf3V5M1mVJ2NcbakYD4rZq05XLj150sxPB4fd99eBssEpaTyOAnzm0SDfR6mwnTVIc=
+    file: tmp/release.tar.gz
+    skip_cleanup: true
+    on:
+      repo: dsgnhb/api
+      branch: refactor
+      tags: true
+  - deploy:
+    provider: script
+    script: node updator.js
+    on:
+      branch: master
