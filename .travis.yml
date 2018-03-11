@@ -19,6 +19,7 @@ notifications:
     on_failure: never
   webhooks: https://flooo.me/travis/designhub-dev.php
 before_install:
+  - sudo apt-get install -qq sshpass
   - npm install -g gulp dredd
   - mysql -e 'CREATE DATABASE designhub;' && mysql -u root designhub < ./src/spec/designhub_preseeded.sql
   - rm -f src/.env.example
@@ -43,6 +44,6 @@ deploy:
       tags: true
   - deploy:
     provider: script
-    script: node updator.js
+    script: sh deploy.sh
     on:
       branch: master

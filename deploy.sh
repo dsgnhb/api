@@ -1,0 +1,1 @@
+sshpass -p "$SSH_PASS" ssh -f $SSH_USER@$SSH_HOST ./api/update.sh
