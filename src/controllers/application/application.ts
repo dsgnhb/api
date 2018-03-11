@@ -62,13 +62,13 @@ module Application {
             }
 
         });
-        buf.push({title: 'Online-Viewer', value: `<https://api.dsgnhb.de/apply/get/${getKeys()[0]}/${obj.Discord}|Viewer>`});
+        buf.push({title: 'Online-Viewer', value: `<https://api.dsgnhb.de/apply/get/${getKeys()[0]}/${obj.Twitter}|Viewer>`});
         return buf;
         }
 
 
     export async function getApplication(req, res) {
-        let application = applications.find({discord: req.params.discord});
+        let application = applications.find({Twitter: req.params.twitter});
         if(application.value() != null) {
             return res.json(application);
         }
