@@ -1,4 +1,5 @@
 import C = require('../config-rewrapper');
+import crypto = require('crypto');
 
 const imgur = require('imgur');
 namespace Utility {
@@ -27,6 +28,18 @@ namespace Utility {
             console.error(ex.message);
         }
         return undefined;
+    }
+
+    export async function generateToken({stringBase = 'base64', byteLength = 48} = {}) {
+        return new Promise((resolve, reject) => {
+            crypto.randomBytes(byteLength, (err, buffer) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(buffer.toString(stringBase).replace(/\+/g, '0').replace(/\//g, '0'));
+                }
+            });
+        });
     }
 }
 export = Utility;

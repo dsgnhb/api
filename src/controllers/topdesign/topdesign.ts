@@ -1,5 +1,5 @@
 import * as Re from '../../services/response';
-import { getConnection } from '../../services/connection';
+import {getConnection} from '../../services/connection';
 import Utility = require('../../util/util');
 import groupBy = Utility.groupBy;
 import imgur = Utility.imgurUpload;
@@ -24,13 +24,12 @@ module Topdesign {
 
     export function findAllTopDesignsCurrentMonth(req, res) {
         // Return all Posts from current month
-        const timeshort = Utility.timeshort(new Date());
         con.query(
             'SELECT designs.id, designs.username, designs.avatar, designs.userid, designs.image, ' +
                 'COUNT(likes.postid) AS likes FROM discord_topdesign AS designs LEFT JOIN discord_topdesign_likes ' +
                 'AS likes ON designs.id = likes.postid WHERE designs.active = 1 AND timeshort = ? GROUP BY designs.id ' +
                 'ORDER BY likes DESC',
-            [timeshort],
+            [Utility.timeshort(new Date())],
             function(error, results) {
                 if (error) {
                     throw error;
@@ -147,7 +146,7 @@ module Topdesign {
                             if (error) {
                                 throw error;
                             }
-                            Re.success(res, {
+                            return Re.success(res, {
                                 action: 'deactivate',
                                 likes: post.likes,
                                 posted_by: post.username
@@ -159,7 +158,7 @@ module Topdesign {
                             if (error) {
                                 throw error;
                             }
-                            Re.success(res, {
+                            return Re.success(res, {
                                 action: 'activate',
                                 likes: post.likes,
                                 posted_by: post.username

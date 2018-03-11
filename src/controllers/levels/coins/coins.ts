@@ -12,7 +12,8 @@ module Coins {
         con.query('UPDATE discord_levels SET coins = coins + ? WHERE userid = ?', [body.coins, userid], function (error, results) {
             if (error) { throw error; }
             if (results.changedRows === 0) {
-                let data = {
+
+                con.query('INSERT INTO discord_levels SET ?', [{
                     userid: userid,
                     username: body.username,
                     discriminator: body.discriminator,
@@ -20,8 +21,7 @@ module Coins {
                     xp: 0,
                     chests: 0,
                     coins: 100 + body.coins
-                };
-                con.query('INSERT INTO discord_levels SET ?', [data], function (error) {
+                }],       error => {
                     if (error) { throw error; }
                 });
             }
@@ -46,8 +46,7 @@ module Coins {
             if (error) { throw error; }
             const coins = results[0];
             if (!coins) {
-                // USER isn't in DB yet
-                let data = {
+                con.query('INSERT INTO discord_levels SET ?', [{
                     userid: userid,
                     username: body.username,
                     discriminator: body.discriminator,
@@ -55,8 +54,7 @@ module Coins {
                     xp: 0,
                     chests: 0,
                     coins: 100
-                };
-                con.query('INSERT INTO discord_levels SET ?', [data], function (error) {
+                }],       error => {
                     if (error) { throw error; }
                     return Re.not_sufficient(res, 'coins');
                 });
