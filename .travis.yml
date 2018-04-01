@@ -17,7 +17,7 @@ notifications:
   email:
     on_success: never
     on_failure: never
-  webhooks: https://flooo.me/travis/designhub-dev.php
+  webhooks: https://dev.webspace.rocks/travis-discord/
 before_install:
   - sudo apt-get install -qq sshpass
   - npm install -g gulp dredd
