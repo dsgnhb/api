@@ -9,6 +9,7 @@ import * as cors from 'cors';
 import * as morgan from 'morgan';
 import * as exphbs from 'express-handlebars';
 import * as path from 'path';
+import * as Raven from 'raven';
 
 // Error handler service
 import { development as DevelopmentErrorHandler/*, production as ProductionErrorHandler */} from './services/errorHandler';
@@ -25,26 +26,43 @@ import apply_router from './routes/apply';
 // Main app
 const app = express();
 
+// Raven
+// Must configure Raven before doing anything else with it
+Raven.config('https://4109cca0bd744863822adf30f796f13b@sentry.io/1078094').install();
+
+// The request handler must be the first middleware on the app
+app.use(Raven.requestHandler());
+
+// The error handler must be before any other error middleware
+app.use(Raven.errorHandler());
+
+
+// celebrate Errors
+app.use(errors());
+
+// favicon
 app.use(favicon(__dirname + '/public/favicon.ico'));
 
+// JSON-Body
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
+// morgan Logging
 app.use(morgan('short'));
 
+// handlebars
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
+// cors Access
 app.use(cors({
     credentials: true,
     origin: ['https://dsgnhb.de', 'https://designhub.fun']
 }));
 
-app.use(errors());
-
+// Routes
 app.use('/docs', express.static(path.join(__dirname, './docs.html')));
-
 
 app.use('/', root_router);
 app.use('/donate', donate_router);
