@@ -66,7 +66,7 @@
     "del": "^3.0.0",
     "gulp": "^3.9.1",
     "gulp-bump": "^3.1.0",
-    "gulp-filter": "^5.1.0",
+    "gulp-filter": "^6.0.0",
     "gulp-git": "^2.5.1",
     "gulp-gzip": "^1.4.2",
     "gulp-help": "^1.6.1",
