@@ -59,7 +59,7 @@
     "vayder": "^1.0.0"
   },
   "devDependencies": {
-    "gulp-aglio": "0.0.10",
+    "gulp-aglio": "0.0.11",
     "babel-core": "^6.26.0",
     "babel-preset-es2017": "^6.24.1",
     "babel-require": "^1.0.1",
