@@ -32,7 +32,7 @@
     "@types/morgan": "^1.7.35",
     "@types/mysql": "^2.15.2",
     "@types/node": "^10.0.3",
-    "@types/serve-favicon": "^2.2.30",
+    "@types/serve-favicon": "2.2.30",
     "body-parser": "^1.18.2",
     "celebrate": "^8.0.0",
     "cookie-parser": "^1.4.3",
