@@ -22,7 +22,7 @@
   "license": "MIT",
   "dependencies": {
     "@types/body-parser": "^1.16.8",
-    "@types/cookie-parser": "^1.4.1",
+    "@types/cookie-parser": "1.4.1",
     "@types/cors": "^2.8.3",
     "@types/debug": "0.0.30",
     "@types/dotenv": "^4.0.2",
