@@ -55,7 +55,7 @@
     "serve-favicon": "^2.4.5",
     "showdown": "^1.8.6",
     "simple-recaptcha-new": "^1.1.1",
-    "uuid": "^3.2.1",
+    "uuid": "^7.0.0",
     "vayder": "^1.0.0"
   },
   "devDependencies": {
