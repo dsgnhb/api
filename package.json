@@ -51,7 +51,7 @@
     "puppeteer": "^1.0.0",
     "raven": "^2.4.2",
     "request-promise-native": "^1.0.5",
-    "sequelize": "^5.1.0",
+    "sequelize": "^5.21.7",
     "serve-favicon": "^2.4.5",
     "showdown": "^1.8.6",
     "simple-recaptcha-new": "^1.1.1",
