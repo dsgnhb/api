@@ -30,7 +30,7 @@
     "@types/lowdb": "^1.0.0",
     "@types/mime": "^2.0.0",
     "@types/morgan": "^1.7.35",
-    "@types/mysql": "^2.15.2",
+    "@types/mysql": "^2.15.11",
     "@types/node": "^11.9.0",
     "@types/serve-favicon": "^2.2.30",
     "body-parser": "^1.18.2",
